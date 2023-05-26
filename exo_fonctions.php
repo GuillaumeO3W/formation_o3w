@@ -108,23 +108,21 @@
 // différentes longueurs.
 // (pensez à regarder la doc PHP une ou plusieurs fonction(s) pourrait vous servir)
 
-$longPwd = 4;
+// function getPwd( $longPwd){
 
-function getPwd( $longPwd){
+//     $arrayNum = ['0','1','2','3','4','5','6','7','8','9'];
+//     $arrayMin = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+//     $arrayMaj = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
 
-    $arrayNum = ['0','1','2','3','4','5','6','7','8','9'];
-    $arrayMin = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
-    $arrayMaj = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+//     for ($i=1 ; $i<= $longPwd ; $i++ ){
+//             echo $arrayNum[array_rand($arrayNum)];
+//             echo $arrayMin[array_rand($arrayMin)];
+//             echo $arrayMaj[array_rand($arrayMaj)];
+//     }
+// }
+// getPwd (4);
 
-    for ($i=1 ; $i<= $longPwd ; $i++ ){
-            echo $arrayNum[array_rand($arrayNum)];
-            echo $arrayMin[array_rand($arrayMin)];
-            echo $arrayMaj[array_rand($arrayMaj)];
-    }
-}
-getPwd ($longPwd);
-
-// ----------------------------------------
+// ------------------------------------------------------------------------------------
 
 // function CreatePass($long_pass)
 // {
