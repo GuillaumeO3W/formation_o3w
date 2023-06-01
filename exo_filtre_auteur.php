@@ -99,7 +99,7 @@
                 unset($book2['purchaseUrl'],$book2['image']);
                 
                 foreach ($book2 as $key => $value){
-                    
+
                         $value = strtolower($value);
                         $search = strtolower ($search);
                         
@@ -115,6 +115,7 @@
             }
         echo "</div>";  
     }
+    
     if (isset($_POST['search']) && $_POST['search']!= NULL){
     $search = $_POST['search'];
     filter ($books,$search);
