@@ -123,80 +123,87 @@
 <h1 class="display-1 text-center my-5">Liste des Utilisateurs</h1>
 
 <?php 
-if (isset($_GET['usersByPage'])){
-  $usersByPage = $_GET['usersByPage'];
-}else{
-  $usersByPage=5;
-}
+// function usersList($users,$usersByPage){
 
-$totUsers = count($users);
-$totPages = ceil($totUsers / $usersByPage);
-$currentPage = null;
+  if (isset($_GET['usersByPage'])){         /* si $_GET['usersByPage'] existe on le stock dans la variable $usersByPage */
+    $usersByPage = $_GET['usersByPage'];       /* sinon on le définit $usersByPage à 5 */
+  }else{
+    $usersByPage=5;
+  }
 
-if (isset($_GET['page']) && !empty($_GET['page'])){
-  $currentPage = $_GET['page'];
-}else{
-  $currentPage = 1;
-}
+  $totUsers = count($users);
+  $totPages = ceil($totUsers / $usersByPage);
+  $currentPage = null;
 
-$index = ($currentPage-1)*$usersByPage;
-$firstUser = array_slice($users,$index,$usersByPage);
+  if (isset($_GET['page']) && !empty($_GET['page'])){
+    $currentPage = $_GET['page'];
+  }else{
+    $currentPage = 1;
+  }
+
+  $index = ($currentPage-1)*$usersByPage;
+  $firstUser = array_slice($users,$index,$usersByPage);
+
+  ?>
+
+  <div class="container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Job</th>
+          <th scope="col">Hobby</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php 
+        foreach ($firstUser as $value):?>
+        <tr>
+          <th scope="row"><?=$value['id']?></th>
+          <td><?=$value['name']?></td>
+          <td><?=$value['job']?></td>
+          <td><?=$value['hobby']?></td>
+        </tr>
+        <?php endforeach ;  
+        ?>
+      </tbody>
+    </table>
+
+    <nav aria-label="..." class="container">
+      <ul class="pagination justify-content-center">
+        <li class="page-item <?= ($currentPage == 1) ? "disabled" : "" ?>">
+          <a class="page-link" href="usersList.php?page=<?=($currentPage-1)?> ">Previous</a>
+        </li>
+        <?php for ($i=1;$i<=$totPages;$i++):?>
+        <li class="page-item">
+          <a class="page-link <?= ($i == $currentPage) ? "active" : "" ?> "  href="usersList.php?page=<?=$i?>"><?=$i?></a>
+        </li>
+        <?php endfor; ?>
+        <li class="page-item <?= ($currentPage == $totPages) ? "disabled" : "" ?>">
+          <a class="page-link" href="usersList.php?page=<?=($currentPage+1)?>">Next</a>
+        </li>
+      </ul>
+    </nav>
+    <form method="GET">
+      <label for="number">Nombre d'utilisateurs par page :</label>
+      <input type="number" id="number" name="usersByPage">
+      <input type="submit">
+    </form>
+
+    <!-- <p><?= "Nombre d'utilisateurs par page : $usersByPage" ?></p>
+    <p><?= "Nombre total d'utilisateurs : $totUsers"?></p>
+    <p><?= "Nombre de pages : $totPages"?></p>
+    <p><?= "Page Actuelle : $currentPage"?></p>
+    <p><?= "Index : $index"?></p> -->
+
+  </div>
+  <?php /* }  */
+
+// $usersByPage=5;
+// usersList ($users, $usersByPage);
 
 ?>
-
-<div class="container">
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Name</th>
-        <th scope="col">Job</th>
-        <th scope="col">Hobby</th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php 
-      foreach ($firstUser as $value):?>
-      <tr>
-        <th scope="row"><?=$value['id']?></th>
-        <td><?=$value['name']?></td>
-        <td><?=$value['job']?></td>
-        <td><?=$value['hobby']?></td>
-      </tr>
-      <?php endforeach ;  
-      ?>
-    </tbody>
-  </table>
-
-  <nav aria-label="..." class="container">
-    <ul class="pagination justify-content-center">
-      <li class="page-item <?= ($currentPage == 1) ? "disabled" : "" ?>">
-        <a class="page-link" href="usersList.php?page=<?=($currentPage-1)?> ">Previous</a>
-      </li>
-      <?php for ($i=1;$i<=$totPages;$i++):?>
-      <li class="page-item">
-        <a class="page-link <?= ($i == $currentPage) ? "active" : "" ?> "  href="usersList.php?page=<?=$i?>"><?=$i?></a>
-      </li>
-      <?php endfor; ?>
-      <li class="page-item <?= ($currentPage == $totPages) ? "disabled" : "" ?>">
-        <a class="page-link" href="usersList.php?page=<?=($currentPage+1)?>">Next</a>
-      </li>
-    </ul>
-  </nav>
-  <form method="GET">
-    <label for="number">Nombre d'utilisateurs par page :</label>
-    <input type="number" id="number" name="usersByPage">
-    <input type="submit">
-  </form>
-
-  <!-- <p><?= "Nombre d'utilisateurs par page : $usersByPage" ?></p>
-  <p><?= "Nombre total d'utilisateurs : $totUsers"?></p>
-  <p><?= "Nombre de pages : $totPages"?></p>
-  <p><?= "Page Actuelle : $currentPage"?></p>
-  <p><?= "Index : $index"?></p> -->
-
-</div>
-
 
 <?php require 'inc/foot.php'; ?>
 
