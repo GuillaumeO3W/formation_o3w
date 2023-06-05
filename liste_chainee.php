@@ -34,14 +34,18 @@ if (isset($_POST['index'])){
 }else{
     $index = null;
 }
+function listeChainee($index,$data){
 
-$word =null;
+    $word =null;
 
-while ($index != -1){
-    $word.= $datas[$index]['letter'];
-    $index = $datas[$index]['goto'];
+    while ($index != -1){
+        $word.= $datas[$index]['letter'];
+        $index = $datas[$index]['goto'];
+    }
+    return $word;
+
 }
-echo $word;
+
 ?>
 </body>
 </html>
