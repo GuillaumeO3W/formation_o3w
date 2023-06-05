@@ -169,7 +169,7 @@ $firstUser = array_slice($users,$index,$usersByPage);
   </table>
 
   <nav aria-label="..." class="container">
-    <ul class="pagination">
+    <ul class="pagination justify-content-center">
       <li class="page-item <?= ($currentPage == 1) ? "disabled" : "" ?>">
         <a class="page-link" href="usersList.php?page=<?=($currentPage-1)?> ">Previous</a>
       </li>
