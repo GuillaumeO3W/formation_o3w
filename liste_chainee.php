@@ -7,12 +7,13 @@
     <title>Liste Chainee</title>
 </head>
 <body>
+
 <form method="POST">
     <input type="number" name="index">
     <input type="submit">
 </form>
-<?php
 
+<?php
 $datas = [
     ['letter' => 'a', 'goto' => 10],   /* 0 */
     ['letter' => 'e', 'goto' => -1],   /* 1 */
@@ -28,25 +29,22 @@ $datas = [
     ['letter' => 'b', 'goto' => 0],    /* 11 */
     ['letter' => 'a', 'goto' => 9]     /* 12 */
 ];
-
 if (isset($_POST['index'])){
     $index = $_POST['index'];
 }else{
     $index = null;
 }
-function listeChainee($index,$data){
-
+function listeChainee($index,$datas){
     $word =null;
-
     while ($index != -1){
         $word.= $datas[$index]['letter'];
         $index = $datas[$index]['goto'];
     }
     return $word;
-
 }
-
 ?>
+
+<?= listeChainee($index,$datas); ?>
 </body>
 </html>
 
