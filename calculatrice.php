@@ -46,33 +46,32 @@ if (isset($_POST['sign'])){
 }else{
     $sign = null;
 }
-
-$error=null;
 $result=null;
 
-
    // CALCUL DU RESULTAT ---------------
-if (is_numeric($nbA) && is_numeric($nbB)){
-    if($sign=="/" && $nbB == 0){
-        $error = "Erreur : Attention ! On ne peut pas diviser par (0).";
-        $result = "&#128534";
-    }
-    else{
-        $error=null;
-        if($sign == "+"){
-            $result = $nbA + $nbB;
-        }elseif ($sign == "-"){
-            $result = $nbA - $nbB;
-        }elseif ($sign == "x"){
-            $result = $nbA * $nbB;
-        }elseif ($sign == "/"){
-            $result = $nbA / $nbB;
+
+    if (is_numeric($nbA) && is_numeric($nbB)){
+        if($sign=="/" && $nbB == 0){
+            $error = "Erreur : Attention ! On ne peut pas diviser par (0).";
+            $result = "&#128534";
         }
+        else{
+            $error=null;
+            if($sign == "+"){
+                $result = $nbA + $nbB;
+            }elseif ($sign == "-"){
+                $result = $nbA - $nbB;
+            }elseif ($sign == "x"){
+                $result = $nbA * $nbB;
+            }elseif ($sign == "/"){
+                $result = $nbA / $nbB;
+            }
+        }    
+    }else{
+        $result = "&#128534";
+        $error = "Erreur : Merci de saisir des chiffres !";
     }
-}else{
-    $result = "&#128534";
-    $error = "Merci de saisir des chiffres !";
-}
+
 
 
 ?>
