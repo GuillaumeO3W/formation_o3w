@@ -7,8 +7,10 @@
     <title>Document</title>
     <style>
         body{
+            width : 100vw;
+            height : 100vh;
             display : flex;
-            justify-content : center;
+            justify-content : space-around;
             align-items: center;
         }
         .container{
