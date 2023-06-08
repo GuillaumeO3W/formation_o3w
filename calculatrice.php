@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        body{
+            display : flex;
+            justify-content : center;
+            align-items: center;
+        }
         .container{
             display : flex;
             flex-direction : column;
@@ -20,6 +25,9 @@
             border-radius : 6px;
             width :500px;
         
+        }
+        .champs{
+            width : 60px;
         }
         .red{
             color : red;
@@ -48,15 +56,27 @@ if (isset($_POST['sign'])){
 }
 $result=null;
 
-   // CALCUL DU RESULTAT ---------------
-
+// FUNCTION ERREUR -------------------------
+function error($nbA,$nbB,$sign){
     if (is_numeric($nbA) && is_numeric($nbB)){
         if($sign=="/" && $nbB == 0){
             $error = "Erreur : Attention ! On ne peut pas diviser par (0).";
-            $result = "&#128534";
+        }else{
+            $error = null;
         }
-        else{
-            $error=null;
+    }else{
+        $error = "Erreur : Merci de saisir des chiffres !";
+    }
+    return $error;
+}
+
+// FUNCTION CALCUL -------------------------
+function calcul($nbA,$nbB,$sign){
+    
+    if (is_numeric($nbA) && is_numeric($nbB)){ 
+        if($sign=="/" && $nbB == 0){
+            $result = "&#128534";
+        }else{
             if($sign == "+"){
                 $result = $nbA + $nbB;
             }elseif ($sign == "-"){
@@ -66,39 +86,44 @@ $result=null;
             }elseif ($sign == "/"){
                 $result = $nbA / $nbB;
             }
-        }    
-    }else{
+        }
+    } else{
         $result = "&#128534";
-        $error = "Erreur : Merci de saisir des chiffres !";
     }
-
-
+    return str_replace(".",",",$result);   
+}
 
 ?>
+
 <div class="container">
     <div class="flex">
         <form action="" method="POST">    <!-- AFFICHAGE DU FORMULAIRE --------->
-            <input type="text" name="nbA" value="<?= str_replace(".",",",$nbA) ?>">
+            <input class="champs" type="text" name="nbA" value="<?= str_replace(".",",",$nbA) ?>">
             <select name="sign">
                 <option value="+" <?=($sign=="+")?"selected":""?> >+</option>
                 <option value="-" <?=($sign=="-")?"selected":""?> >-</option>
                 <option value="x" <?=($sign=="x")?"selected":""?> >x</option>
                 <option value="/" <?=($sign=="/")?"selected":""?> >/</option>
             </select>
-            <input type="text" name="nbB" value="<?= str_replace(".",",",$nbB) ?>">
+            <input class="champs" type="text" name="nbB" value="<?= str_replace(".",",",$nbB) ?>">
             <input type="submit" value="=">
         </form>
         <div>
-            <?= str_replace(".",",",$result); $error; ?>  <!-- AFFICHAGE DU RESULTAT -------->
+            <?php                                  // AFFICHAGE DU RESULTAT ------
+                if (isset($nbA) && isset($nbB)){
+                    echo calcul($nbA,$nbB,$sign); 
+                }
+            ?>  
         </div>
     </div>
     <div class="red">
-        <?= $error ?>  <!-- AFFICHAGE ERREUR -------->
+            <?php                                  // AFFICHAGE DE L'ERREUR ------
+                if (isset($nbA) && isset($nbB)){
+                    echo error($nbA,$nbB,$sign); 
+                }
+            ?> 
     </div> 
 </div>
-
-
-
 
 </body>
 </html>
