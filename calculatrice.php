@@ -99,7 +99,6 @@ function calcul($nbA,$nbB,$sign){
             <input type="submit" value="=">
         </form>
         <div>
-
             <?php         // AFFICHAGE DU RESULTAT ---------------------------------                         
                 if (isset($nbA) && isset($nbB)){
                     echo calcul($nbA,$nbB,$sign); 
@@ -117,8 +116,8 @@ function calcul($nbA,$nbB,$sign){
     </div> 
     <div>
         <h2>Historique</h2>
-
-            <?php             // AFFICHAGE DE L'HISTORIQUE ------------------------------ 
+            
+            <?php         // AFFICHAGE DE L'HISTORIQUE ------------------------------ 
             if (isset($nbA) && isset($nbB)){
                 $_SESSION["historic"][] = $nbA." ".$sign." ".$nbB." = ".calcul($nbA,$nbB,$sign);
                 foreach (array_reverse($_SESSION["historic"]) as $value):?>
@@ -128,6 +127,5 @@ function calcul($nbA,$nbB,$sign){
         
     </div>
 </div>
-
 </body>
 </html>
