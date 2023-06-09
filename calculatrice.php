@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +11,7 @@
     <style>
         body{
             width : 100vw;
-            height : 100vh;
+            height : 50vh;
             display : flex;
             justify-content : space-around;
             align-items: center;
@@ -24,8 +27,9 @@
             gap : 10px;
             padding : 20px 20px;
             background-color : #f3eae8; 
+            box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
             border-radius : 6px;
-            width :500px;
+            width :400px;
         
         }
         .champs{
@@ -40,8 +44,8 @@
 <body>
 
 <?php  
-
-if (isset($_POST['nbA'])){       // INITIALISATION DES VARIABLES -----------
+// INITIALISATION DES VARIABLES ---------------------
+if (isset($_POST['nbA'])){       
     $nbA = str_replace(",",".",$_POST['nbA']);
 }else{
     $nbA = null;
@@ -77,7 +81,7 @@ function calcul($nbA,$nbB,$sign){
     
     if (is_numeric($nbA) && is_numeric($nbB)){ 
         if($sign=="/" && $nbB == 0){
-            $result = "&#128534";
+            $result = null;
         }else{
             if($sign == "+"){
                 $result = $nbA + $nbB;
@@ -90,16 +94,16 @@ function calcul($nbA,$nbB,$sign){
             }
         }
     } else{
-        $result = "&#128534";
+        $result = null;
     }
-    return str_replace(".",",",$result);   
+    return str_replace(".",",",$result);
 }
 
 ?>
-
+<!------------ AFFICHAGE DU FORMULAIRE --------------------->
 <div class="container">
     <div class="flex">
-        <form action="" method="POST">    <!-- AFFICHAGE DU FORMULAIRE --------->
+        <form action="" method="POST">    
             <input class="champs" type="text" name="nbA" value="<?= str_replace(".",",",$nbA) ?>">
             <select name="sign">
                 <option value="+" <?=($sign=="+")?"selected":""?> >+</option>
@@ -111,7 +115,8 @@ function calcul($nbA,$nbB,$sign){
             <input type="submit" value="=">
         </form>
         <div>
-            <?php                                  // AFFICHAGE DU RESULTAT ------
+
+            <?php         // AFFICHAGE DU RESULTAT ---------------------------------                         
                 if (isset($nbA) && isset($nbB)){
                     echo calcul($nbA,$nbB,$sign); 
                 }
@@ -119,12 +124,21 @@ function calcul($nbA,$nbB,$sign){
         </div>
     </div>
     <div class="red">
-            <?php                                  // AFFICHAGE DE L'ERREUR ------
+    
+            <?php             // AFFICHAGE DE L'ERREUR ------------------------------                     
                 if (isset($nbA) && isset($nbB)){
                     echo error($nbA,$nbB,$sign); 
                 }
             ?> 
     </div> 
+    <div>
+        <?php if (isset($_SESSION["result"])){
+                    $_SESSION["result"] = calcul($nbA,$nbB,$sign);
+                }
+            
+        ?>
+        <pre> <?php print_r ($_SESSION["result"]); ?></pre>
+    </div>
 </div>
 
 </body>
