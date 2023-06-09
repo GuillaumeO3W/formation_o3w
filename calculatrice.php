@@ -1,5 +1,6 @@
 <?php
     session_start();
+    // session_destroy();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +12,6 @@
     <style>
         body{
             width : 100vw;
-            height : 50vh;
             display : flex;
             justify-content : space-around;
             align-items: center;
@@ -45,31 +45,15 @@
 
 <?php  
 // INITIALISATION DES VARIABLES ---------------------
-if (isset($_POST['nbA'])){       
-    $nbA = str_replace(",",".",$_POST['nbA']);
-}else{
-    $nbA = null;
-}
-if (isset($_POST['nbB'])){
-    $nbB = str_replace(",",".",$_POST['nbB']);
-}else{
-    $nbB = null;
-}
-if (isset($_POST['sign'])){
-    $sign = $_POST['sign'];
-}else{
-    $sign = null;
-}
+(isset($_POST['nbA'])) ? $nbA = str_replace(",",".",$_POST['nbA']) : $nbA = null;
+(isset($_POST['nbB'])) ? $nbB = str_replace(",",".",$_POST['nbB']) : $nbB = null;
+(isset($_POST['sign'])) ? $sign = $_POST['sign'] : $sign = null;
 $result=null;
 
 // FUNCTION ERREUR -------------------------
 function error($nbA,$nbB,$sign){
     if (is_numeric($nbA) && is_numeric($nbB)){
-        if($sign=="/" && $nbB == 0){
-            $error = "Erreur : Attention ! On ne peut pas diviser par (0).";
-        }else{
-            $error = null;
-        }
+        ($sign=="/" && $nbB == 0) ? $error = "Erreur : Attention ! On ne peut pas diviser par (0)." : $error = null;
     }else{
         $error = "Erreur : Merci de saisir des chiffres !";
     }
@@ -98,10 +82,10 @@ function calcul($nbA,$nbB,$sign){
     }
     return str_replace(".",",",$result);
 }
-
 ?>
 <!------------ AFFICHAGE DU FORMULAIRE --------------------->
 <div class="container">
+    <h1>Calculatrice</h1>
     <div class="flex">
         <form action="" method="POST">    
             <input class="champs" type="text" name="nbA" value="<?= str_replace(".",",",$nbA) ?>">
@@ -125,19 +109,23 @@ function calcul($nbA,$nbB,$sign){
     </div>
     <div class="red">
     
-            <?php             // AFFICHAGE DE L'ERREUR ------------------------------                     
-                if (isset($nbA) && isset($nbB)){
-                    echo error($nbA,$nbB,$sign); 
-                }
-            ?> 
+        <?php             // AFFICHAGE DE L'ERREUR ------------------------------                     
+            if (isset($nbA) && isset($nbB)){
+                echo error($nbA,$nbB,$sign); 
+            }
+        ?> 
     </div> 
     <div>
-        <?php if (isset($_SESSION["result"])){
-                    $_SESSION["result"] = calcul($nbA,$nbB,$sign);
-                }
-            
-        ?>
-        <pre> <?php print_r ($_SESSION["result"]); ?></pre>
+        <h2>Historique</h2>
+
+            <?php             // AFFICHAGE DE L'HISTORIQUE ------------------------------ 
+            if (isset($nbA) && isset($nbB)){
+                $_SESSION["historic"][] = $nbA." ".$sign." ".$nbB." = ".calcul($nbA,$nbB,$sign);
+                foreach (array_reverse($_SESSION["historic"]) as $value):?>
+                <p><?= $value?></p>
+                <?php endforeach;  }?>
+                
+        
     </div>
 </div>
 
