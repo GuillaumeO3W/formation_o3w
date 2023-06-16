@@ -122,7 +122,7 @@
     }else{
         echo "tapez votre recherche svp";
     }
-    
+    var_dump($search);
     ?>
 
 </body>
