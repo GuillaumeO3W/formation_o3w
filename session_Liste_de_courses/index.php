@@ -1,5 +1,11 @@
 <?php 
 session_start(); 
+if (isset($_POST['color']) && !empty($_POST['color'])){
+    $color = $_POST['color'];
+    setcookie('color',$color);
+}else{
+    $color=$_COOKIE['color'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,15 +18,29 @@ session_start();
     <style>
         body{
             background: #e9ecef;
-            background: linear-gradient(180deg, #cbdbd6 0%, #dcdfe1 100%);
+            background: linear-gradient(180deg, #cbdbd6 0%, #fff 100%);
             background-attachment: fixed;
         }
         .card{
-            border : 1px solid#ADD8E6;
+            border : 1px solid <?= $color ?>;
         }
         .card-header{
-            background-color :#ADD8E6;
+            background-color :<?= $color ?>;
         }
+        .color{
+            position : fixed;
+            bottom : 0;
+            right : 0;
+        }
+        .table, .table th, .table td{
+            margin : 50px 0;
+            background-color: transparent !important;
+            border : 0;
+        }
+        .table tr{
+            border-bottom : 1px solid #999 !important;
+        }
+
     </style>
 </head>
 <body>
@@ -38,6 +58,7 @@ session_start();
 
     if (isset($_POST['select']) && !empty($_POST['select'])){
         $select=$_POST['select'];
+
     }else{
         $select=null;
     }
@@ -59,18 +80,32 @@ session_start();
 // Appel des fonctions
     addProduct($product,$quantity);
     removeProduct($select);
+
+// augmenter ou diminuer quantité
+    if ($_GET['sign']=='plus'){
+        $product=$_GET['product'];
+        $quantity=$_GET['quantity'];
+        $_SESSION[$product] = $quantity+1;
+    }
+    if ($_GET['sign']=='moins'){
+        $product=$_GET['product'];
+        $quantity=$_GET['quantity'];
+        $_SESSION[$product] = $quantity-1;
+    }
+
+
+
 ?>
-
-<div class="container d-flex min-vh-100 justify-content-center align-items-center">
-
 <!-- FORMULAIRE ---------------------------------- -->
+<div class="container d-flex flex-column min-vh-100 justify-content-center align-items-center">
+   
     <div class="card shadow-sm">
-        <div class="card-header h2 text-center ">Liste de courses</div>
+        <div class="card-header h2 text-center ">Liste des courses</div>
         <div class="card-body">
             <form class="g-3" method="post" action="index.php?session=null">
                 <div class="form-group row">
                     <div class="col-auto">
-                        <input type="text" class="form-control" name="product" aria-describedby="emailHelp" placeholder="Produit">
+                        <input type="text" class="form-control" name="product" aria-describedby="emailHelp" placeholder="Article">
                     </div>
                     <div class="col-auto">
                         <input type="number" class="form-control" name="quantity" placeholder="Quantité">
@@ -81,10 +116,12 @@ session_start();
                 </div>    
             </form>
         </div>
+    </div>
 
 <!-- AFFICHAGE LISTE DE COURSE -------------------------- -->
+    <?php if(isset($_SESSION) && !empty($_SESSION)):?>
         <form action="" method="post" class="mb-4">
-            <table class="table">
+            <table class="table" style="background-color : blue;">
                 <thead>
                     <tr>
                         <th scope="col">Articles</th>
@@ -96,45 +133,54 @@ session_start();
                     <?php foreach($_SESSION as $product => $quantity): ?>
                     <tr>
                         <td> <?= $product; ?> </td>
-                        <td> <?= $quantity; ?> </td>
+                        <td> 
+                            <div class="d-flex">
+                            <?= $quantity; ?> 
+                                <div class="d-flex flex-column align-items-start">
+                                    <a href="index.php?sign=plus&quantity=<?=$quantity;?>&product=<?=$product?>"><i class="bi bi-plus"></i></a>
+                                    <a href="index.php?sign=moins&quantity=<?=$quantity;?>&product=<?=$product?>"><i class="bi bi-dash"></i></a>
+                               
+                                    
+                                </div>    
+                            </div>
+                        </td>
                         <td><input type="checkbox" name="select" value="<?=$product?>"></td>
                     </tr>
                     <?php endforeach;?>
                 </tbody>
             </table>
             <div class="text-center">
-                <!-- Button trigger modal -->
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Supprimer la liste</button>
                 <button type="submit" class="btn btn-warning">Supprimer la selection</button>
             </div>
         </form>
-    </div>  
+    <?php endif ?>    
+
 </div>    
+
+<!-- Changement couleur -->
+<form class="color" method="post">
+    <input type="color" name="color" value="<?= $color ?>">
+    <button type="submit"><i class="bi bi-brush"></i></button>
+</form>
 
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Supprimer la liste</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Êtes-vous sûrs ?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-        <!-- <button type="button" class="btn btn-primary">Understood</button> -->
-        <a href="destroy.php?session=destroy" class="btn btn-danger">Comfirmer</a>
-
-      </div>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Supprimer la liste</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Êtes-vous sûrs ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                <a href="destroy.php?session=destroy" class="btn btn-danger">Comfirmer</a>
+            </div>
+        </div>
     </div>
-  </div>
-  <div>
-    <form action="" method="post">
-        <input type="color" name="color" value="#e66465">
-    </form>
-</div>
 </div>
 
 </body>
