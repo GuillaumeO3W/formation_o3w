@@ -4,8 +4,9 @@ if (isset($_POST['color']) && !empty($_POST['color'])){
     $color = $_POST['color'];
     setcookie('color',$color);
 }else{
-    $color=$_COOKIE['color'];
+    isset($_COOKIE['color']) ? $color=$_COOKIE['color'] : $color = '#e9ecef' ;
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,7 +61,7 @@ if (isset($_POST['color']) && !empty($_POST['color'])){
         $select=$_POST['select'];
 
     }else{
-        $select=null;
+        $select=[null];
     }
 
 // Fonction AJOUTER un produit dans la liste
@@ -73,32 +74,23 @@ if (isset($_POST['color']) && !empty($_POST['color'])){
     }
 
 // Fonction SUPPRIMER un produit de la liste
-    function removeProduct($select){
-            unset($_SESSION[$select]);
+    function removeProduct($select,$product){
+        foreach($select as $article){
+            foreach($_SESSION as $product => $value)
+                if($article == $product){
+                unset($_SESSION[$product]);
+            }
+        }
     }
 
 // Appel des fonctions
     addProduct($product,$quantity);
-    removeProduct($select);
-
-// augmenter ou diminuer quantité
-    if ($_GET['sign']=='plus'){
-        $product=$_GET['product'];
-        $quantity=$_GET['quantity'];
-        $_SESSION[$product] = $quantity+1;
-    }
-    if ($_GET['sign']=='moins'){
-        $product=$_GET['product'];
-        $quantity=$_GET['quantity'];
-        $_SESSION[$product] = $quantity-1;
-    }
-
-
+    removeProduct($select,$product);
 
 ?>
 <!-- FORMULAIRE ---------------------------------- -->
 <div class="container d-flex flex-column min-vh-100 justify-content-center align-items-center">
-   
+
     <div class="card shadow-sm">
         <div class="card-header h2 text-center ">Liste des courses</div>
         <div class="card-body">
@@ -133,18 +125,8 @@ if (isset($_POST['color']) && !empty($_POST['color'])){
                     <?php foreach($_SESSION as $product => $quantity): ?>
                     <tr>
                         <td> <?= $product; ?> </td>
-                        <td> 
-                            <div class="d-flex">
-                            <?= $quantity; ?> 
-                                <div class="d-flex flex-column align-items-start">
-                                    <a href="index.php?sign=plus&quantity=<?=$quantity;?>&product=<?=$product?>"><i class="bi bi-plus"></i></a>
-                                    <a href="index.php?sign=moins&quantity=<?=$quantity;?>&product=<?=$product?>"><i class="bi bi-dash"></i></a>
-                               
-                                    
-                                </div>    
-                            </div>
-                        </td>
-                        <td><input type="checkbox" name="select" value="<?=$product?>"></td>
+                        <td> <?= $quantity; ?> </td>
+                        <td><input type="checkbox" name="select[]" value="<?=$product?>"></td>
                     </tr>
                     <?php endforeach;?>
                 </tbody>
