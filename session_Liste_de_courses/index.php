@@ -19,7 +19,7 @@ if (isset($_POST['color']) && !empty($_POST['color'])){
     <style>
         body{
             background: #e9ecef;
-            background: linear-gradient(180deg, #cbdbd6 0%, #fff 100%);
+            background: linear-gradient(180deg, #4d8084 0%, #fff 100%);
             background-attachment: fixed;
         }
         .card{
@@ -61,7 +61,7 @@ if (isset($_POST['color']) && !empty($_POST['color'])){
         $select=$_POST['select'];
 
     }else{
-        $select=[null];
+        $select=[];
     }
 
 // Fonction AJOUTER un produit dans la liste
