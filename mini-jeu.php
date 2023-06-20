@@ -56,13 +56,11 @@ if (isset($_POST) && !empty($_POST) && $_POST['number'] != null  ){
     $histo ='Historique :';
     if (is_numeric($_POST['number'])){
         $_SESSION['historic'][]=$number;
-        
         $number < $rand ? $message = '<p>plus grand !</p>' :'';
         $number > $rand ? $message = '<p>plus petit !</p>' :'';
         $number == $rand ? $message = '<p class="text-success fw-bold">Gagné !</p>' :'';
     }else{
         $message = '<p class="text-danger fw-bold">error !: Veuillez entrez une valeur numérique<p>';
-        
         
     }
     $historic = array_reverse($_SESSION['historic']);
