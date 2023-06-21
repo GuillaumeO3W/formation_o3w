@@ -27,14 +27,14 @@ if(isset($_GET['reset'])){
 
 if(isset($_GET['black'])){
     $textColor = '#fff';
-    $bgColor = '#000';
+    $bgColor = '#111';
     $color = 'white';
 }elseif(isset($_GET['white'])){
-    $textColor = '#000';
+    $textColor = '#111';
     $bgColor = '#fff';
     $color = 'black';
 }else{
-    $textColor = '#000';
+    $textColor = '#111';
     $bgColor = '#fff';
     $color = 'black';
 }
@@ -52,7 +52,7 @@ if(isset($_GET['black'])){
     <style>
         body , .modal-content{
             font-family : 'Baskerville';
-            font-style: italic;
+            /* font-style: italic; */
             color : <?= $textColor ?>;
             background-color : <?= $bgColor ?>;
         }
@@ -85,7 +85,7 @@ if(isset($_GET['black'])){
     <div class="container d-flex flex-column min-vh-100 justify-content-center align-items-center text-center">
         <h1 class="display-4">Le livre dont vous êtes le héros</h1>
         <div class="border p-3 rounded">
-            <div class="mb-2">
+            <div class="mb-4">
                 <?= $story[$choice]['text']; ?>
             </div>
             <div>
@@ -108,7 +108,7 @@ if(isset($_GET['black'])){
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-content">
+                <div class="modal-content border">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="exampleModalLabel">Histoire</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
