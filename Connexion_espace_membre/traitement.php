@@ -1,6 +1,5 @@
 <?php
 session_start(); 
-
 ?>
 
 <?php
@@ -28,23 +27,32 @@ $users=[
     ],
 ];
 
-$_SESSION['name'] = null;
+if(isset($_POST['id'])){
+    $_SESSION['name'] = $_POST['id'];
+}elseif(isset($_SESSION['name'])){
+    $_SESSION['name']=$_SESSION['name'];
+}else{
+    $_SESSION['name']=null;
+}
 
 foreach ($users as $index => $user):
-    if($_POST['id']==$user['id']){
+    if($_SESSION['name']==$user['id']){
+        $_SESSION['id'] = $user['id'];
         $_SESSION['name'] = $user['name'];
         $_SESSION['role'] = $user['role'];
+        $connect='ok';
         if($_POST['pwd']==$user['pwd']){
             $_SESSION['lastname'] = $user['lastname'];
         }else{
-            header('location: index.php?wrongpwd ');
+            header('location: index.php?wrongpwd');
         }
     }
 endforeach;
 
-if($_SESSION['name'] == null){
+if($_SESSION['name']==null){
     header('location: index.php?error ');
 }
+
 include ('nav.php');
 ?>
 
