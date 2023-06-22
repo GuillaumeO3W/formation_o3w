@@ -28,7 +28,7 @@ if(isset($_GET['logout'])){
     <?php endif ;
     
         if(isset($_GET['wrongpwd'])): ?>
-            <p class="display-5 text-danger">Mot de passe incorect</p>
+            <p class="display-5 text-danger">Mot de passe incorrect</p>
     <?php endif ;?>
 
     <form action="traitement.php" method="post" class="border rounded p-4">
