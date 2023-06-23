@@ -20,6 +20,7 @@ include ("story.php");
 // reset 
 if(isset($_GET['reset'])){
     unset($_SESSION['history']);
+    unset( $_SESSION['choice']);
     $page = $_SERVER['PHP_SELF'];  // Récupére la page actuelle
     header('Location: '.$page);    // ATTENTION DE NE PAS METTRE D'ESPACE ENTRE Location et les :
     exit();                        // header('Location: mini-jeu.php'); 
@@ -69,28 +70,31 @@ if(isset($_GET['black'])){
 <body>
     <?php 
     if(isset($_POST['choice'])){
-        $choice=$_POST['choice'];
-    }else{
-        $choice=0;
+        $_SESSION['choice']=$_POST['choice'];
+    }elseif(isset($_SESSION['choice'])){
+        $_SESSION['choice']=$_SESSION['choice'];
+    }
+    else{
+        $_SESSION['choice']=0;
     }
 
     if(isset($_SESSION['history'])){
-        if(!in_array($story[$choice]['text'],$_SESSION['history'])){
-            $_SESSION['history'][]=$story[$choice]['text'];
+        if(!in_array($story[$_SESSION['choice']]['text'],$_SESSION['history'])){
+            $_SESSION['history'][]=$story[$_SESSION['choice']]['text'];
         }
     }else{
-        $_SESSION['history'][]=$story[$choice]['text'];
+        $_SESSION['history'][]=$story[$_SESSION['choice']]['text'];
     }
     ?>
     <div class="container d-flex flex-column min-vh-100 justify-content-center align-items-center text-center">
         <h1 class="display-4">Le livre dont vous êtes le héros</h1>
         <div class="border p-3 rounded">
             <div class="mb-4">
-                <?= $story[$choice]['text']; ?>
+                <?= $story[$_SESSION['choice']]['text']; ?>
             </div>
             <div>
                 <form action="" method="post" class="d-flex flex-column">
-                    <?php foreach($story[$choice]['choice'] as $key => $value):?>
+                    <?php foreach($story[$_SESSION['choice']]['choice'] as $key => $value):?>
                         <div class="mb-2">
                             <input type="radio" id="<?= $key ?>" name="choice" value="<?= $value['goto']; ?>">
                             <label for="<?= $key ?>"><?= $value['text']; ?></label>
@@ -126,7 +130,7 @@ if(isset($_GET['black'])){
             </div>
         </div>
     </div>
-    <pre class="d-none"><?php print_r($story); ?></pre>
-    <pre class="d-none"><?php echo '$_SESSION : ' ;print_r($_SESSION); ?></pre>
+    <pre class="text-warning"><?php print_r($story); ?></pre>
+    <pre class="text-info"><?php echo '$_SESSION : ' ;print_r($_SESSION); ?></pre>
 </body>
 </html>

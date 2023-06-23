@@ -31,7 +31,7 @@ if(isset($_GET['logout'])){
             <p class="display-5 text-danger">Mot de passe incorrect</p>
     <?php endif ;?>
 
-    <form action="traitement.php" method="post" class="border rounded p-4">
+    <form action="traitement.php" method="post" class="border rounded p-4 d-flex flex-column">
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Identifiant</label>
             <input type="text" name="id" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
@@ -40,7 +40,7 @@ if(isset($_GET['logout'])){
             <label for="exampleInputPassword1" class="form-label">Mot de Passe</label>
             <input type="password" name="pwd" class="form-control" id="exampleInputPassword1">
         </div>
-        <button type="submit" class="btn btn-primary">Connexion</button>
+        <button type="submit" class="btn btn-outline-info">Connexion</button>
     </form>
 </div>
 </body>
