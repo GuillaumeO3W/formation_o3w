@@ -32,6 +32,8 @@ II donnerait 2 -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Convertisseur numérique</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
 </head>
 <body>
 <?php
@@ -43,12 +45,14 @@ if(isset($_GET['reset'])){
     exit;
 }
 
-$input='CD';
+$input='MMDCCCLXXIX'; //2879
+// $input='MCMLIV'; 
+// $input='LXXIX';
+// $input='MCM';
 
-if(ctype_alpha($input)){
-    $split = str_split($input);
-    foreach($split as $key => $value){
-        
+if(ctype_alpha($input)):
+    $split = array_reverse(str_split($input));
+    foreach($split as $key => $value):
         switch ($value){
             case 'M': $value=1000; break;
             case 'D': $value=500;  break;
@@ -58,24 +62,23 @@ if(ctype_alpha($input)){
             case 'V': $value=5;    break;
             case 'I': $value=1;    break;
         }
-        
-        if(isset($_SESSION['convert']['value'])){
-            if($value>$_SESSION['convert']['value']){
-                $_SESSION['convert']['value']-=$value;
-            }else{
-                $_SESSION['convert']['value']+=$value;
-            }
-            
-        }else{
+        if(isset($_SESSION['convert']['value'])): 
+            if($value < $_SESSION['convert']['value']):
+                $_SESSION['convert']['result']-=$value;
+                $_SESSION['convert']['value']=$value;
+            else:
+                $_SESSION['convert']['result']+=$value;
+                $_SESSION['convert']['value']=$value;
+            endif; 
+        else:
             $_SESSION['convert']['value']=$value;
-        }
-
-    }
-
-}
-
+            $_SESSION['convert']['result']=$value;   
+        endif;    
+    endforeach;
+endif; 
 ?>
-<p><?= $_SESSION['convert']['value']; ?></p>
+
+<p class="text-warning"><?= $_SESSION['convert']['result']; ?></p>
 <a href="?reset">reset</a>
 <hr>
 <h2>Debug</h2>
