@@ -130,7 +130,7 @@ if(isset($_GET['black'])){
             </div>
         </div>
     </div>
-    <pre class="text-warning"><?php print_r($story); ?></pre>
+    <pre class=""><?php print_r($story); ?></pre>
     <pre class="text-info"><?php echo '$_SESSION : ' ;print_r($_SESSION); ?></pre>
 </body>
 </html>
