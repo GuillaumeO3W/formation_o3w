@@ -36,49 +36,66 @@ II donnerait 2 -->
 </head>
 <body>
 <?php
-// RESET SESSION 'convert'
+// RESET SESSION 'convert' ------------------------------
+
 if(isset($_GET['reset'])){
     unset($_SESSION['convert']);
     $page = $_SERVER['PHP_SELF'];
     header('Location:'.$page);
     exit;
 }
-// MMDCCCLXXIX = 2879
-$input='729'; 
 
+if(isset($_POST['input'])){
+    $input = $_POST['input'];
+    unset($_SESSION['convert']['result']);
+}else{
+    $input = null;
+}
 
-// -----------Convertisseur Chiffres Romains => Chiffres Arabes METHOD 1----------------------
+// ---------Convertisseur Chiffres Romains => Chiffres Arabes METHOD 1------------
 
-// if(ctype_alpha($input)):
+if($input != null && ctype_alpha($input)):
+    $input = strtoupper($input);
+    $split = array_reverse(str_split($input));
+    foreach($split as $key => $value):
+        switch ($value){
+            case 'M': $value=1000; break;
+            case 'D': $value=500;  break;
+            case 'C': $value=100;  break;
+            case 'L': $value=50;   break;
+            case 'X': $value=10;   break;
+            case 'V': $value=5;    break;
+            case 'I': $value=1;    break;
+        }
+        if(isset($_SESSION['convert']['value'])&& isset($_SESSION['convert']['result'])): 
+            if($value < $_SESSION['convert']['value']):
+                $_SESSION['convert']['result']-=$value;
+                $_SESSION['convert']['value']=$value;
+            else:
+                $_SESSION['convert']['result']+=$value;
+                $_SESSION['convert']['value']=$value;
+            endif; 
+        else:
+            $_SESSION['convert']['value']=$value;
+            $_SESSION['convert']['result']=$value;   
+        endif;    
+    endforeach;
+endif; 
+
+// ------Convertisseur Chiffres Romains => Chiffres Arabes METHOD 2 -------------
+
+// $converter = [
+//     'M' => 1000,
+//     'D' => 500,
+//     'C' => 100,
+//     'L' => 50,
+//     'X' => 10,
+//     'V' => 5,
+//     'I' => 1
+// ]; 
+
+// if(isset($_POST['input']) && ctype_alpha($input)):
 //     $split = array_reverse(str_split($input));
-//     foreach($split as $key => $value):
-//         switch ($value){
-//             case 'M': $value=1000; break;
-//             case 'D': $value=500;  break;
-//             case 'C': $value=100;  break;
-//             case 'L': $value=50;   break;
-//             case 'X': $value=10;   break;
-//             case 'V': $value=5;    break;
-//             case 'I': $value=1;    break;
-//         }
-//         if(isset($_SESSION['convert']['value'])): 
-//             if($value < $_SESSION['convert']['value']):
-//                 $_SESSION['convert']['result']-=$value;
-//                 $_SESSION['convert']['value']=$value;
-//             else:
-//                 $_SESSION['convert']['result']+=$value;
-//                 $_SESSION['convert']['value']=$value;
-//             endif; 
-//         else:
-//             $_SESSION['convert']['value']=$value;
-//             $_SESSION['convert']['result']=$value;   
-//         endif;    
-//     endforeach;
-// endif; 
-
-// ------Convertisseur Chiffres Romains => Chiffres Arabes METHOD 2 ----------------
-
-// if(ctype_alpha($input)):
 //     foreach($split as $key => $romanInput):
 //         foreach($converter as $roman => $arabic):
 //             if($romanInput == $roman):
@@ -100,26 +117,23 @@ $input='729';
 // endif;
 
 
-// ------------Convertisseur Chiffres Arabes => Chiffres Romains-------------------
+// ---------Convertisseur Chiffres Arabes => Chiffres Romains METHOD 1-----------
 
-$converter = [
-    'M' => 1000,
-    'D' => 500,
-    'C' => 100,
-    'L' => 50,
-    'X' => 10,
-    'V' => 5,
-    'I' => 1
-];
+if($input != null && ctype_digit($input)):
+    $split = array_reverse(str_split($input));
 
-$split = array_reverse(str_split($input));
+    foreach($split as $key => $nb):
+        if ($key == 0){ $a = 'I'; $b = 'V'; $c = 'X'; $style=null;};
+        if ($key == 1){ $a = 'X'; $b = 'L'; $c = 'C'; $style=null;};
+        if ($key == 2){ $a = 'C'; $b = 'D'; $c = 'M'; $style=null;};
+        if ($key == 3 && $nb < 4){ $a = 'M'; $style=null;};
+        if ($key == 3 && $nb >= 4){ $a = 'I'; $b = 'V'; $c = 'X'; /* $style='style="text-decoration: overline;"'; */ };
+        if ($key == 4 && $nb < 4){ $a = 'X'; /* $style='style="text-decoration: overline;"'; */};
+        if ($key == 4 && $nb >= 4){ $a = 'X'; $b = 'L'; $c = 'C';/*  $style='style="text-decoration: overline;"'; */ };
 
-foreach($split as $key => $nb):
-    if ($key == 0):
-        $a = 'I';
-        $b = 'V';
-        $c = 'X';
+        
         switch ($nb){
+            case '0' : $nb=null ; break;
             case '1' : $nb=$a; break;
             case '2' : $nb=$a.$a; break;
             case '3' : $nb=$a.$a.$a; break;
@@ -129,87 +143,39 @@ foreach($split as $key => $nb):
             case '7' : $nb=$b.$a.$a; break;
             case '8' : $nb=$b.$a.$a.$a; break;
             case '9' : $nb=$a.$c; break;
-        }
-        $_SESSION['convert']['nb'] = $nb;
-    endif;
-    if ($key == 1):
-        $a = 'X';
-        $b = 'L';
-        $c = 'C';
-        switch ($nb){
-            case '1' : $nb=$a; break;
-            case '2' : $nb=$a.$a; break;
-            case '3' : $nb=$a.$a.$a; break;
-            case '4' : $nb=$a.$b; break;
-            case '5' : $nb=$b; break;
-            case '6' : $nb=$b.$a; break;
-            case '7' : $nb=$b.$a.$a; break;
-            case '8' : $nb=$b.$a.$a.$a; break;
-            case '9' : $nb=$a.$c; break;
-        }
-        $_SESSION['convert']['nb'] = $nb.$_SESSION['convert']['nb'];
-    endif;
-    if ($key == 2):
-        $a = 'C';
-        $b = 'D';
-        $c = 'M';
-        switch ($nb){
-            case '1' : $nb=$a; break;
-            case '2' : $nb=$a.$a; break;
-            case '3' : $nb=$a.$a.$a; break;
-            case '4' : $nb=$a.$b; break;
-            case '5' : $nb=$b; break;
-            case '6' : $nb=$b.$a; break;
-            case '7' : $nb=$b.$a.$a; break;
-            case '8' : $nb=$b.$a.$a.$a; break;
-            case '9' : $nb=$a.$c; break;
-        }
-        $_SESSION['convert']['nb'] = $nb.$_SESSION['convert']['nb'];
-    endif;
-endforeach;
+        };
 
-// $_SESSION['convert']['input'] = $input;
-// if(ctype_digit($input)):
-//     while( $_SESSION['convert']['input']  > 1000):
-//         $_SESSION['convert']['result'] .= 'M';
-//         $_SESSION['convert']['input'] -= 1000;
-//     endwhile;
-//     while( $_SESSION['convert']['input']  > 500):
-//         $_SESSION['convert']['result'] .= 'D';
-//         $_SESSION['convert']['input'] -= 500;
-//     endwhile;
-//     while( $_SESSION['convert']['input']  > 100):
-//         $_SESSION['convert']['result'] .= 'C';
-//         $_SESSION['convert']['input'] -= 100;
-//     endwhile;
-//     while( $_SESSION['convert']['input']  > 50):
-//         $_SESSION['convert']['result'] .= 'L';
-//         $_SESSION['convert']['input'] -= 50;
-//     endwhile;
-//     while( $_SESSION['convert']['input']  > 10):
-//         $_SESSION['convert']['result'] .= 'X';
-//         $_SESSION['convert']['input'] -= 10;
-//     endwhile;
-//     while( $_SESSION['convert']['input']  > 5):
-//         $_SESSION['convert']['result'] .= 'V';
-//         $_SESSION['convert']['input'] -= 5;
-//     endwhile;
-//     while( $_SESSION['convert']['input']  >= 1):
-//         $_SESSION['convert']['result'] .= 'I';
-//         $_SESSION['convert']['input'] -= 1;
-//     endwhile;
-
-// endif;
-
+        if(!isset($_SESSION['convert']['result']) ){
+                $_SESSION['convert']['result'] = $nb; 
+        }else{
+                $_SESSION['convert']['result'] = $nb.$_SESSION['convert']['result'];
+        }
+    endforeach;
+endif;
 ?>
-<p class="text-warning"><?= $_SESSION['convert']['nb']; ?></p>
+<!-- AFFICHAGE ----------------------------------------------------- -->
 
-<pre class="text-success d-none"><?php print_r($_SESSION['convert']['input']); ?></pre>  
-<p class="text-warning d-none"><?= $_SESSION['convert']['result']; ?></p>
-<a href="?reset">reset</a>
-<hr>
-<h2>Debug</h2>
-<pre class=""><?php print_r($split)?></pre>  
-<pre class="text-primary"><?php print_r($converter)?></pre>
+<div class=" min-vh-100 d-flex flex-column justify-content-center align-items-center bg-primary text-light">
+    <h1>Convertisseur des chiffres romains</h1>
+    <p class="display-4 <?= isset($style)?$style:''?>"><?= isset($_SESSION['convert']['result'])?$_SESSION['convert']['result']:''; ?></p>
+    <form action="" method="POST" class="border radius p-3 d-flex flex-column gap-2">
+        <input type="text" name="input" value="<?= isset($_POST['input'])?$_POST['input']:'' ?>">
+        <div class="d-flex flex-row justify-content-center gap-2">
+            <input type="submit" class="btn btn-info">
+            <a href="?reset" class="btn btn-warning">reset</a>
+        </div>
+    </form>
+    
+</div>
+
+
+<!-- DEBUG --------------------------------------------------------- -->
+
+<div class="d-none">
+    <hr>
+    <h2>Debug</h2>
+    <pre class=""><?php print_r($split)?></pre>  
+    <pre class="text-primary"><?php print_r($converter)?></pre>
+</div>
 </body>
 </html>
