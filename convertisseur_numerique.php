@@ -116,21 +116,19 @@ endif;
 //     endforeach;
 // endif;
 
-
 // ---------Convertisseur Chiffres Arabes => Chiffres Romains METHOD 1-----------
 
 if($input != null && ctype_digit($input)):
     $split = array_reverse(str_split($input));
 
     foreach($split as $key => $nb):
-        if ($key == 0){ $a = 'I'; $b = 'V'; $c = 'X'; $style=null;};
-        if ($key == 1){ $a = 'X'; $b = 'L'; $c = 'C'; $style=null;};
-        if ($key == 2){ $a = 'C'; $b = 'D'; $c = 'M'; $style=null;};
-        if ($key == 3 && $nb < 4){ $a = 'M'; $style=null;};
-        if ($key == 3 && $nb >= 4){ $a = 'I'; $b = 'V'; $c = 'X'; /* $style='style="text-decoration: overline;"'; */ };
-        if ($key == 4 && $nb < 4){ $a = 'X'; /* $style='style="text-decoration: overline;"'; */};
-        if ($key == 4 && $nb >= 4){ $a = 'X'; $b = 'L'; $c = 'C';/*  $style='style="text-decoration: overline;"'; */ };
-
+        if ($key == 0){ $a = 'I'; $b = 'V'; $c = 'X';};
+        if ($key == 1){ $a = 'X'; $b = 'L'; $c = 'C';};
+        if ($key == 2){ $a = 'C'; $b = 'D'; $c = 'M';};
+        if ($key == 3 && $nb < 4){ $a = 'M';};
+        if ($key == 3 && $nb >= 4){ $a = 'I'; $b = 'V'; $c = 'X';};
+        if ($key == 4 && $nb < 4){ $a = 'X';};
+        if ($key == 4 && $nb >= 4){ $a = 'X'; $b = 'L'; $c = 'C';};
         
         switch ($nb){
             case '0' : $nb=null ; break;
@@ -146,18 +144,23 @@ if($input != null && ctype_digit($input)):
         };
 
         if(!isset($_SESSION['convert']['result']) ){
-                $_SESSION['convert']['result'] = $nb; 
+            $_SESSION['convert']['result']=null;
+        }
+            
+        if($key>=3 && $nb >=4){
+                $_SESSION['convert']['result'] = "<span style=\"text-decoration: overline;\">".$nb."</span>".$_SESSION['convert']['result']; 
         }else{
                 $_SESSION['convert']['result'] = $nb.$_SESSION['convert']['result'];
         }
+
     endforeach;
 endif;
 ?>
 <!-- AFFICHAGE ----------------------------------------------------- -->
 
-<div class=" min-vh-100 d-flex flex-column justify-content-center align-items-center bg-primary text-light">
+<div class=" min-vh-100 d-flex flex-column justify-content-center align-items-center bg-primary text-light gap-3">
     <h1>Convertisseur des chiffres romains</h1>
-    <p class="display-4 <?= isset($style)?$style:''?>"><?= isset($_SESSION['convert']['result'])?$_SESSION['convert']['result']:''; ?></p>
+    <p class="display-4"><?= isset($_SESSION['convert']['result'])?$_SESSION['convert']['result']:''; ?></p>
     <form action="" method="POST" class="border radius p-3 d-flex flex-column gap-2">
         <input type="text" name="input" value="<?= isset($_POST['input'])?$_POST['input']:'' ?>">
         <div class="d-flex flex-row justify-content-center gap-2">
@@ -168,13 +171,13 @@ endif;
     
 </div>
 
-
 <!-- DEBUG --------------------------------------------------------- -->
 
 <div class="d-none">
     <hr>
     <h2>Debug</h2>
     <pre class=""><?php print_r($split)?></pre>  
+    <pre class="text-primary"><?php print_r($_SESSION['convert'])?></pre>
     <pre class="text-primary"><?php print_r($converter)?></pre>
 </div>
 </body>
