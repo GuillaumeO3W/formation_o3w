@@ -1,6 +1,6 @@
 <?php 
 session_start();
-include ('no_return.php')
+include ('no_return.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
