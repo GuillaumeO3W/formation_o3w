@@ -47,7 +47,6 @@ foreach ($users as $index => $user):
             $_SESSION['member']['name'] = $user['name'];
             $_SESSION['member']['lastname'] = $user['lastname'];
             $_SESSION['member']['role'] = $user['role'];
-            exit; 
         else:
             $_SESSION['member']['error'] = "Mot de passe erroné";
             header('location: connexion.php');
@@ -59,7 +58,9 @@ foreach ($users as $index => $user):
 endforeach;
 
 if( $_SESSION['member']['error'] != null):
-    header('location: connexion.php');
-else:
     header('location: index.php');
+    exit;
+else:
+    header('location: connexion.php');
+    exit;
 endif;
