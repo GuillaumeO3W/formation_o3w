@@ -56,35 +56,47 @@ if(!isset($_SESSION['convert']['result']) ){
     $_SESSION['convert']['result']=null;
 }
 
-// ---------Convertisseur Chiffres Romains => Chiffres Arabes METHOD 1------------
+$error =null;
+// La fonction "convert" convertit une donnée $(input):
+// - soit en chiffre Arabes si l'entrée est de type lettre / chiffres romains
+// - soit en chiffres romains si l'entrée est de type chiffres arabes. 
 
-function convert($input){
+function convert($input,&$error){
+// ---------Convertisseur Chiffres Romains => Chiffres Arabes METHOD 1------------
     if($input != null && ctype_alpha($input)):
         $input = strtoupper($input);
         $split = array_reverse(str_split($input));
-        foreach($split as $key => $value):
-            switch ($value){
-                case 'M': $value=1000; break;
-                case 'D': $value=500;  break;
-                case 'C': $value=100;  break;
-                case 'L': $value=50;   break;
-                case 'X': $value=10;   break;
-                case 'V': $value=5;    break;
-                case 'I': $value=1;    break;
-            }
-            if(isset($_SESSION['convert']['value'])&& isset($_SESSION['convert']['result'])): 
-                if($value < $_SESSION['convert']['value']):
-                    $_SESSION['convert']['result']-=$value;
-                    $_SESSION['convert']['value']=$value;
+
+        $romanNumbers=['I','V','X','L','C','D','M'];
+        $errors = array_diff($split,$romanNumbers);
+        // print_r($errors);
+        if(!empty($errors)){
+            $error = 'erreur : Veuillez entrer seulement des chiffres romains "IVXLCDM" ou numérique';
+        }else{
+            foreach($split as $key => $value):
+                switch ($value){
+                    case 'M': $value=1000; break;
+                    case 'D': $value=500;  break;
+                    case 'C': $value=100;  break;
+                    case 'L': $value=50;   break;
+                    case 'X': $value=10;   break;
+                    case 'V': $value=5;    break;
+                    case 'I': $value=1;    break;
+                }
+                if(isset($_SESSION['convert']['value'])&& isset($_SESSION['convert']['result'])): 
+                    if($value < $_SESSION['convert']['value']):
+                        $_SESSION['convert']['result']-=$value;
+                        $_SESSION['convert']['value']=$value;
+                    else:
+                        $_SESSION['convert']['result']+=$value;
+                        $_SESSION['convert']['value']=$value;
+                    endif; 
                 else:
-                    $_SESSION['convert']['result']+=$value;
                     $_SESSION['convert']['value']=$value;
-                endif; 
-            else:
-                $_SESSION['convert']['value']=$value;
-                $_SESSION['convert']['result']=$value;   
-            endif;    
-        endforeach;
+                    $_SESSION['convert']['result']=$value;   
+                endif;    
+            endforeach;
+        }
     endif; 
 
 // ---------Convertisseur Chiffres Arabes => Chiffres Romains METHOD 1-----------
@@ -158,14 +170,13 @@ function convert($input){
 //     endforeach;
 // endif;
 
-
-
 ?>
 <!-- AFFICHAGE ----------------------------------------------------- -->
 
 <div class=" min-vh-100 d-flex flex-column justify-content-center align-items-center bg-primary text-light gap-3">
     <h1>Convertisseur des chiffres romains</h1>
-    <p class="display-4"><?= /* isset($_SESSION['convert']['result'])?$_SESSION['convert']['result']:''; */ convert($input); ?></p>
+    <p class="display-6"><?= $error == null ? convert($input,$error): ''; ?></p>
+    <p class="text-danger"><?= $error; ?></p>
     <form action="" method="POST" class="border radius p-3 d-flex flex-column gap-2">
         <input type="text" name="input" value="<?= isset($_POST['input'])?$_POST['input']:'' ?>">
         <div class="d-flex flex-row justify-content-center gap-2">
@@ -183,6 +194,7 @@ function convert($input){
     <h2>Debug</h2>
     <pre class=""><?php print_r($split)?></pre>  
     <pre class="text-primary"><?php print_r($_SESSION['convert'])?></pre>
+    <pre class="text-primary"><?php print_r($error)?></pre>
     <pre class="text-primary"><?php print_r($converter)?></pre>
 </div>
 </body>
