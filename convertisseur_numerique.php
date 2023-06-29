@@ -52,35 +52,77 @@ if(isset($_POST['input'])){
     $input = null;
 }
 
+if(!isset($_SESSION['convert']['result']) ){
+    $_SESSION['convert']['result']=null;
+}
+
 // ---------Convertisseur Chiffres Romains => Chiffres Arabes METHOD 1------------
 
-if($input != null && ctype_alpha($input)):
-    $input = strtoupper($input);
-    $split = array_reverse(str_split($input));
-    foreach($split as $key => $value):
-        switch ($value){
-            case 'M': $value=1000; break;
-            case 'D': $value=500;  break;
-            case 'C': $value=100;  break;
-            case 'L': $value=50;   break;
-            case 'X': $value=10;   break;
-            case 'V': $value=5;    break;
-            case 'I': $value=1;    break;
-        }
-        if(isset($_SESSION['convert']['value'])&& isset($_SESSION['convert']['result'])): 
-            if($value < $_SESSION['convert']['value']):
-                $_SESSION['convert']['result']-=$value;
-                $_SESSION['convert']['value']=$value;
+function convert($input){
+    if($input != null && ctype_alpha($input)):
+        $input = strtoupper($input);
+        $split = array_reverse(str_split($input));
+        foreach($split as $key => $value):
+            switch ($value){
+                case 'M': $value=1000; break;
+                case 'D': $value=500;  break;
+                case 'C': $value=100;  break;
+                case 'L': $value=50;   break;
+                case 'X': $value=10;   break;
+                case 'V': $value=5;    break;
+                case 'I': $value=1;    break;
+            }
+            if(isset($_SESSION['convert']['value'])&& isset($_SESSION['convert']['result'])): 
+                if($value < $_SESSION['convert']['value']):
+                    $_SESSION['convert']['result']-=$value;
+                    $_SESSION['convert']['value']=$value;
+                else:
+                    $_SESSION['convert']['result']+=$value;
+                    $_SESSION['convert']['value']=$value;
+                endif; 
             else:
-                $_SESSION['convert']['result']+=$value;
                 $_SESSION['convert']['value']=$value;
-            endif; 
-        else:
-            $_SESSION['convert']['value']=$value;
-            $_SESSION['convert']['result']=$value;   
-        endif;    
-    endforeach;
-endif; 
+                $_SESSION['convert']['result']=$value;   
+            endif;    
+        endforeach;
+    endif; 
+
+// ---------Convertisseur Chiffres Arabes => Chiffres Romains METHOD 1-----------
+
+    if($input != null && ctype_digit($input)):
+        $split = array_reverse(str_split($input));
+        
+        foreach($split as $key => $nb):
+            if ($key == 0){ $a = 'I'; $b = 'V'; $c = 'X';};
+            if ($key == 1){ $a = 'X'; $b = 'L'; $c = 'C';};
+            if ($key == 2){ $a = 'C'; $b = 'D'; $c = 'M';};
+            if ($key == 3 && $nb < 4){ $a = 'M';};
+            if ($key == 3 && $nb >= 4){ $a = 'I'; $b = 'V'; $c = 'X';};
+            if ($key == 4 && $nb < 4){ $a = 'X';};
+            if ($key == 4 && $nb >= 4){ $a = 'X'; $b = 'L'; $c = 'C';};
+            
+            switch ($nb){
+                case '0' : $nb=null ; break;
+                case '1' : $nb=$a; break;
+                case '2' : $nb=$a.$a; break;
+                case '3' : $nb=$a.$a.$a; break;
+                case '4' : $nb=$a.$b; break;
+                case '5' : $nb=$b; break;
+                case '6' : $nb=$b.$a; break;
+                case '7' : $nb=$b.$a.$a; break;
+                case '8' : $nb=$b.$a.$a.$a; break;
+                case '9' : $nb=$a.$c; break;
+            };
+                            
+            if($key>=3 && $nb >=4){
+                    $_SESSION['convert']['result'] = "<span style=\"text-decoration: overline;\">".$nb."</span>".$_SESSION['convert']['result']; 
+            }else{
+                    $_SESSION['convert']['result'] = $nb.$_SESSION['convert']['result'];
+            }
+        endforeach;
+    endif;
+    return $_SESSION['convert']['result'];
+}
 
 // ------Convertisseur Chiffres Romains => Chiffres Arabes METHOD 2 -------------
 
@@ -116,51 +158,14 @@ endif;
 //     endforeach;
 // endif;
 
-// ---------Convertisseur Chiffres Arabes => Chiffres Romains METHOD 1-----------
 
-if($input != null && ctype_digit($input)):
-    $split = array_reverse(str_split($input));
 
-    foreach($split as $key => $nb):
-        if ($key == 0){ $a = 'I'; $b = 'V'; $c = 'X';};
-        if ($key == 1){ $a = 'X'; $b = 'L'; $c = 'C';};
-        if ($key == 2){ $a = 'C'; $b = 'D'; $c = 'M';};
-        if ($key == 3 && $nb < 4){ $a = 'M';};
-        if ($key == 3 && $nb >= 4){ $a = 'I'; $b = 'V'; $c = 'X';};
-        if ($key == 4 && $nb < 4){ $a = 'X';};
-        if ($key == 4 && $nb >= 4){ $a = 'X'; $b = 'L'; $c = 'C';};
-        
-        switch ($nb){
-            case '0' : $nb=null ; break;
-            case '1' : $nb=$a; break;
-            case '2' : $nb=$a.$a; break;
-            case '3' : $nb=$a.$a.$a; break;
-            case '4' : $nb=$a.$b; break;
-            case '5' : $nb=$b; break;
-            case '6' : $nb=$b.$a; break;
-            case '7' : $nb=$b.$a.$a; break;
-            case '8' : $nb=$b.$a.$a.$a; break;
-            case '9' : $nb=$a.$c; break;
-        };
-
-        if(!isset($_SESSION['convert']['result']) ){
-            $_SESSION['convert']['result']=null;
-        }
-            
-        if($key>=3 && $nb >=4){
-                $_SESSION['convert']['result'] = "<span style=\"text-decoration: overline;\">".$nb."</span>".$_SESSION['convert']['result']; 
-        }else{
-                $_SESSION['convert']['result'] = $nb.$_SESSION['convert']['result'];
-        }
-
-    endforeach;
-endif;
 ?>
 <!-- AFFICHAGE ----------------------------------------------------- -->
 
 <div class=" min-vh-100 d-flex flex-column justify-content-center align-items-center bg-primary text-light gap-3">
     <h1>Convertisseur des chiffres romains</h1>
-    <p class="display-4"><?= isset($_SESSION['convert']['result'])?$_SESSION['convert']['result']:''; ?></p>
+    <p class="display-4"><?= /* isset($_SESSION['convert']['result'])?$_SESSION['convert']['result']:''; */ convert($input); ?></p>
     <form action="" method="POST" class="border radius p-3 d-flex flex-column gap-2">
         <input type="text" name="input" value="<?= isset($_POST['input'])?$_POST['input']:'' ?>">
         <div class="d-flex flex-row justify-content-center gap-2">
