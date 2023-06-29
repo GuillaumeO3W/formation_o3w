@@ -1,8 +1,6 @@
 <?php
 session_start(); 
-?>
 
-<?php
 $users=[
     [
         'id'=>'1',
@@ -27,46 +25,41 @@ $users=[
     ],
 ];
 
-if(isset($_POST['id'])){
-    $_SESSION['name'] = $_POST['id'];
-}elseif(isset($_SESSION['name'])){
-    $_SESSION['name']=$_SESSION['name'];
+if(isset($_POST['id']) && $_POST['id'] != null){
+    $_SESSION['member']['id'] = $_POST['id'];
 }else{
-    $_SESSION['name']=null;
+    $_SESSION['member']['error'] = "Veuillez entrez un identifiant";
+    header ('location: connexion.php');
+    exit; 
+}
+
+if(isset($_POST['pwd']) && $_POST['pwd'] != null){
+    $_SESSION['member']['pwd'] = $_POST['pwd'];
+}else{
+    $_SESSION['member']['error'] = "Veuillez entrer un mot de passe";
+    header ('location: connexion.php');
+    exit; 
 }
 
 foreach ($users as $index => $user):
-    if($_SESSION['name']==$user['id']){
-        $_SESSION['id'] = $user['id'];
-        $_SESSION['name'] = $user['name'];
-        $_SESSION['role'] = $user['role'];
-        $connect='ok';
-        if($_POST['pwd']==$user['pwd']){
-            $_SESSION['lastname'] = $user['lastname'];
-        }else{
-            header('location: index.php?wrongpwd');
-        }
-    }
+    if($_SESSION['member']['id']==$user['id']):
+        if($_SESSION['member']['pwd']==$user['pwd']):
+            $_SESSION['member']['name'] = $user['name'];
+            $_SESSION['member']['lastname'] = $user['lastname'];
+            $_SESSION['member']['role'] = $user['role'];
+            exit; 
+        else:
+            $_SESSION['member']['error'] = "Mot de passe erroné";
+            header('location: connexion.php');
+            exit; 
+        endif;
+    else:
+        $_SESSION['member']['error'] = "Identifiant inconnu !";
+    endif;
 endforeach;
 
-if($_SESSION['name']==null){
-    header('location: index.php?error ');
-}
-
-include ('nav.php');
-?>
-
-<div class="container d-flex flex-column min-vh-100 justify-content-center align-items-center">
-    <p>Hello</p>
-    <p class="fw-bold"><?= $_SESSION['name']. " ".$_SESSION['lastname']  ?></p>
-</div>
-
-<!-- DEBUG ---------------------------- -->
-<div class="d-none ">
-    <h2 >Debug</h2>
-    <pre class="text-warning"><?php print_r($_SESSION); ?></pre>
-    <pre class="text-info"><?php print_r($users); ?></pre>
-</div>
-
-</body>
-</html>
+if( $_SESSION['member']['error'] != null):
+    header('location: connexion.php');
+else:
+    header('location: index.php');
+endif;

@@ -18,11 +18,21 @@ jours les séparant (on ne tiendra pas compte des années bissextiles)
 <body>
 <?php
 
-if(isset($_GET[reset])):
-    $_SERVER 
+// RESET SESSION 'date' ------------------------------
+
+if(isset($_GET['reset'])){
+    unset($_SESSION['date']);
+    $page = $_SERVER['PHP_SELF'];
+    header('Location:'.$page);
+    exit;
+}
 
 isset($_POST['date1']) ? $date1=$_POST['date1'] : $date1=null;
 isset($_POST['date2']) ? $date2=$_POST['date2'] : $date2=null;
+
+
+
+
 ?>
 <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center gap-4">
     <form action="" method="POST" class="d-flex flex-column gap-2  border border-warning rounded p-4 shadow-sm">
