@@ -20,58 +20,59 @@ jours les séparant (on ne tiendra pas compte des années bissextiles)
 
 // RESET SESSION 'date' ------------------------------
 
-if(isset($_GET['reset'])){
-    unset($_SESSION['date']);
-    $page = $_SERVER['PHP_SELF'];
-    header('Location:'.$page);
-    exit;
-}
+// if(isset($_GET['reset'])){
+//     unset($_SESSION['date']);
+//     $page = $_SERVER['PHP_SELF'];
+//     header('Location:'.$page);
+//     exit;
+// }
 
-isset($_POST['date1']) ? $date1=$_POST['date1'] : $date1=null;
-isset($_POST['date2']) ? $date2=$_POST['date2'] : $date2=null;
+if(isset($_POST['date1']) && isset($_POST['date2'])):
 
-$date1 = explode("-",$date1);
-$date2 = explode("-",$date2);
+    $date1 = explode("-",$_POST['date1']);
+    $date2 = explode("-",$_POST['date2']);
 
-$year1=$date1['0'];
-$month1=$date1['1'];
-$day1=$date1['2'];
+    $year1=$date1['0'];
+    $month1=$date1['1'];
+    $day1=$date1['2'];
 
-$year2=$date2['0'];
-$month2=$date2['1'];
-$day2=$date2['2'];
+    $year2=$date2['0'];
+    $month2=$date2['1'];
+    $day2=$date2['2'];
 
-switch ($month1){
-    case 1 : $nb1 = (365-$day1); break;
-    case 2 : $nb1 = (334-$day1); break;
-    case 3 : $nb1 = (306-$day1); break;
-    case 4 : $nb1 = (275-$day1); break;
-    case 5 : $nb1 = (245-$day1); break;
-    case 6 : $nb1 = (214-$day1); break;
-    case 7 : $nb1 = (184-$day1); break;
-    case 8 : $nb1 = (153-$day1); break;
-    case 9 : $nb1 = (122-$day1); break;
-    case 10 : $nb1 = (92-$day1); break;
-    case 11 : $nb1 = (61-$day1); break;
-    case 12 : $nb1 = (31-$day1); break;
-}
-switch ($month2){
-    case 1 : $nb2 = (($year2-$year1-1)*365)+($day2); break;
-    case 2 : $nb2 = (($year2-$year1-1)*365)+31+($day2); break;
-    case 3 : $nb2 = (($year2-$year1-1)*365)+59+($day2); break;
-    case 4 : $nb2 = (($year2-$year1-1)*365)+90+($day2); break;
-    case 5 : $nb2 = (($year2-$year1-1)*365)+120+($day2); break;
-    case 6 : $nb2 = (($year2-$year1-1)*365)+151+($day2); break;
-    case 7 : $nb2 = (($year2-$year1-1)*365)+181+($day2); break;
-    case 8 : $nb2 = (($year2-$year1-1)*365)+212+($day2); break;
-    case 9 : $nb2 = (($year2-$year1-1)*365)+243+($day2); break;
-    case 10 : $nb2 = (($year2-$year1-1)*365)+273+($day2); break;
-    case 11 : $nb2 = (($year2-$year1-1)*365)+304+($day2); break;
-    case 12 : $nb2 = (($year2-$year1-1)*365)+334+($day2); break;
-}
+    switch ($month1){
+        case 1 : $nb1 = (365-$day1); break;
+        case 2 : $nb1 = (334-$day1); break;
+        case 3 : $nb1 = (306-$day1); break;
+        case 4 : $nb1 = (275-$day1); break;
+        case 5 : $nb1 = (245-$day1); break;
+        case 6 : $nb1 = (214-$day1); break;
+        case 7 : $nb1 = (184-$day1); break;
+        case 8 : $nb1 = (153-$day1); break;
+        case 9 : $nb1 = (122-$day1); break;
+        case 10 : $nb1 = (92-$day1); break;
+        case 11 : $nb1 = (61-$day1); break;
+        case 12 : $nb1 = (31-$day1); break;
+    }
+    switch ($month2){
+        case 1 : $nb2 = (($year2-$year1-1)*365)+($day2); break;
+        case 2 : $nb2 = (($year2-$year1-1)*365)+31+($day2); break;
+        case 3 : $nb2 = (($year2-$year1-1)*365)+59+($day2); break;
+        case 4 : $nb2 = (($year2-$year1-1)*365)+90+($day2); break;
+        case 5 : $nb2 = (($year2-$year1-1)*365)+120+($day2); break;
+        case 6 : $nb2 = (($year2-$year1-1)*365)+151+($day2); break;
+        case 7 : $nb2 = (($year2-$year1-1)*365)+181+($day2); break;
+        case 8 : $nb2 = (($year2-$year1-1)*365)+212+($day2); break;
+        case 9 : $nb2 = (($year2-$year1-1)*365)+243+($day2); break;
+        case 10 : $nb2 = (($year2-$year1-1)*365)+273+($day2); break;
+        case 11 : $nb2 = (($year2-$year1-1)*365)+304+($day2); break;
+        case 12 : $nb2 = (($year2-$year1-1)*365)+334+($day2); break;
+    }
 
-$daysDiff = abs($nb1+$nb2);
-
+    $daysDiff = abs($nb1+$nb2);
+else:
+    $daysDiff=null;
+endif;
 ?>
 
 <div class="d-flex flex-column justify-content-center gap-4 m-5">
@@ -93,7 +94,7 @@ $daysDiff = abs($nb1+$nb2);
         </div>
     </form>
 
-    <p class="text-center"><?= $nb2 ." + ". $nb1 ." = ".$daysDiff." jours de différence" ?></p>
+    <p class="text-center <?= $daysDiff == null ? "d-none" : "" ?>" ><?= $daysDiff." jours de différence" ?></p>
 </div>
 <div class="d-none">
 <hr>
