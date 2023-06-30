@@ -25,21 +25,24 @@ $users=[
     ],
 ];
 
-if(isset($_POST['id']) && $_POST['id'] != null){
+if(isset($_POST['id']) && $_POST['id'] != null):
     $_SESSION['member']['id'] = $_POST['id'];
-}else{
+
+    if(isset($_POST['pwd']) && $_POST['pwd'] != null):
+        $_SESSION['member']['pwd'] = $_POST['pwd'];
+    else:
+        $_SESSION['member']['error'] = "Veuillez entrer un mot de passe";
+        header ('location: connexion.php');
+        exit; 
+    endif;
+    
+else :
     $_SESSION['member']['error'] = "Veuillez entrez un identifiant";
     header ('location: connexion.php');
     exit; 
-}
+endif;
 
-if(isset($_POST['pwd']) && $_POST['pwd'] != null){
-    $_SESSION['member']['pwd'] = $_POST['pwd'];
-}else{
-    $_SESSION['member']['error'] = "Veuillez entrer un mot de passe";
-    header ('location: connexion.php');
-    exit; 
-}
+
 
 foreach ($users as $index => $user):
     if($_SESSION['member']['id']==$user['id']):
@@ -64,3 +67,5 @@ else:
     header('location: connexion.php');
     exit;
 endif;
+
+?>
