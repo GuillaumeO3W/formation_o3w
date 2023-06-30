@@ -57,8 +57,6 @@ elseif($month1==(2)):
     $nb2 = ($year2*365)+($month2*28)+($day2);
 endif;
 
-// $nb1 = ($year1*365)+($month1*30)+($day1);
-// $nb2 = ($year2*365)+($month2*30)+($day2);
 $daysDiff = $nb2 - $nb1;
 
 ?>

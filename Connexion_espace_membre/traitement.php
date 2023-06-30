@@ -43,7 +43,6 @@ else :
 endif;
 
 
-
 foreach ($users as $index => $user):
     if($_SESSION['member']['id']==$user['id']):
         if($_SESSION['member']['pwd']==$user['pwd']):
