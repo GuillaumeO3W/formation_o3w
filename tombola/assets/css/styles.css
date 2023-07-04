@@ -1,6 +1,13 @@
+body {
+    font-family:Verdana, Geneva, Tahoma, sans-serif ;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
 header , footer{
     height: 3rem;
-    background-color: rgb(75, 75, 75);
+    background-color: rgb(88, 139, 124);
     color:#fff;
     display: flex;
     justify-content: center;
@@ -8,18 +15,15 @@ header , footer{
     box-shadow: 0 3px 10px rgb(100, 100, 100);
 }
 footer{
-    position : fixed;
+    position :static;
     bottom: 0;
     left: 0;
     right: 0;
 }
-body{
-    font-family:Verdana, Geneva, Tahoma, sans-serif ;
 
-}
-.container{
+.main {
     padding: 0 4.8rem;
     display: flex;
     justify-content: space-around;
+	flex: 1;
 }
-

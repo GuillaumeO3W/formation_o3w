@@ -1,4 +1,10 @@
 <?php
+function quantity($quantity, $money){
+    $money>=200 ? $ticketAvaible = 100 : $ticketAvaible = $money/2;
+    $quantity >= $ticketAvaible ? $quantity = $ticketAvaible : $quantity = $quantity;
+    return $quantity;
+}
+
 function tickets($quantity){
     $tickets=[];
     while (count($tickets) != $quantity){

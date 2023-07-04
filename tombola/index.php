@@ -2,12 +2,14 @@
 include ('inc/header.php');
 include ('lib/functions.php');
 
-$quantity = 20;
+$userMoney = 120;
+$userQuantity = 20;
+$quantity = quantity($userQuantity, $userMoney);
 $tickets = tickets($quantity);
 $tirages=tirages();
 ?>
 
-<div class="container">
+<div class="main">
     <div>
         <h3>Tickets</h3>
         <pre><?php print_r($tickets) ;?></pre>
