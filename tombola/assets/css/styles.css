@@ -1,20 +1,25 @@
 header , footer{
-    height: 5rem;
+    height: 3rem;
     background-color: rgb(75, 75, 75);
-    color: #fff;
-    font-family:Verdana, Geneva, Tahoma, sans-serif ;
+    color:#fff;
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 0 3px 10px rgb(100, 100, 100);
 }
-
 footer{
-    position: fixed;
+    position : fixed;
     bottom: 0;
     left: 0;
     right: 0;
 }
+body{
+    font-family:Verdana, Geneva, Tahoma, sans-serif ;
 
+}
 .container{
     padding: 0 4.8rem;
+    display: flex;
+    justify-content: space-around;
 }
+
