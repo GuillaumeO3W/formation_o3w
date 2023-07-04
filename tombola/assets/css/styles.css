@@ -21,3 +21,18 @@ header , footer{
     justify-content: space-around;
 	flex: 1;
 }
+
+.tickets{
+    width : 100px;
+    display : flex;
+    flex-wrap : wrap ;
+    gap : 0.5rem;
+    justify-content: space-between;
+
+}
+.ticket{
+    padding : 0.2rem;
+    background-color: rgb(24, 90, 165);
+    color: #fff;
+    border-radius: 0.3rem;
+}

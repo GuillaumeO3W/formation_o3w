@@ -12,7 +12,11 @@ $tirages=tirages();
 <div class="main">
     <div>
         <h3>Tickets</h3>
-        <pre><?php print_r($tickets) ;?></pre>
+        <div class="tickets">
+            <?php foreach($tickets as $value):?>
+                    <span class="ticket"><?= $value ; ?></span>
+            <?php endforeach ?>
+        </div>
     </div>
     <div>
         <h3>Tirage</h3>
