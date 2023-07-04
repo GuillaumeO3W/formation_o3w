@@ -14,3 +14,7 @@ footer{
     left: 0;
     right: 0;
 }
+
+.container{
+    padding: 0 4.8rem;
+}
