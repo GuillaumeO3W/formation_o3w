@@ -2,14 +2,17 @@
 include ('header.php');
 include ('footer.php');
 
-$latitude1 = 43.610769;
-$longitude1 = 3.876716;
-$latitude2 = 48.856614;
-$longitude2 = 2.352222;
+$quantity = 10;
 
-$angularDistance = acos((sin($latitude1)*sin($latitude2))+(cos($latitude1)*cos($latitude2)*cos($longitude2-$longitude1)));
-$distance = $angularDistance * 6378137/1000;
+function tickets($quantity){
+    for ($i=1; $i<=$quantity ; $i++){
+        $tickets[]=rand(1,100);
+    }
+    return $tickets;
+}
+
 ?>
-<p><?= $distance." km";?></p>
+<pre><?php print_r(tickets($quantity)) ?></pre>
+
 
 
