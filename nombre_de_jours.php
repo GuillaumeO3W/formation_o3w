@@ -93,7 +93,7 @@ $daysDiff = abs($nb1+$nb2);
         </div>
     </form>
 
-    <p class="text-center"><?= $nb2 ." + ". $nb1 ." = ".$daysDiff." jours de différence" ?></p>
+    <p class="text-center"><?= $daysDiff." jours de différence" ?></p>
 </div>
 <div class="d-none">
 <hr>
