@@ -11,20 +11,33 @@ if(isset($_GET['newGame'])){
     exit;
 }
 
-$userMoney = 120;
-$userQuantity = 20;
+if(isset($_SESSION['tombola']['bankroll'])){
+    $bankroll = $_SESSION['tombola']['bankroll'];
+}else{
+    $_SESSION['tombola']['bankroll'] = 500;
+    $bankroll = $_SESSION['tombola']['bankroll'];
+}
 
-$quantity = quantity($userQuantity, $userMoney);
+$userQuantity = 69;
+
+$quantity = quantity($userQuantity, $bankroll);
 $tickets = tickets($quantity);
 $tirages=tirages();
 $results=(results($tickets , $tirages));
 $gains = gains($results);
+$bankroll = bankroll($quantity,$gains);
 ?>
 <div>
         <a href="?reset">reset</a>
-        <a href="?newGame">Nouvelle partie</a>
+        <a href="?newGame">Nouveau Tirage</a>
 </div>
 <div class="main">
+    <div>
+        <h3>Bankroll</h3>
+        <div>
+            <?php print_r($bankroll." €") ;?>
+        </div>
+    </div>
     <div>
         <h3>Tickets</h3>
         <div class="tickets">
@@ -43,10 +56,9 @@ $gains = gains($results);
     </div>
     <div>
         <h3>Gains</h3>
-        <pre><?php print_r($gains) ;?></pre>
+        <pre><?php print_r($gains." €");?></pre>
     </div>
 </div>
-
 
 
 <?php

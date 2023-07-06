@@ -19,11 +19,12 @@ header , footer{
     padding: 0 4.8rem;
     display: flex;
     justify-content: space-around;
+    gap : 2rem;
 	flex: 1;
 }
 
 .tickets{
-    width : 100px;
+    width : 150px;
     display : flex;
     flex-wrap : wrap ;
     gap : 0.5rem;
@@ -32,7 +33,7 @@ header , footer{
 }
 .ticket{
     padding : 0.2rem;
-    background-color: rgb(24, 90, 165);
+    background-color: rgb(151, 183, 219);
     color: #fff;
     border-radius: 0.3rem;
 }
