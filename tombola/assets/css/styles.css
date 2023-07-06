@@ -17,6 +17,9 @@ header , footer{
 header{
     margin-bottom: 2rem;
 }
+h3{
+    text-align: center;
+}
 .d-none{
     display: none;
 }
@@ -24,6 +27,7 @@ header{
     padding: 1rem 4.8rem;
     display: flex;
     justify-content: space-around;
+    flex-wrap : wrap ;
     gap : 2rem;
 	flex: 1;
 }
@@ -33,10 +37,10 @@ header{
     display : flex;
     flex-wrap : wrap ;
     gap : 0.2rem;
-    justify-content: space-between;
+    justify-content: center;
 }
 .tirages{
-    width : 150px;
+    width : 100px;
     display : flex;
     flex-wrap : wrap ;
     gap : 0.2rem;
@@ -58,4 +62,11 @@ header{
     border : 1px solid #dadada;
     width : 20px;
     text-align: center;
+}
+.win{
+    background-color: rgb(107, 238, 107) ;
+}
+
+.column{
+    flex-direction: column;
 }

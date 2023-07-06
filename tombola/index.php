@@ -36,17 +36,21 @@ $bankroll = bankroll($quantity,$gains);
     <div>
         <h3>Tickets</h3>
         <div class="tickets">
-            <?php foreach($tickets as $value):?>
-                    <span class="ticket"><?= $value ; ?></span>
+            <?php foreach($tickets as $ticket):?>
+                <span class="ticket 
+                <?php foreach($tirages as $tirage):?>
+                    <?= $tirage == $ticket ? "win" : ""; ?>
+                <?php endforeach ?>
+                "><?= $ticket ; ?></span>
             <?php endforeach ?>
         </div>
     </div>
-    
+
     <div>
         <h3>Tirage</h3>
             <div class="tirages">
                 <?php foreach($tirages as $index => $value):?>
-                    <span>Tirage n° <?= $index+1;?>: </span>
+                    <span>Tirage  <?= $index+1;?> </span>
                     <span class="tirage"><?= $value ; ?></span>
                 <?php endforeach ?>
             </div>
@@ -57,18 +61,19 @@ $bankroll = bankroll($quantity,$gains);
         <h3>Résultat</h3>
         <pre><?php print_r($results) ;?></pre>
     </div>
-
-    <div>
-        <h3>Gains</h3>
-        <pre><?php print_r($gains." €");?></pre>
-    </div>
-
-    <div>
-        <h3>Bankroll</h3>
+    <div class="column">
         <div>
-            <?php print_r($bankroll." €") ;?>
+            <h3>Gains</h3>
+            <pre><?php print_r($gains." €");?></pre>
         </div>
-    </div>
+
+        <div>
+            <h3>Bankroll</h3>
+            <div>
+                <?php print_r($bankroll." €") ;?>
+            </div>
+        </div>
+    </div>    
 </div>
 
 
