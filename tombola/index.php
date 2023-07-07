@@ -25,17 +25,15 @@ $gains = gains($results);
 $_SESSION['tombola']['bankroll'] = bankroll($_SESSION['tombola']['ticketsAvaible'],$gains);
 $_SESSION['tombola']['ticketsAvaible'] = quantity($_SESSION['tombola']['ticketsAvaible'] , $_SESSION['tombola']['bankroll'] );
 
-
-
 ?>
-<div class="main">
+<div class="container">
     <section class="bank">
-        <div class="red">
+        <div class="bankroll">
             <h3>Bankroll</h3>
             <p><?= $_SESSION['tombola']['bankroll']." €" ;?></p>
         </div>
 
-        <div class="form blue">
+        <div class="form">
                 <form action="" method="POST">
                     <label for="userQuantity" id="userQuantity">Achat de tickets (2€):</label>
                     <input type="number" name="userQuantity">
@@ -47,10 +45,9 @@ $_SESSION['tombola']['ticketsAvaible'] = quantity($_SESSION['tombola']['ticketsA
 
 <?php if(isset($_POST['userQuantity']) && $_POST['userQuantity'] != null ):?>
 
-    <div>
-
+    <section class="tickets">
         <h3>Tickets</h3>
-        <div class="tickets">
+        <div class="flex">
             <?php foreach($tickets as $ticket):?>
                 <span class="ticket 
                 <?php foreach($tirages as $tirage):?>
@@ -59,25 +56,20 @@ $_SESSION['tombola']['ticketsAvaible'] = quantity($_SESSION['tombola']['ticketsA
                 "><?= $ticket ; ?></span>
             <?php endforeach ?>
         </div>
-    </div>
-    <div>
+    </section>
+
+    <section class="tirages">
         <h3>Tirage</h3>
-            <div class="tirages">
-                <?php foreach($tirages as $index => $value):?>
-                    <span class="tirage"><?= $value ; ?></span>
-                <?php endforeach ?>
-            </div>
-    </div>
-
-    <div class="column">
-        <div>
-            <h3>Gains</h3>
-            <pre><?php print_r($gains." €");?></pre>
+        <div class="flex">
+            <?php foreach($tirages as $index => $value):?>
+                <span class="tirage"><?= $value ; ?></span>
+            <?php endforeach ?>
         </div>
+        <h3>Gains</h3>
+        <div><p><?= $gains." €";?></p></div>
         <a href="?reset">reset</a>
-    </div>    
+    </section>
 <?php endif ; ?>
-
 
 </div>
 

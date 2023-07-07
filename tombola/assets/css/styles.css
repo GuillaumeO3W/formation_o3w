@@ -7,7 +7,7 @@ body {
 
 header , footer{
     height: 3rem;
-    background-color: rgb(88, 139, 124);
+    background-color: rgb(123, 160, 149);
     color:#ffffff;
     display: flex;
     justify-content: center;
@@ -17,67 +17,69 @@ header , footer{
 header{
     margin-bottom: 2rem;
 }
-h3{
+h3 , p{
     text-align: center;
 }
 .d-none{
     display: none;
 }
-.main {
+.container {
+    flex: 1;
     padding: 1rem 4.8rem;
-    display: flex;
-    flex-direction: column;
-    /* justify-content: center; */
-    align-items: center;
-    gap : 2rem;
-	/* flex: 1; */
-    text-align: center;
 }
 .bank{
     display: flex;
-    flex: 1 0 auto;
 }
-.red{
-    background-color: red;
+.bank h3{
+    margin : 0 auto;
 }
-.blue{
-    background-color: blue;
+.bank p , .tirages p{
+    background-color: rgb(233, 240, 229);
+    padding: 1rem;
+    display: inline-block;
+    box-shadow: 2px 2px 2px rgb(192, 192, 192);
+    border-radius: 2rem;
+    font-weight: 800;
+}
+.bankroll{
+    margin-left: 20%;
+    flex:1;
+    text-align: center;
+    /* border: 1px solid grey; */
+}
+.form{
+    margin-right: 20%;
+    flex:1;
+    /* border: 1px solid grey; */
+
 }
 
-.form{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 form{
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 30rem;
     gap : 0.7rem;
-    margin-bottom : 2rem;
 }
 form input{
     width : 6rem;
 }
-.tickets{
+
+.flex{
     display : flex;
     flex-wrap : wrap ;
-    gap : 1rem;
-    justify-content: center;
-}
-.tirages{
-
-    display : flex;
-    gap : 2rem;
+    gap : 0.5rem;
     justify-content: center;
 }
 .ticket{
     padding : 0.7rem;
     background-color: rgb(250, 250, 250);
     border-radius: 60rem;
-    border : 1px solid #dadada;
     width : 20px;
+    text-align: center;
+    box-shadow: 2px 2px 2px rgb(192, 192, 192);
+
+}
+.tirages{
     text-align: center;
 }
 .tirage{
@@ -85,14 +87,10 @@ form input{
     background-color: rgb(102, 169, 245);
     color:#ffffff;
     border-radius: 90rem;
-    border : 1px solid #dadada;
+    box-shadow: 2px 2px 2px rgb(192, 192, 192);
     width : 20px;
     text-align: center;
 }
 .win{
     background-color: rgb(107, 238, 107) ;
-}
-
-.column{
-    flex-direction: column;
 }
