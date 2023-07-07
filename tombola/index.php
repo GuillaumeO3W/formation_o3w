@@ -16,14 +16,26 @@ if(!isset($_SESSION['tombola'])){
     $_SESSION['tombola']['ticketsAvaible'] = 0;
 }
 
-$_SESSION['tombola']['ticketsAvaible'] = $_POST['userQuantity'] ?? $_SESSION['tombola']['ticketsAvaible'];
+if($_SERVER['REQUEST_METHOD'] === 'POST'):
+    if(isset($_POST['userQuantity'])){
+        $_SESSION['tombola']['ticketsAvaible']=$_POST['userQuantity'];
+    }
+    // if(empty($_POST['userQuantity'])){
+    //     $_SESSION['tombola']['error']= 'Achetez au moins un ticket pour jouer';
+    //     $page = $_SERVER['PHP_SELF'];
+    //     header('Location: '.$page);
+    //     exit;
+    // }
+endif;
+
+// $_SESSION['tombola']['ticketsAvaible'] = $_POST['userQuantity'] ?? $_SESSION['tombola']['ticketsAvaible'];
+$_SESSION['tombola']['ticketsAvaible'] = quantity($_SESSION['tombola']['ticketsAvaible'] , $_SESSION['tombola']['bankroll'] );
 
 $tickets = tickets($_SESSION['tombola']['ticketsAvaible']);
-$tirages=tirages();
-$results=(results($tickets , $tirages));
+$tirages = tirages();
+$results = (results($tickets , $tirages));
 $gains = gains($results);
 $_SESSION['tombola']['bankroll'] = bankroll($_SESSION['tombola']['ticketsAvaible'],$gains);
-$_SESSION['tombola']['ticketsAvaible'] = quantity($_SESSION['tombola']['ticketsAvaible'] , $_SESSION['tombola']['bankroll'] );
 
 ?>
 <div class="container">

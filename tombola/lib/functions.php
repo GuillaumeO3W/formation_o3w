@@ -6,8 +6,8 @@ function bankroll($quantity , $gains){
     return $_SESSION['tombola']['bankroll'];
 }
 
-function quantity($quantity, $money){
-    $money>=200 ? $ticketAvaible = 100 : $ticketAvaible = $money/2;
+function quantity($quantity, $bankroll){
+    $bankroll>=200 ? $ticketAvaible = 100 : $ticketAvaible = $bankroll/2;
     $quantity >= $ticketAvaible ? $quantity = $ticketAvaible : $quantity = $quantity;
     return $quantity;
 }
