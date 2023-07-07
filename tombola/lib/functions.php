@@ -47,20 +47,20 @@ function results($tickets , $tirages){
 }
 
 function gains($results){
-    // !isset($_SESSION['tombola']['gains']) ? $_SESSION['tombola']['gains'] = null : '' ;
+
     $gains=null;
     foreach ($results as $ticket => $rank){
         if($rank == 0){
-            /* $_SESSION['tombola']['gains'] */$gain = 100;
+            $gain = 100;
         }elseif($rank == 1){
-            /* $_SESSION['tombola']['gains'] */$gain = 50;
+            $gain = 50;
         }elseif($rank == 2){
-            /* $_SESSION['tombola']['gains'] */$gain = 20;
+            $gain = 20;
         }else{
-            /* $_SESSION['tombola']['gains'] */$gain = 0;
+            $gain = 0;
         }
         $gains += $gain;
     }
-    return $gains/* $_SESSION['tombola']['gains'] */;
+    return $gains;
 }
 ?>

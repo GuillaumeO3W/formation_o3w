@@ -1,39 +1,54 @@
 <?php
 include ('inc/header.php');
 include ('lib/functions.php');
+
+// RESET
 if(isset($_GET['reset'])){
     unset($_SESSION['tombola']);
-    header ('location: index.php');
-    exit;
-}
-if(isset($_GET['newGame'])){
-    header ('location: index.php');
+    $page = $_SERVER['PHP_SELF'];
+    header('Location: '.$page);
     exit;
 }
 
-if(isset($_SESSION['tombola']['bankroll'])){
-    $bankroll = $_SESSION['tombola']['bankroll'];
-}else{
+// INITIALISATION 
+if(!isset($_SESSION['tombola'])){
     $_SESSION['tombola']['bankroll'] = 500;
-    $bankroll = $_SESSION['tombola']['bankroll'];
+    $_SESSION['tombola']['ticketsAvaible'] = 0;
 }
 
-$userQuantity = 50;
+$_SESSION['tombola']['ticketsAvaible'] = $_POST['userQuantity'] ?? $_SESSION['tombola']['ticketsAvaible'];
 
-$quantity = quantity($userQuantity, $bankroll);
-$tickets = tickets($quantity);
+$tickets = tickets($_SESSION['tombola']['ticketsAvaible']);
 $tirages=tirages();
 $results=(results($tickets , $tirages));
 $gains = gains($results);
-$bankroll = bankroll($quantity,$gains);
+$_SESSION['tombola']['bankroll'] = bankroll($_SESSION['tombola']['ticketsAvaible'],$gains);
+$_SESSION['tombola']['ticketsAvaible'] = quantity($_SESSION['tombola']['ticketsAvaible'] , $_SESSION['tombola']['bankroll'] );
+
+
+
 ?>
-<div>
-        <a href="?reset">reset</a>
-        <a href="?newGame">Nouveau Tirage</a>
-</div>
 <div class="main">
+    <section class="bank">
+        <div class="red">
+            <h3>Bankroll</h3>
+            <p><?= $_SESSION['tombola']['bankroll']." €" ;?></p>
+        </div>
+
+        <div class="form blue">
+                <form action="" method="POST">
+                    <label for="userQuantity" id="userQuantity">Achat de tickets (2€):</label>
+                    <input type="number" name="userQuantity">
+                    <input type="submit" value="Jouer">
+                </form>
+        </div>
+    </section>
+    
+
+<?php if(isset($_POST['userQuantity']) && $_POST['userQuantity'] != null ):?>
 
     <div>
+
         <h3>Tickets</h3>
         <div class="tickets">
             <?php foreach($tickets as $ticket):?>
@@ -45,37 +60,26 @@ $bankroll = bankroll($quantity,$gains);
             <?php endforeach ?>
         </div>
     </div>
-
     <div>
         <h3>Tirage</h3>
             <div class="tirages">
                 <?php foreach($tirages as $index => $value):?>
-                    <span>Tirage  <?= $index+1;?> </span>
                     <span class="tirage"><?= $value ; ?></span>
                 <?php endforeach ?>
             </div>
-        <pre class="d-none"><?php print_r($tirages) ;?></pre>
     </div>
 
-    <div class="d-none">
-        <h3>Résultat</h3>
-        <pre><?php print_r($results) ;?></pre>
-    </div>
     <div class="column">
         <div>
             <h3>Gains</h3>
             <pre><?php print_r($gains." €");?></pre>
         </div>
-
-        <div>
-            <h3>Bankroll</h3>
-            <div>
-                <?php print_r($bankroll." €") ;?>
-            </div>
-        </div>
+        <a href="?reset">reset</a>
     </div>    
-</div>
+<?php endif ; ?>
 
+
+</div>
 
 <?php
 include ('inc/footer.php');
