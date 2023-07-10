@@ -1,0 +1,11 @@
+{
+    "firstname" : "Adrien",
+    "name": "Tascon",
+    "age": 22,
+    "adresse": {
+        "ville" : "Montpellier",
+        "CP": 34000
+    },
+    "passions" : ["vin", "urssaf", "PHP"]
+
+}
