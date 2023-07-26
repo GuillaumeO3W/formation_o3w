@@ -150,7 +150,7 @@ ON u_id = m_auteur_fk
 JOIN conversation
 ON m_conversation_fk = c_id
 WHERE m_conversation_fk  NOT IN (
-   	SELECT m_conversation_fk 
+    SELECT m_conversation_fk 
     FROM message
     JOIN conversation
 	ON m_conversation_fk = c_id
@@ -160,11 +160,32 @@ GROUP BY m_auteur_fk
 
 -- 13. Afficher les messages écrits par des admins inscrits en 2010 dans une conversation non terminée 
 
-
+SELECT *
+FROM user
+JOIN message
+ON u_id = m_auteur_fk
+JOIN conversation
+ON m_conversation_fk = c_id
+JOIN rang
+ON r_id = u_rang_fk
+HAVING r_libelle = 'admin' AND c_termine = 0 AND YEAR(u_date_inscription) = 2010
 
 -- 14. 5 messages au hasard d'utilisateurs de rang 'none' de moins de 18 ans qui ont écrit un message comportant 3 fois la lettre 'o'  
 
-
+SELECT *
+FROM user
+JOIN message
+ON u_id = m_auteur_fk
+JOIN conversation
+ON m_conversation_fk = c_id
+JOIN rang
+ON r_id = u_rang_fk
+HAVING 
+	r_libelle = 'none' 
+    AND TIMESTAMPDIFF(YEAR, u_date_naissance, CURDATE()) < 18 
+    AND m_contenu LIKE '%o%'
+    --AND u_id = ROUND( RAND() * 100 ) + 1
+LIMIT 5
 
 -- 15. Afficher les messages écrits après l'écriture du dernier message de l'utilisateur dans les conversations auxquelles il a participé
 
