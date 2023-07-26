@@ -93,7 +93,7 @@ ON m.m_auteur_fk = u.u_id
 WHERE u.u_id=10 AND m.m_date BETWEEN '2001-01-01' AND '2014-01-01'
 GROUP BY m.m_conversation_fk
 
--------- 9. Afficher tous les contacts qui ont pris part aux meme conversation que l'utilisateur u_id=X  
+-- 9. Afficher tous les contacts qui ont pris part aux meme conversation que l'utilisateur u_id=X  
 --ETAPE1
 SELECT m_auteur_fk, u_login
 FROM message 
@@ -114,27 +114,31 @@ FROM message
 JOIN user
 ON u_id =  m_auteur_fk 
 WHERE m_conversation_fk IN (
-    SELECT m_conversation_fk FROM message
+    SELECT m_conversation_fk 
+    FROM message
     JOIN user ON m_auteur_fk = u_id
     WHERE u_id=1
     GROUP BY m_conversation_fk
     )
 GROUP BY u_login
 
-------- 10. Liste des users avec le total des msg écrits par conversation  
+-- 10. Liste des users avec le total des msg écrits par conversation  
 
-
-SELECT m.m_auteur_fk,m.m_conversation_fk, COUNT(m.m_id)
-FROM message m
-WHERE m.m_auteur_fk = 1
-GROUP BY m.m_conversation_fk
-ORDER BY m.m_auteur_fk
-
-
+SELECT m_auteur_fk,m_conversation_fk, COUNT(m_id)
+FROM message 
+GROUP BY m_auteur_fk, m_conversation_fk
+HAVING m_auteur_fk IN (
+    SELECT u_id
+    FROM user
+	)
+ORDER BY m_auteur_fk
 
 -- 11. Afficher tous les messages écrits avant la date de conversation 
 
-
+SELECT *
+FROM message
+JOIN conversation
+ON m_conversation_fk = c_id
 
 -- 12. Afficher la liste des users qui n'ont jamais pris part à une conversation non terminée 
 
