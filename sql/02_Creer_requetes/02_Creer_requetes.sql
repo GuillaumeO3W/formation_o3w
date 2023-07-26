@@ -139,10 +139,24 @@ SELECT *
 FROM message
 JOIN conversation
 ON m_conversation_fk = c_id
+WHERE m_date < c_date
 
 -- 12. Afficher la liste des users qui n'ont jamais pris part à une conversation non terminée 
 
-
+SELECT u_prenom, u_nom
+FROM user
+JOIN message
+ON u_id = m_auteur_fk
+JOIN conversation
+ON m_conversation_fk = c_id
+WHERE m_conversation_fk  NOT IN (
+   	SELECT m_conversation_fk 
+    FROM message
+    JOIN conversation
+	ON m_conversation_fk = c_id
+    WHERE c_termine = 0
+    )
+GROUP BY m_auteur_fk
 
 -- 13. Afficher les messages écrits par des admins inscrits en 2010 dans une conversation non terminée 
 
