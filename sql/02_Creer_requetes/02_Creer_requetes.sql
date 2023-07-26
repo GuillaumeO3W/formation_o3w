@@ -86,7 +86,7 @@ ON c.c_id = 1;
 
 -- 8. Afficher les n° de conversations auxquelles a participé l'utilisateur u_id=X entre le DATE et le DATE  
 
-SELECT m.m_conversation_fk
+SELECT u.u_id ,m.m_conversation_fk
 FROM message m
 JOIN user u
 ON m.m_auteur_fk = u.u_id 
@@ -94,23 +94,43 @@ WHERE u.u_id=10 AND m.m_date BETWEEN '2001-01-01' AND '2014-01-01'
 GROUP BY m.m_conversation_fk
 
 -------- 9. Afficher tous les contacts qui ont pris part aux meme conversation que l'utilisateur u_id=X  
+--ETAPE1
+SELECT m_auteur_fk, u_login
+FROM message 
+JOIN user
+ON u_id =  m_auteur_fk 
+WHERE m_conversation_fk = 1
+GROUP BY m_auteur_fk 
 
-SELECT m2.m_auteur_fk, u.u_login
-FROM message m1
-JOIN message m2
-ON m1.m_conversation_fk = m2.m_conversation_fk 
-JOIN user u
-ON m1.m_auteur_fk = u.u_id
-WHERE u.u_id = 1 
-GROUP BY m2.m_auteur_fk
+--ETAPE2
+SELECT m_conversation_fk 
+FROM message
+JOIN user ON m_auteur_fk = u_id
+WHERE u_id=1
+
+--ETAPE3
+SELECT m_auteur_fk, u_login
+FROM message 
+JOIN user
+ON u_id =  m_auteur_fk 
+WHERE m_conversation_fk IN (
+    SELECT m_conversation_fk FROM message
+    JOIN user ON m_auteur_fk = u_id
+    WHERE u_id=1
+    GROUP BY m_conversation_fk
+    )
+GROUP BY u_login
 
 ------- 10. Liste des users avec le total des msg écrits par conversation  
+
 
 SELECT m.m_auteur_fk,m.m_conversation_fk, COUNT(m.m_id)
 FROM message m
 WHERE m.m_auteur_fk = 1
 GROUP BY m.m_conversation_fk
 ORDER BY m.m_auteur_fk
+
+
 
 -- 11. Afficher tous les messages écrits avant la date de conversation 
 
