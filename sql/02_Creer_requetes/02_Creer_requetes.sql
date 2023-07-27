@@ -142,9 +142,9 @@ FROM rang
 JOIN user ON r_id = u_rang_fk
 JOIN message ON u_id = m_auteur_fk
 JOIN conversation ON m_conversation_fk = c_id
-HAVING r_libelle = 'admin' 
+WHERE r_libelle = 'admin' 
     AND c_termine = 0 
-    AND YEAR(u_date_inscription) = 2010
+    AND YEAR(u_date_inscription) = '2010'
 
 -- 14. 5 messages au hasard d'utilisateurs de rang 'none' de moins de 18 ans qui ont écrit un message comportant 3 fois la lettre 'o'  
 
@@ -171,5 +171,4 @@ WHERE m_date > (
     ORDER BY m_date DESC
     LIMIT 1
     )
-    AND m_auteur_fk = 1
 GROUP BY m_conversation_fk
