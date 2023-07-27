@@ -112,17 +112,28 @@ WHERE m_date < c_date
 
 -- 12. Afficher la liste des users qui n'ont jamais pris part à une conversation non terminée 
 
+                                                    SELECT u_prenom, u_nom, u_id
+                                                    FROM user
+                                                    JOIN message ON u_id = m_auteur_fk
+                                                    JOIN conversation ON m_conversation_fk = c_id
+                                                    WHERE m_conversation_fk  NOT IN (
+                                                        SELECT m_conversation_fk 
+                                                        FROM message
+                                                        JOIN conversation ON m_conversation_fk = c_id
+                                                        WHERE c_termine = 0
+                                                        )
+                                                    GROUP BY m_auteur_fk
+
 SELECT u_prenom, u_nom, u_id
 FROM user
-JOIN message ON u_id = m_auteur_fk
-JOIN conversation ON m_conversation_fk = c_id
-WHERE m_conversation_fk  NOT IN (
-    SELECT m_conversation_fk 
-    FROM message
+WHERE u_id  NOT IN (
+    SELECT u_id 
+    FROM user
+    JOIN message ON u_id = m_auteur_fk
     JOIN conversation ON m_conversation_fk = c_id
     WHERE c_termine = 0
     )
-GROUP BY m_auteur_fk
+
 
 -- 13. Afficher les messages écrits par des admins inscrits en 2010 dans une conversation non terminée 
 
@@ -146,7 +157,7 @@ HAVING
 	r_libelle = 'none' 
     AND TIMESTAMPDIFF(YEAR, u_date_naissance, CURDATE()) < 18 
     AND m_contenu LIKE '%o%o%o%'
-    --AND u_id = ROUND( RAND() * 100 ) + 1
+ORDER BY RAND()
 LIMIT 5
 
 -- 15. Afficher les messages écrits après l'écriture du dernier message de l'utilisateur dans les conversations auxquelles il a participé
