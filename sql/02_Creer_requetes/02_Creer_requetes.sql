@@ -168,7 +168,8 @@ WHERE m_date > (
     SELECT m_date 
     FROM message 
     WHERE m_auteur_fk = 1
-    GROUP BY m_conversation_fk
     ORDER BY m_date DESC
     LIMIT 1
     )
+    AND m_auteur_fk = 1
+GROUP BY m_conversation_fk
