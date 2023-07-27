@@ -9,12 +9,12 @@ LIMIT 10
 
 -- ou
 
-SELECT m.m_id, m.m_contenu, m.m_date , m.m_auteur_fk, m.m_conversation_fk
-FROM message m
-LEFT JOIN user u
-ON (u.u_id = m.m_auteur_fk)
-WHERE m_auteur_fk=10
-ORDER BY m.m_date DESC
+SELECT m_id, m_contenu, m_date , m_auteur_fk, m_conversation_fk
+FROM message 
+LEFT JOIN user 
+ON u_id = m_auteur_fk
+WHERE u_id=10
+ORDER BY m_date DESC
 LIMIT 10
 
 -- 2. La liste des utilisateurs triés par age  
@@ -32,37 +32,25 @@ LIMIT 5
 
 -- 4. Les 20 derniers messages avec l'utilisateur(login) associé et son rang 
 
-SELECT m.m_contenu, u.u_login, r.r_libelle
-FROM message m
-JOIN user u
-ON m.m_auteur_fk = u.u_id
-JOIN rang r
-ON u.u_rang_fk = r.r_id
-ORDER BY m.m_date DESC
+SELECT m_contenu, u_login, r_libelle
+FROM message 
+JOIN user ON m_auteur_fk = u_id
+JOIN rang r ON u_rang_fk = r_id
+ORDER BY m_date DESC
 LIMIT 20
 
 -- 5. Les 5 derniers messages des utilisateurs de rang admin de plus de 18ans  
 
 SELECT *
-FROM message m
-JOIN user u
-ON m.m_auteur_fk = u.u_id AND TIMESTAMPDIFF(YEAR, u.u_date_naissance, CURDATE()) >= 18
-JOIN rang r
-ON u.u_rang_fk = r.r_id AND r.r_libelle = 'admin'
-ORDER BY m.m_date DESC
+FROM message 
+JOIN user ON m_auteur_fk = u_id
+JOIN rang ON u_rang_fk = r_id
+-- WHERE r_libelle = 'admin' 
+WHERE r_id = 2
+AND TIMESTAMPDIFF(YEAR, u_date_naissance, CURDATE()) >= 18
+ORDER BY m_date DESC
 LIMIT 5
 
---ou
-
-SELECT *
-FROM message m
-JOIN user u
-ON m.m_auteur_fk = u.u_id 
-JOIN rang r
-ON u.u_rang_fk = r.r_id AND r.r_libelle = 'admin'
-HAVING TIMESTAMPDIFF(YEAR, u.u_date_naissance, CURDATE()) > 18
-ORDER BY m.m_date DESC
-LIMIT 5
 
 -- 6. Les 10 derniers messages avec login+N° de conversation des user agés de 18 à 30 ans 
 
@@ -189,4 +177,13 @@ LIMIT 5
 
 -- 15. Afficher les messages écrits après l'écriture du dernier message de l'utilisateur dans les conversations auxquelles il a participé
 
-
+SELECT *
+FROM message
+WHERE m_date > (
+    SELECT m_date 
+    FROM message 
+    WHERE m_auteur_fk = 1
+    ORDER BY m_date DESC
+    GROUP BY m_conversation_fk
+    LIMIT 1
+    )
