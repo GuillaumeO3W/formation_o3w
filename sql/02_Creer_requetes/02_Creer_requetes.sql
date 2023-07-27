@@ -64,27 +64,25 @@ LIMIT 10
 -- 7. Afficher la conversation c_id=X avec msg + date msg + prenom + nom   
 
 SELECT m_contenu , m_date, u_prenom, u_nom, c_id
-FROM message 
-JOIN user 
-ON m_auteur_fk = u_id 
-JOIN conversation 
-ON c_id = 1;
+FROM user 
+JOIN message ON u_id = m_auteur_fk
+JOIN conversation ON m_conversation_fk = c_id
+WHERE c_id=1;
 
 -- 8. Afficher les n° de conversations auxquelles a participé l'utilisateur u_id=X entre le DATE et le DATE  
 
 SELECT u_id ,m_conversation_fk
 FROM message 
-JOIN user 
-ON m_auteur_fk = u_id 
-WHERE u_id=10 AND m_date BETWEEN '2001-01-01' AND '2014-01-01'
+JOIN user ON m_auteur_fk = u_id 
+WHERE u_id=10 
+    AND m_date BETWEEN '2001-01-01' AND '2014-01-01'
 GROUP BY m_conversation_fk
 
 -- 9. Afficher tous les contacts qui ont pris part aux meme conversation que l'utilisateur u_id=X  
 --ETAPE1
 SELECT m_auteur_fk, u_login
 FROM message 
-JOIN user
-ON u_id =  m_auteur_fk 
+JOIN user ON m_auteur_fk = u_id
 WHERE m_conversation_fk = 1
 GROUP BY m_auteur_fk 
 
@@ -97,8 +95,7 @@ WHERE u_id=1
 --ETAPE3
 SELECT m_auteur_fk, u_login
 FROM message 
-JOIN user
-ON u_id =  m_auteur_fk 
+JOIN user ON m_auteur_fk = u_id
 WHERE m_conversation_fk IN (
     SELECT m_conversation_fk 
     FROM message
