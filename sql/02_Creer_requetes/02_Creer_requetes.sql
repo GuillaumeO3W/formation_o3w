@@ -47,39 +47,37 @@ JOIN user ON m_auteur_fk = u_id
 JOIN rang ON u_rang_fk = r_id
 -- WHERE r_libelle = 'admin' 
 WHERE r_id = 2
-AND TIMESTAMPDIFF(YEAR, u_date_naissance, CURDATE()) >= 18
+AND TIMESTAMPDIFF(YEAR, u_date_naissance, CURDATE()) > 18
 ORDER BY m_date DESC
 LIMIT 5
 
-
 -- 6. Les 10 derniers messages avec login+N° de conversation des user agés de 18 à 30 ans 
 
-SELECT m.m_contenu, u.u_login, m.m_conversation_fk, TIMESTAMPDIFF(YEAR, u.u_date_naissance, CURDATE()) age
-FROM message m
-JOIN user u
-ON m.m_auteur_fk = u.u_id 
-WHERE TIMESTAMPDIFF(YEAR, u.u_date_naissance, CURDATE()) >= 18 
-	AND TIMESTAMPDIFF(YEAR, u.u_date_naissance, CURDATE()) <= 30
-ORDER BY m.m_date DESC
+SELECT m_contenu, u_login, m_conversation_fk, TIMESTAMPDIFF(YEAR, u_date_naissance, CURDATE()) age
+FROM message 
+JOIN user 
+ON m_auteur_fk = u_id 
+WHERE TIMESTAMPDIFF(YEAR, u_date_naissance, CURDATE()) BETWEEN 18 AND 30 
+ORDER BY m_date DESC
 LIMIT 10
 
 -- 7. Afficher la conversation c_id=X avec msg + date msg + prenom + nom   
 
-SELECT m.m_contenu , m.m_date, u.u_prenom, u.u_nom, c.c_id
-FROM message m
-JOIN user u
-ON m.m_auteur_fk = u.u_id 
-JOIN conversation c
-ON c.c_id = 1;
+SELECT m_contenu , m_date, u_prenom, u_nom, c_id
+FROM message 
+JOIN user 
+ON m_auteur_fk = u_id 
+JOIN conversation 
+ON c_id = 1;
 
 -- 8. Afficher les n° de conversations auxquelles a participé l'utilisateur u_id=X entre le DATE et le DATE  
 
-SELECT u.u_id ,m.m_conversation_fk
-FROM message m
-JOIN user u
-ON m.m_auteur_fk = u.u_id 
-WHERE u.u_id=10 AND m.m_date BETWEEN '2001-01-01' AND '2014-01-01'
-GROUP BY m.m_conversation_fk
+SELECT u_id ,m_conversation_fk
+FROM message 
+JOIN user 
+ON m_auteur_fk = u_id 
+WHERE u_id=10 AND m_date BETWEEN '2001-01-01' AND '2014-01-01'
+GROUP BY m_conversation_fk
 
 -- 9. Afficher tous les contacts qui ont pris part aux meme conversation que l'utilisateur u_id=X  
 --ETAPE1
