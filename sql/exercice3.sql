@@ -83,13 +83,14 @@ SELECT 	ABS(ROUND((
 
 SELECT  service.nom, 
     COUNT(SELECT employe.idEmploye FROM employe WHERE employe.salaire < (
-    SELECT AVG(employe.salaire) FROM employe
-)) nb
+    SELECT AVG(employe.salaire) FROM employe)) nb
 FROM service
 JOIN employe
-ON employe.idService = service.idService
+USING (idService)
 GROUP BY service.nom
 ORDER BY  service.nom
+
+
 
 --   10. Pour chaque service y compris celui n'ayant pas d'employé, sélectionnez le nombre d'employés. Alias nb. Tri par nom de service ascendant.
 
