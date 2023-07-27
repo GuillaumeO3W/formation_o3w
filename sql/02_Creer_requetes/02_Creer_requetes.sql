@@ -79,20 +79,7 @@ WHERE u_id=10
 GROUP BY m_conversation_fk
 
 -- 9. Afficher tous les contacts qui ont pris part aux meme conversation que l'utilisateur u_id=X  
---ETAPE1
-SELECT m_auteur_fk, u_login
-FROM message 
-JOIN user ON m_auteur_fk = u_id
-WHERE m_conversation_fk = 1
-GROUP BY m_auteur_fk 
 
---ETAPE2
-SELECT m_conversation_fk 
-FROM message
-JOIN user ON m_auteur_fk = u_id
-WHERE u_id=1
-
---ETAPE3
 SELECT m_auteur_fk, u_login
 FROM message 
 JOIN user ON m_auteur_fk = u_id
@@ -120,23 +107,19 @@ ORDER BY m_auteur_fk
 
 SELECT *
 FROM message
-JOIN conversation
-ON m_conversation_fk = c_id
+JOIN conversation ON m_conversation_fk = c_id
 WHERE m_date < c_date
 
 -- 12. Afficher la liste des users qui n'ont jamais pris part à une conversation non terminée 
 
 SELECT u_prenom, u_nom
 FROM user
-JOIN message
-ON u_id = m_auteur_fk
-JOIN conversation
-ON m_conversation_fk = c_id
+JOIN message ON u_id = m_auteur_fk
+JOIN conversation ON m_conversation_fk = c_id
 WHERE m_conversation_fk  NOT IN (
     SELECT m_conversation_fk 
     FROM message
-    JOIN conversation
-	ON m_conversation_fk = c_id
+    JOIN conversation ON m_conversation_fk = c_id
     WHERE c_termine = 0
     )
 GROUP BY m_auteur_fk
@@ -144,25 +127,21 @@ GROUP BY m_auteur_fk
 -- 13. Afficher les messages écrits par des admins inscrits en 2010 dans une conversation non terminée 
 
 SELECT *
-FROM user
-JOIN message
-ON u_id = m_auteur_fk
-JOIN conversation
-ON m_conversation_fk = c_id
-JOIN rang
-ON r_id = u_rang_fk
-HAVING r_libelle = 'admin' AND c_termine = 0 AND YEAR(u_date_inscription) = 2010
+FROM rang 
+JOIN user ON r_id = u_rang_fk
+JOIN message ON u_id = m_auteur_fk
+JOIN conversation ON m_conversation_fk = c_id
+HAVING r_libelle = 'admin' 
+    AND c_termine = 0 
+    AND YEAR(u_date_inscription) = 2010
 
 -- 14. 5 messages au hasard d'utilisateurs de rang 'none' de moins de 18 ans qui ont écrit un message comportant 3 fois la lettre 'o'  
 
 SELECT *
-FROM user
-JOIN message
-ON u_id = m_auteur_fk
-JOIN conversation
-ON m_conversation_fk = c_id
-JOIN rang
-ON r_id = u_rang_fk
+FROM rang 
+JOIN user ON r_id = u_rang_fk
+JOIN message ON u_id = m_auteur_fk
+JOIN conversation ON m_conversation_fk = c_id
 HAVING 
 	r_libelle = 'none' 
     AND TIMESTAMPDIFF(YEAR, u_date_naissance, CURDATE()) < 18 
