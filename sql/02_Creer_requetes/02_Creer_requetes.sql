@@ -112,7 +112,7 @@ WHERE m_date < c_date
 
 -- 12. Afficher la liste des users qui n'ont jamais pris part à une conversation non terminée 
 
-SELECT u_prenom, u_nom
+SELECT u_prenom, u_nom, u_id
 FROM user
 JOIN message ON u_id = m_auteur_fk
 JOIN conversation ON m_conversation_fk = c_id
@@ -145,7 +145,7 @@ JOIN conversation ON m_conversation_fk = c_id
 HAVING 
 	r_libelle = 'none' 
     AND TIMESTAMPDIFF(YEAR, u_date_naissance, CURDATE()) < 18 
-    AND m_contenu LIKE '%o%'
+    AND m_contenu LIKE '%o%o%o%'
     --AND u_id = ROUND( RAND() * 100 ) + 1
 LIMIT 5
 
@@ -157,7 +157,7 @@ WHERE m_date > (
     SELECT m_date 
     FROM message 
     WHERE m_auteur_fk = 1
-    ORDER BY m_date DESC
     GROUP BY m_conversation_fk
+    ORDER BY m_date DESC
     LIMIT 1
     )
