@@ -153,22 +153,43 @@ FROM rang
 JOIN user ON r_id = u_rang_fk
 JOIN message ON u_id = m_auteur_fk
 JOIN conversation ON m_conversation_fk = c_id
-HAVING 
+WHERE 
 	r_libelle = 'none' 
     AND TIMESTAMPDIFF(YEAR, u_date_naissance, CURDATE()) < 18 
     AND m_contenu LIKE '%o%o%o%'
+--  AND m_contenu REGEXP '(.*o.*){3}'
 ORDER BY RAND()
 LIMIT 5
 
 -- 15. Afficher les messages écrits après l'écriture du dernier message de l'utilisateur dans les conversations auxquelles il a participé
 
+
+-- fonctionne pas
 SELECT *
 FROM message
 WHERE m_date > (
     SELECT m_date 
     FROM message 
-    WHERE m_auteur_fk = 1
+    WHERE m_auteur_fk = 88
     ORDER BY m_date DESC
     LIMIT 1
+    )AND
+    m_conversation_fk IN (
+        SELECT m_conversation_fk
+        FROM message
+        WHERE m_auteur_fk = 88
     )
 GROUP BY m_conversation_fk
+
+
+
+-- Bonne solution
+
+SELECT *
+FROM message AS m 
+WHERE m.m_date > (
+    SELECT MAX(message.m_date)
+    FROM message
+    WHERE message.m_auteur_fk = 88 AND message.m_conversation_fk = m.m_conversation_fk
+)
+ORDER BY m.m_conversation_fk, m.m_date DESC
