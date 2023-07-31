@@ -1,22 +1,25 @@
 <?php
+session_start();
+
         if(!empty($_POST)){
             extract($_POST);
             try{
                 
-                $dsn = 'mysql:host=127.0.0.1;dbname=popo;charset=utf8';
+                $dsn = 'mysql:host=127.0.0.1;dbname=administration;charset=utf8';
                 $dbuser = 'root';
                 $dbpwd = '';
                 $pdo = new PDO($dsn, $dbuser, $dbpwd, [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
                 
-                if(($req = $pdo->prepare("SELECT u_nom, u_prenom FROM user WHERE u_login=:email")) !== false){
+                if(($req = $pdo->prepare("SELECT use_login FROM user WHERE use_login=:login AND use_mdp=:pwd")) !== false){
                     
-                    if($req->bindValue('email', $email)){
+                    if($req->bindValue('login', $use_login) AND $req->bindValue('pwd', $use_mdp)){
                         if($req->execute()){
                             $res = $req->fetch(PDO::FETCH_ASSOC);
-                            
-                            echo 'Bonjour ' . $res['u_nom'] . ' ' . $res['u_prenom'];
+                            $_SESSION['espaceadmin']['login']=$res['use_login'];
+                            header ('location: dashboard.php');
+                            exit;
                         }else{
-                            echo 'Un problème est survenu dans l\'exécution de la requêt!';
+                            echo 'Un problème est survenu dans l\'exécution de la requête!';
                         }
                         
                     }else{

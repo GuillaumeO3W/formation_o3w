@@ -6,7 +6,7 @@
     <title>Espace Admin</title>
 </head>
 <body>
-    <form action="traitement.php" method="POST">
+    <form action="admin/traitement.php" method="POST">
         <input type="text" name="use_login" placeholder="login">
         <input type="password" name="use_mdp" placeholder="password">
         <input type="submit" value="Login">
