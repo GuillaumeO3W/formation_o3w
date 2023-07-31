@@ -1,4 +1,5 @@
 <?php
 session_start();
-echo 'Bonjour ' . $_SESSION['espaceadmin']['login'];
 ?>
+<h1>Dashboard</h1>
+<p>Bonjour <span style="font-weight: bold; color: red;"><?=  $_SESSION['espaceadmin']['login']; ?></span></p>
