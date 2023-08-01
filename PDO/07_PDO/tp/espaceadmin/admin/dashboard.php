@@ -1,6 +1,7 @@
 <?php
 session_start();
 $title = 'Dashboard';
+$page = 'dashboard';
 require '../inc/head.php';
 ?>
 <h1><?= $title ?></h1>

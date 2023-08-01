@@ -1,6 +1,7 @@
 <?php
 session_start();
 $title = 'Ajout utilisateur';
+$page = 'addUser';
 require '../inc/head.php';
 ?>
 <h1><?= $title ?></h1>
