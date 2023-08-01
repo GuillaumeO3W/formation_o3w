@@ -6,13 +6,10 @@ function isNotConnected(){
     }
 }
 
-function error(){
-    if(isset($_GET['error'])){
-        $error="erreur de connexion";
-    }else{
-        $error="";
-    }
-    return $error;
-}
+// function error($error){
+//     $_SESSION['espaceAdmin']['error'] = $error;
+//     header('Location: ../login.php');
+//     exit;
+// }
 
 ?>

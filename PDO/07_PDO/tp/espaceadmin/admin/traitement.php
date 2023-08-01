@@ -18,10 +18,12 @@ if(isset($_POST['use_login']) && isset($_POST['use_mdp'])){
                         $res = $req->fetch(PDO::FETCH_ASSOC);
                         if(!empty($res['use_login'])){  
                             $_SESSION['espaceAdmin']['connected'] = $res['use_login'];
+                            unset ($_SESSION['espaceAdmin']['error']);
                             header ('location: dashboard.php');
                             exit;
                         }else{
-                            header('Location: ../login.php?error');
+                            $_SESSION['espaceAdmin']['error'] = "erreur de connexion, login ou password erroné";
+                            header('Location: ../login.php');
                             exit;
                         }
                     }else{
@@ -39,7 +41,8 @@ if(isset($_POST['use_login']) && isset($_POST['use_mdp'])){
             die($e->getMessage());
         }
     }else{
-        header('Location: ../login.php?error');
+        $_SESSION['espaceAdmin']['error'] = "erreur de connexion, veuillez remplir tout les champs";
+        header('Location: ../login.php');
         exit;
     }
 }

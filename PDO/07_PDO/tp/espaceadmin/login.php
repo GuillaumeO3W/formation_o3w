@@ -1,4 +1,5 @@
 <?php
+session_start();
 require 'lib/functions.php';
 ?>
 <!DOCTYPE html>
@@ -9,7 +10,7 @@ require 'lib/functions.php';
     <title>Espace Admin</title>
 </head>
 <body>
-    <p class="error"><?= error(); ?></p>
+    <p class="error"><?= isset($_SESSION['espaceAdmin']['error']) ? $_SESSION['espaceAdmin']['error'] : ""; ?></p>
     <form action="admin/traitement.php" method="POST">
         <input type="text" name="use_login" placeholder="login">
         <input type="password" name="use_mdp" placeholder="password">
