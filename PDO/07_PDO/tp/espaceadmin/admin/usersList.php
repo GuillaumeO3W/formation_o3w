@@ -29,7 +29,12 @@ try{
     die($e->getMessage());
 }
 
-foreach ($res as $user)
+foreach($res as $user){
+    foreach($user as $key => $value){
+        echo $value." - ";
+    }
+    echo "<br>";
+}
 
 
 ?>
