@@ -6,10 +6,4 @@ function isNotConnected(){
     }
 }
 
-// function error($error){
-//     $_SESSION['espaceAdmin']['error'] = $error;
-//     header('Location: ../login.php');
-//     exit;
-// }
-
 ?>
