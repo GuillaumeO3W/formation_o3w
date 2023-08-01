@@ -15,7 +15,7 @@ session_start();
                     if($req->bindValue('login', $use_login) AND $req->bindValue('pwd', $use_mdp)){
                         if($req->execute()){
                             $res = $req->fetch(PDO::FETCH_ASSOC);
-                            $_SESSION['espaceadmin']['login']=$res['use_login'];
+                            $_SESSION['espaceAdmin']['login']=$res['use_login'];
                             header ('location: dashboard.php');
                             exit;
                         }else{
