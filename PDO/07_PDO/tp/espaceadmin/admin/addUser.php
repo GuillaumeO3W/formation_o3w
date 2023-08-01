@@ -1,12 +1,10 @@
 <?php
-session_start();
 $title = 'Ajout utilisateur';
 $page = 'addUser';
 require '../inc/head.php';
 ?>
 <h1><?= $title ?></h1>
-<p style="font-weight: bold; color: red;"><?=  $_SESSION['espaceAdmin']['login']; ?></p>
-<a href="destroy.php?session=destroy" class="btn btn-danger">déconnexion</a>
+<p style="font-weight: bold; color: red;"><?=  $_SESSION['espaceAdmin']['connected']; ?></p>
 <?php
 require '../inc/navbar.php';
 ?>

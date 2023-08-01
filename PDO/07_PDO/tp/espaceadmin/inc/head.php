@@ -1,3 +1,9 @@
+<?php
+session_start();
+require '../lib/functions.php';
+isNotConnected();
+
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>

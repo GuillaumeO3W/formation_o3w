@@ -1,36 +1,47 @@
 <?php
 session_start();
 
-        if(!empty($_POST)){
-            extract($_POST);
-            try{
+if(isset($_POST['use_login']) && isset($_POST['use_mdp'])){
+    if(!empty($_POST['use_login']) && !empty($_POST['use_mdp'])){
+        extract($_POST);
+        try{
+            
+            $dsn = 'mysql:host=127.0.0.1;dbname=administration;charset=utf8';
+            $dbuser = 'root';
+            $dbpwd = '';
+            $pdo = new PDO($dsn, $dbuser, $dbpwd, [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
+            
+            if(($req = $pdo->prepare("SELECT use_login FROM user WHERE use_login=:login AND use_mdp=:pwd")) !== false){
                 
-                $dsn = 'mysql:host=127.0.0.1;dbname=administration;charset=utf8';
-                $dbuser = 'root';
-                $dbpwd = '';
-                $pdo = new PDO($dsn, $dbuser, $dbpwd, [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
-                
-                if(($req = $pdo->prepare("SELECT use_login FROM user WHERE use_login=:login AND use_mdp=:pwd")) !== false){
-                    
-                    if($req->bindValue('login', $use_login) AND $req->bindValue('pwd', $use_mdp)){
-                        if($req->execute()){
-                            $res = $req->fetch(PDO::FETCH_ASSOC);
-                            $_SESSION['espaceAdmin']['login']=$res['use_login'];
+                if($req->bindValue('login', $use_login) AND $req->bindValue('pwd', $use_mdp)){
+                    if($req->execute()){
+                        $res = $req->fetch(PDO::FETCH_ASSOC);
+                        if(!empty($res['use_login'])){  
+                            $_SESSION['espaceAdmin']['connected'] = $res['use_login'];
                             header ('location: dashboard.php');
                             exit;
                         }else{
-                            echo 'Un problème est survenu dans l\'exécution de la requête!';
+                            header('Location: ../login.php?error');
+                            exit;
                         }
-                        
                     }else{
-                        echo 'Un problème est survenu dans la préparation des valeurs!';
+                        echo 'Un problème est survenu dans l\'exécution de la requête!';
                     }
-                    $req->closeCursor(); 
-                }else {
-                    echo 'Un problème est survenu dans la préparation de la requête!';
+                    
+                }else{
+                    echo 'Un problème est survenu dans la préparation des valeurs!';
                 }
-            }catch(PDOException $e){
-                die($e->getMessage());
+                $req->closeCursor(); 
+            }else {
+                echo 'Un problème est survenu dans la préparation de la requête!';
             }
+        }catch(PDOException $e){
+            die($e->getMessage());
         }
-    ?>
+    }else{
+        header('Location: ../login.php?error');
+        exit;
+    }
+}
+
+?>

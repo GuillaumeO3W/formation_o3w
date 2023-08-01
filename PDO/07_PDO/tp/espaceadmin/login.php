@@ -1,3 +1,6 @@
+<?php
+require 'lib/functions.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +9,7 @@
     <title>Espace Admin</title>
 </head>
 <body>
+    <p class="error"><?= error(); ?></p>
     <form action="admin/traitement.php" method="POST">
         <input type="text" name="use_login" placeholder="login">
         <input type="password" name="use_mdp" placeholder="password">
