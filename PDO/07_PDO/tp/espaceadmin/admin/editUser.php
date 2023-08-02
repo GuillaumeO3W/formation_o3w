@@ -14,13 +14,13 @@ try{
     $dbpwd = '';
     $pdo = new PDO($dsn, $dbuser, $dbpwd, [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
 
-    if(($req = $pdo->prepare("UPDATE FROM user WHERE use_id = :use_id")) !== false){
+    if(($req = $pdo->prepare("UPDATE user SET use_login = 'edit'  WHERE use_id = :use_id")) !== false){
         
-        // if($req->execute($_GET)){
-        //     echo "l'utilisateur $id à été modifié avec succès";
-        // }else{
-        //     echo 'Un problème est survenu dans l\'exécution de la requête!';
-        // }
+        if($req->execute($_GET)){
+            echo "l'utilisateur $id à été modifié avec succès";
+        }else{
+            echo 'Un problème est survenu dans l\'exécution de la requête!';
+        }
     }else {
         echo 'Un problème est survenu dans la préparation de la requête!';
     }

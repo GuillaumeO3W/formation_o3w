@@ -8,7 +8,13 @@ require '../inc/navbar.php';
 <form action="" method="POST">
     <input type="text" name="use_login" placeholder="login">
     <input type="password" name="use_mdp" placeholder="password">
-    <input type="text" name="use_role" placeholder="role">
+    <select name="use_role">
+        <option>--Sélectionnez le statut--</option>
+        <option value="1">Super administrateur</option>
+        <option value="2">Administrateur</option>
+        <option value="3">Invité</option>
+        <option value="4">Editeur</option>
+    </select>
     <input type="submit" value="Ajouter utilisateur">
 </form>
 
