@@ -1,15 +1,12 @@
 <?php
 $title = 'Suppression utilisateur';
 require '../inc/head.php';
-?>
-<h1><?= $title ?></h1>
-<?php
 require '../inc/navbar.php';
 ?>
+<h1><?= $title ?></h1>
 
 <?php
 $id =  ($_GET['use_id']);
-
 
 try{
     $dsn = 'mysql:host=127.0.0.1;dbname=administration;charset=utf8';
@@ -24,7 +21,6 @@ try{
         }else{
             echo 'Un problème est survenu dans l\'exécution de la requête!';
         }
-        
     }else {
         echo 'Un problème est survenu dans la préparation de la requête!';
     }
@@ -32,8 +28,5 @@ try{
     echo 'Connexion échouée : ' . $e->getMessage();
 }
 
-
-
-
-
+require '../inc/foot.php';
 ?>

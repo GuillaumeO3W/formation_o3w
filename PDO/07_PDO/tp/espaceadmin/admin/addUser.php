@@ -2,11 +2,9 @@
 $title = 'Ajout utilisateur';
 $page = 'addUser';
 require '../inc/head.php';
-?>
-<h1><?= $title ?></h1>
-<?php
 require '../inc/navbar.php';
 ?>
+<h1><?= $title ?></h1>
 <form action="" method="POST">
     <input type="text" name="use_login" placeholder="login">
     <input type="password" name="use_mdp" placeholder="password">

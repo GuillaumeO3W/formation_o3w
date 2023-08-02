@@ -2,10 +2,10 @@
 $title = 'Liste utilisateurs';
 $page = 'usersList';
 require '../inc/head.php';
+require '../inc/navbar.php';
 ?>
 <h1><?= $title ?></h1>
 <?php
-require '../inc/navbar.php';
 
 try{       
     $dsn = 'mysql:host=127.0.0.1;dbname=administration;charset=utf8';
@@ -45,14 +45,6 @@ try{
     endforeach;
     ?>
 </table>
-
-
-<pre>
-    <?php 
-    // print_r($res);
-    ?>
-</pre>
-            
 
 <?php 
 require '../inc/foot.php';
