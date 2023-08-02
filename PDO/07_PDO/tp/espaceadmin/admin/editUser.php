@@ -14,7 +14,7 @@ try{
     $dbpwd = '';
     $pdo = new PDO($dsn, $dbuser, $dbpwd, [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
 
-    if(($req = $pdo->prepare("UPDATE user SET use_login = 'edit'  WHERE use_id = :use_id")) !== false){
+    if(($req = $pdo->prepare("UPDATE user SET use_login = 'editeur'  WHERE use_id = :use_id")) !== false){
         
         if($req->execute($_GET)){
             echo "l'utilisateur $id à été modifié avec succès";
