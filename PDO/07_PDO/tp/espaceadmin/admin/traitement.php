@@ -11,7 +11,7 @@ if(isset($_POST['use_login']) && isset($_POST['use_mdp'])){
             $dbpwd = '';
             $pdo = new PDO($dsn, $dbuser, $dbpwd, [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
             
-            if(($req = $pdo->prepare("SELECT use_login FROM user WHERE use_login=:login AND use_mdp=:pwd")) !== false){
+            if(($req = $pdo->prepare("SELECT use_login FROM user WHERE use_login = :login AND use_mdp = :pwd")) !== false){
                 
                 if($req->bindValue('login', $use_login) AND $req->bindValue('pwd', $use_mdp)){
                     if($req->execute()){
