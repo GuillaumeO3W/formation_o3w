@@ -11,7 +11,7 @@ require 'lib/functions.php';
 </head>
 <body>
     <p class="error"><?= isset($_SESSION['espaceAdmin']['error']) ? $_SESSION['espaceAdmin']['error'] : ""; ?></p>
-    <form action="admin/traitement.php" method="POST">
+    <form action="admin/connexion.php" method="POST">
         <input type="text" name="use_login" placeholder="login">
         <input type="password" name="use_mdp" placeholder="password">
         <input type="submit" value="Login">

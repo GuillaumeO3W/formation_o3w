@@ -13,7 +13,7 @@ try{
     $dbuser = 'root';
     $dbpwd = '';
     $pdo = new PDO($dsn, $dbuser, $dbpwd, [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
-    if(($req = $pdo->prepare("SELECT use_login, rol_libelle FROM user JOIN role ON use_role = rol_id")) !== false){
+    if(($req = $pdo->prepare("SELECT use_id, use_login, rol_libelle FROM user JOIN role ON use_role = rol_id")) !== false){
             if($req->execute()){
                 $res = $req->fetchALL(PDO::FETCH_ASSOC);
             }else{
@@ -39,6 +39,8 @@ try{
         <tr>
             <td><?= $user['use_login'] ?></td>
             <td><?= $user['rol_libelle'] ?></td>
+            <td><a href="editUser.php?id=<?=$user['use_id']?>">modifier</a></td>
+            <td><a href="deleteUser.php?id=<?=$user['use_id']?>">supprimer</a></td>
         </tr>
     <?php    
     endforeach;
