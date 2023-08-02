@@ -1,17 +1,19 @@
 <?php
+session_start();
 $title = 'Liste utilisateurs';
 $page = 'usersList';
-require '../inc/head.php';
-require '../inc/navbar.php';
+require 'config/ini.php';
+require 'inc/head.php';
+require 'inc/navbar.php';
 ?>
 <h1><?= $title ?></h1>
 <?php
 
 try{       
-    $dsn = 'mysql:host=127.0.0.1;dbname=administration;charset=utf8';
-    $dbuser = 'root';
-    $dbpwd = '';
-    $pdo = new PDO($dsn, $dbuser, $dbpwd, [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
+
+    $dsn = DB_ENGINE.':host='.DB_HOST.';dbname='.DB_NAME.';charset='.DB_CHARSET;
+    $pdo = new PDO($dsn, DB_USER, DB_PWD, [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
+
     if(($req = $pdo->prepare("SELECT use_id, use_login, rol_libelle FROM user JOIN role ON use_role = rol_id")) !== false){
             if($req->execute()){
                 $res = $req->fetchALL(PDO::FETCH_ASSOC);
@@ -47,5 +49,5 @@ try{
 </table>
 
 <?php 
-require '../inc/foot.php';
+require 'inc/foot.php';
 ?>

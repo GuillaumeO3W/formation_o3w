@@ -1,8 +1,10 @@
 <?php
+session_start();
 $title = 'Ajout utilisateur';
 $page = 'addUser';
-require '../inc/head.php';
-require '../inc/navbar.php';
+require 'config/ini.php';
+require 'inc/head.php';
+require 'inc/navbar.php';
 ?>
 <h1><?= $title ?></h1>
 <form action="" method="POST">
@@ -23,10 +25,10 @@ if(isset($_POST['use_login']) && isset($_POST['use_mdp']) && isset($_POST['use_r
     if(!empty($_POST['use_login']) && !empty($_POST['use_mdp']) && !empty($_POST['use_role'])){
         extract($_POST);
         try{
-            $dsn = 'mysql:host=127.0.0.1;dbname=administration;charset=utf8';
-            $dbuser = 'root';
-            $dbpwd = '';
-            $pdo = new PDO($dsn, $dbuser, $dbpwd, [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
+
+            $dsn = DB_ENGINE.':host='.DB_HOST.';dbname='.DB_NAME.';charset='.DB_CHARSET;
+            $pdo = new PDO($dsn, DB_USER, DB_PWD, [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
+
             if(($req = $pdo->prepare("INSERT INTO user (use_id, use_login, use_mdp, use_role) 
                                     VALUES(DEFAULT, :use_login, :use_mdp, :use_role)")) !== false){
                 
@@ -51,5 +53,5 @@ if(isset($_POST['use_login']) && isset($_POST['use_mdp']) && isset($_POST['use_r
 ?>
 
 <?php
-require '../inc/foot.php';
+require 'inc/foot.php';
 ?>

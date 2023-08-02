@@ -1,31 +1,35 @@
 <?php
 session_start();
+require 'config/ini.php';
 
 if(isset($_POST['use_login']) && isset($_POST['use_mdp'])){
     if(!empty($_POST['use_login']) && !empty($_POST['use_mdp'])){
         extract($_POST);
+        
+        // $dsn = 'mysql:host=127.0.0.1;dbname=administration;charset=utf8';
+        // $dbuser = 'root';
+        // $dbpwd = '';
+        $dsn = DB_ENGINE.':host='.DB_HOST.';dbname='.DB_NAME.';charset='.DB_CHARSET;
+        
         try{
             
-            $dsn = 'mysql:host=127.0.0.1;dbname=administration;charset=utf8';
-            $dbuser = 'root';
-            $dbpwd = '';
-            $pdo = new PDO($dsn, $dbuser, $dbpwd, [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
+            $pdo = new PDO($dsn, DB_USER, DB_PWD, [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
             
-            if(($req = $pdo->prepare("SELECT use_login FROM user WHERE use_login = :login AND use_mdp = :pwd")) !== false){
+            if(($req = $pdo->prepare('SELECT * FROM user WHERE use_login =:login AND use_mdp =:pwd')) !== false){
                 
                 if($req->bindValue('login', $use_login) AND $req->bindValue('pwd', $use_mdp)){
                     if($req->execute()){
-                        $res = $req->fetch(PDO::FETCH_ASSOC);
-                        if(!empty($res['use_login'])){  
-                            $_SESSION['espaceAdmin']['connected'] = $res['use_login'];
-                            unset ($_SESSION['espaceAdmin']['error']);
-                            header ('location: dashboard.php');
-                            exit;
+                        
+                        if(($res = $req->fetch(PDO::FETCH_ASSOC)) != false){
+                            $_SESSION[APP_TAG]['connected'] = $res;
+                            $req->closeCursor();
+
                         }else{
-                            $_SESSION['espaceAdmin']['error'] = "erreur de connexion, login ou password erroné";
-                            header('Location: ../login.php');
+                            $req->closeCursor(); 
+                            header('Location: ../login.php?_err=connect');
                             exit;
                         }
+                        
                     }else{
                         echo 'Un problème est survenu dans l\'exécution de la requête!';
                     }
@@ -40,11 +44,7 @@ if(isset($_POST['use_login']) && isset($_POST['use_mdp'])){
         }catch(PDOException $e){
             die($e->getMessage());
         }
-    }else{
-        $_SESSION['espaceAdmin']['error'] = "erreur de connexion, veuillez remplir tout les champs";
-        header('Location: ../login.php');
-        exit;
     }
 }
-
+header ('location: dashboard.php');
 ?>

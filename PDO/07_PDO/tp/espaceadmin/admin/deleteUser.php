@@ -1,7 +1,9 @@
 <?php
+session_start();
 $title = 'Suppression utilisateur';
-require '../inc/head.php';
-require '../inc/navbar.php';
+require 'config/ini.php';
+require 'inc/head.php';
+require 'inc/navbar.php';
 ?>
 <h1><?= $title ?></h1>
 
@@ -9,10 +11,8 @@ require '../inc/navbar.php';
 $id =  ($_GET['use_id']);
 
 try{
-    $dsn = 'mysql:host=127.0.0.1;dbname=administration;charset=utf8';
-    $dbuser = 'root';
-    $dbpwd = '';
-    $pdo = new PDO($dsn, $dbuser, $dbpwd, [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
+    $dsn = DB_ENGINE.':host='.DB_HOST.';dbname='.DB_NAME.';charset='.DB_CHARSET;
+    $pdo = new PDO($dsn, DB_USER, DB_PWD, [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
 
     if(($req = $pdo->prepare("DELETE FROM user WHERE use_id = :use_id")) !== false){
         
@@ -28,5 +28,5 @@ try{
     echo 'Connexion échouée : ' . $e->getMessage();
 }
 
-require '../inc/foot.php';
+require 'inc/foot.php';
 ?>

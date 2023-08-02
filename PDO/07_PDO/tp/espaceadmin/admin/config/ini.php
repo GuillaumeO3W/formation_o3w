@@ -1,4 +1,6 @@
 <?php
+# APP
+define('APP_TAG', 'adminO3W');
 
 # DB
 define('DB_ENGINE', 'mysql');
