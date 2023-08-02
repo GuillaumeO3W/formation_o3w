@@ -4,7 +4,6 @@ $page = 'addUser';
 require '../inc/head.php';
 ?>
 <h1><?= $title ?></h1>
-<p style="font-weight: bold; color: red;"><?=  $_SESSION['espaceAdmin']['connected']; ?></p>
 <?php
 require '../inc/navbar.php';
 ?>
@@ -40,7 +39,10 @@ if(isset($_POST['use_login']) && isset($_POST['use_mdp']) && isset($_POST['use_r
             echo 'Connexion échouée : ' . $e->getMessage();
         }
     }
-}    
+    else {
+        echo "Merci de renseigner tout les champs";
+    } 
+}  
 
 
 

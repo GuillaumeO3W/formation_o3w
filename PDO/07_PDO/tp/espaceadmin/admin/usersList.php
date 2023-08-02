@@ -4,7 +4,6 @@ $page = 'usersList';
 require '../inc/head.php';
 ?>
 <h1><?= $title ?></h1>
-<p style="font-weight: bold; color: red;"><?=  $_SESSION['espaceAdmin']['connected']; ?></p>
 <?php
 require '../inc/navbar.php';
 
