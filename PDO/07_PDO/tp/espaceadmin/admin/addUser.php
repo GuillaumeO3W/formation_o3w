@@ -44,12 +44,7 @@ if(isset($_POST['use_login']) && isset($_POST['use_mdp']) && isset($_POST['use_r
     } 
 }  
 
-
-
 ?>
-
-
-
 
 <?php
 require '../inc/foot.php';

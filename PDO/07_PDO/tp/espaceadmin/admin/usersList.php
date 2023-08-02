@@ -38,8 +38,8 @@ try{
         <tr>
             <td><?= $user['use_login'] ?></td>
             <td><?= $user['rol_libelle'] ?></td>
-            <td><a href="editUser.php?id=<?=$user['use_id']?>">modifier</a></td>
-            <td><a href="deleteUser.php?id=<?=$user['use_id']?>">supprimer</a></td>
+            <td><a href="editUser.php?use_id=<?=$user['use_id']?>">modifier</a></td>
+            <td><a href="deleteUser.php?use_id=<?=$user['use_id']?>">supprimer</a></td>
         </tr>
     <?php    
     endforeach;
