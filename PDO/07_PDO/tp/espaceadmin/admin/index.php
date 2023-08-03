@@ -14,6 +14,7 @@ if(empty($_POST['login']) || empty($_POST['pwd'])){
     header('Location: ../login.php?_err=empty&field='. $fields);
     exit;
 }
+
 extract($_POST);
 
         // $dsn = 'mysql:host=127.0.0.1;dbname=administration;charset=utf8';

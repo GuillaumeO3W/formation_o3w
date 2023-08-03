@@ -3,6 +3,7 @@ session_start();
 $title = 'Ajout utilisateur';
 $page = 'addUser';
 require 'config/ini.php';
+require 'lib/utils/functions.php';
 require 'inc/head.php';
 require 'inc/navbar.php';
 ?>

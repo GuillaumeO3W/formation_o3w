@@ -19,6 +19,5 @@
     <!-- #### FIN DEBUG #### -->
 </div>
 <?php 
-
     require 'inc/foot.php';
 ?>

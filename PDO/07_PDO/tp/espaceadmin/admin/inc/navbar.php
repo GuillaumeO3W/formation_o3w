@@ -1,24 +1,11 @@
 <?php 
-  // require '../lib/utils/functions.php';
-  // isNotConnected();
-  // if(isNotConnected()){
-  //   header('Location: ../login.php');
-  //   exit;
-  // }
+isNotConnected();
 
 if(isset($_GET['logout'])){
     unset($_SESSION[APP_TAG]['connected']);
     header('Location: ../login.php');
     exit;
 }
-
-  //  if(isset($_GET['logout']) || !isset($_SESSION['cem']['connected']) ){
-  //     if(isset($_GET['logout'])){
-  //       unset($_SESSION['cem']['connected']);
-  //     }
-  //     header('Location: ../login.php');
-  //     exit;
-  //  }
 
 ?>
 

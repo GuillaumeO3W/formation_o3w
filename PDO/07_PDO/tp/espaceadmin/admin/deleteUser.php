@@ -2,6 +2,7 @@
 session_start();
 $title = 'Suppression utilisateur';
 require 'config/ini.php';
+require 'lib/utils/functions.php';
 require 'inc/head.php';
 require 'inc/navbar.php';
 ?>

@@ -3,6 +3,7 @@ session_start();
 $title = 'Liste utilisateurs';
 $page = 'usersList';
 require 'config/ini.php';
+require 'lib/utils/functions.php';
 require 'inc/head.php';
 require 'inc/navbar.php';
 ?>
