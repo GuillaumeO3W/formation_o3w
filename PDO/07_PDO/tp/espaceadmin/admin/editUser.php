@@ -10,7 +10,6 @@ require 'inc/navbar.php';
 
 <?php
 try{       
-
     $dsn = DB_ENGINE.':host='.DB_HOST.';dbname='.DB_NAME.';charset='.DB_CHARSET;
     $pdo = new PDO($dsn, DB_USER, DB_PWD, [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
 
@@ -67,7 +66,7 @@ if(isset($_POST) && !empty($_POST)){
             if($req->bindValue('login', $_POST['use_login']) AND $req->bindValue('role', $_POST['use_role']) AND $req->bindValue('id', $_POST['use_id'])){      
                 
                 if($req->execute()){
-                    echo "l'utilisateur à été modifié avec succès";
+                    echo "l'utilisateur ". $_POST['use_login'] ." à été modifié avec succès";
                 }else{
                     echo 'Un problème est survenu dans l\'exécution de la requête!';
                 }
