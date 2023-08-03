@@ -45,6 +45,7 @@ try{
             <td><a href="deleteUser.php?use_id=<?=$user['use_id']?>">supprimer</a></td>
         </tr>
     <?php    
+    
     endforeach;
     ?>
 </table>

@@ -79,7 +79,7 @@
                     // $req->bindValue('prenom', $prenom);
                     if($req->bindValue('email', $email)){
 
-                         /**
+                        /**
                          * 
                          * Étape 3 : l'exécution de la requête sur le serveur de base de données avec l'instruction EXECUTE
                          * 
