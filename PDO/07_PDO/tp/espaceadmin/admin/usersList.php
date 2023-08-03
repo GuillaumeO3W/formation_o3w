@@ -8,6 +8,11 @@ require 'inc/head.php';
 require 'inc/navbar.php';
 ?>
 <h1><?= $title ?></h1>
+<pre>
+    <?php 
+        // var_dump($_SESSION[APP_TAG]['connected'] ); 
+    ?>
+</pre>
 <?php
 
 try{       
@@ -41,11 +46,19 @@ try{
         <tr>
             <td><?= $user['use_login'] ?></td>
             <td><?= $user['rol_libelle'] ?></td>
-            <td><a href="editUser.php?use_id=<?=$user['use_id']?>">modifier</a></td>
-            <td><a href="deleteUser.php?use_id=<?=$user['use_id']?>">supprimer</a></td>
+            <?php 
+                if($_SESSION[APP_TAG]['connected']['rol_pouvoir'] <50): ?>
+                    <td><a href="editUser.php?use_id=<?=$user['use_id']?>">modifier</a></td>
+            <?php endif;
+            
+        
+                if($_SESSION[APP_TAG]['connected']['rol_pouvoir'] <10): ?>
+                    <td><a href="deleteUser.php?use_id=<?=$user['use_id']?>">supprimer</a></td>
+            <?php endif; ?>
         </tr>
     <?php    
     endforeach;
+
     ?>
 </table>
 

@@ -26,7 +26,7 @@ extract($_POST);
             
             $pdo = new PDO($dsn, DB_USER, DB_PWD, [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
             
-            if(($req = $pdo->prepare('SELECT * FROM user WHERE use_login = :login AND use_mdp = :pwd')) !== false){
+            if(($req = $pdo->prepare('SELECT * FROM user JOIN role ON use_role = rol_id WHERE use_login = :login AND use_mdp = :pwd')) !== false){
                 
                 if($req->bindValue('login', $login) AND $req->bindValue('pwd', $pwd)){
                     if($req->execute()){

@@ -41,7 +41,7 @@ else{
 ?>
 <pre>
     <?php 
-        var_dump($res); 
+        // var_dump($res); 
     ?>
 </pre>
 
@@ -60,7 +60,7 @@ else{
 
 <pre>
     <?php 
-    var_dump($_POST);
+    // var_dump($_POST);
     ?>
 </pre>
 
