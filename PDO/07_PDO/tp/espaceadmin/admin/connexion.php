@@ -2,10 +2,20 @@
 session_start();
 require 'config/ini.php';
 
-if(isset($_POST['use_login']) && isset($_POST['use_mdp'])){
-    if(!empty($_POST['use_login']) && !empty($_POST['use_mdp'])){
-        extract($_POST);
-        
+# VERIF | Verifie si les champs sont vides et lesquels pour afficher le bon message 
+if(empty($_POST['login']) || empty($_POST['pwd'])){
+    $fields = 'all';
+    if(!empty($_POST['login'])){
+        $fields = 'pwd';
+    }
+    if(!empty($_POST['pwd'])){
+        $fields = 'login';
+    }
+    header('Location: ../login.php?_err=empty&field='. $fields);
+    exit;
+}
+extract($_POST);
+
         // $dsn = 'mysql:host=127.0.0.1;dbname=administration;charset=utf8';
         // $dbuser = 'root';
         // $dbpwd = '';
@@ -15,9 +25,9 @@ if(isset($_POST['use_login']) && isset($_POST['use_mdp'])){
             
             $pdo = new PDO($dsn, DB_USER, DB_PWD, [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
             
-            if(($req = $pdo->prepare('SELECT * FROM user WHERE use_login =:login AND use_mdp =:pwd')) !== false){
+            if(($req = $pdo->prepare('SELECT * FROM user WHERE use_login = :login AND use_mdp = :pwd')) !== false){
                 
-                if($req->bindValue('login', $use_login) AND $req->bindValue('pwd', $use_mdp)){
+                if($req->bindValue('login', $login) AND $req->bindValue('pwd', $pwd)){
                     if($req->execute()){
                         
                         if(($res = $req->fetch(PDO::FETCH_ASSOC)) != false){
@@ -44,7 +54,7 @@ if(isset($_POST['use_login']) && isset($_POST['use_mdp'])){
         }catch(PDOException $e){
             die($e->getMessage());
         }
-    }
-}
+    
+
 header ('location: dashboard.php');
 ?>

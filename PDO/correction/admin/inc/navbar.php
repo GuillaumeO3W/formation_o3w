@@ -1,13 +1,11 @@
 <?php 
-  // require '../lib/utils/functions.php';
-  // isNotConnected();
-  // if(isNotConnected()){
-  //   header('Location: ../login.php');
-  //   exit;
-  // }
 
+  # VERIF | Si pas de $_POST on redirige vers login.php (au cas ou un petit malin taperait directement l'url pour essayer d'acceder a la partie admin)
+  isNotConnected();
+  
+  # DECONNEXION
   if(isset($_GET['logout'])){
-      unset($_SESSION['cem']['connected']);
+      unset($_SESSION[APP_TAG]['connected']);
       header('Location: ../login.php');
       exit;
   }

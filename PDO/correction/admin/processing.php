@@ -1,6 +1,26 @@
 <?php 
     session_start();
     require 'config/ini.php';
+    // require 'lib/utils/functions.php';
+
+
+
+    # VERIF | Si pas de $_POST on redirige vers login.php (au cas ou un petit malin taperait directement l'url pour essayer d'acceder a la partie admin)
+    // isNotConnected();
+
+    # VERIF | Verifie si les champs sont vides et lesquels pour afficher le bon message 
+    if(empty($_POST['login']) || empty($_POST['pwd'])){
+        $fields = 'all';
+        if(!empty($_POST['login'])){
+            $fields = 'pwd';
+        }
+        if(!empty($_POST['pwd'])){
+            $fields = 'login';
+        }
+        header('Location: ../login.php?_err=empty&field='. $fields);
+        exit;
+    }
+
 
     # On définir le DSN (DATA SOURCE NAME)
     // $dsn = 'mysql:host=localhost;dbname=adminisatration;chartset=utf8mb4';

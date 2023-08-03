@@ -3,6 +3,7 @@
     $title = 'Dashboard';
     $currentPage = 'dashboard';
     require 'config/ini.php';
+    require 'lib/utils/functions.php';
     require 'inc/head.php';
     require 'inc/navbar.php';
 ?>

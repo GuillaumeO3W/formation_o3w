@@ -12,20 +12,55 @@
 <body class="bg-body-secondary">
 
     <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-        <div class="w-25">
-            <div class="card p-4 ">
-                <h1 class="p-2" >Connexion</h1>
-                <form action="admin/processing.php" method="post">
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Login</label>
-                        <input type="text" name="login" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">Mot de passe</label>
-                        <input type="password" name="pwd" class="form-control" id="exampleInputPassword1">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Se connecter</button>
-                </form>
+        <div class="w-50">
+            <?php
+            # AFFICHAGE | affiche le message d'erreur 
+            if(isset($_GET['_err'])){
+                switch($_GET['_err']){
+                    # message pour acces refusé (au cas ou un petit malin taperait directement l'url pour essayer d'acceder a la partie admin) 
+                    case '403': 
+                        echo '<div class="alert alert-danger" role="alert">Vous devez vous connecter !</div>';
+                        break;
+                    # message pour les champs vides
+                    case 'empty':
+                        if(isset($_GET['field'])){
+                            switch($_GET['field']){
+                                case 'login':
+                                    echo '<div class="alert alert-danger" role="alert">Vous devez saisir un identifiant !</div>';
+                                    break;
+                                case 'pwd':
+                                    echo '<div class="alert alert-danger" role="alert">Vous devez saisir un mot de passe !</div>';
+                                    break;
+                                default:
+                                    echo '<div class="alert alert-danger" role="alert">Vous devez remplir tous les champs !</div>';
+                                    break;
+                            }
+                        }
+                        break;
+                    # message si on ne trouve pas l'utilisateur en BDD
+                    case 'connect':
+                        echo '<div class="alert alert-danger" role="alert">Mauvais identifiant ou mot de passe !</div>';
+                        break;
+                }
+            }
+
+            ?>
+
+            <div class="">
+                <div class="card p-4 ">
+                    <h1 class="p-2" >Connexion</h1>
+                    <form action="admin/processing.php" method="post">
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Login</label>
+                            <input type="text" name="login" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Mot de passe</label>
+                            <input type="password" name="pwd" class="form-control" id="exampleInputPassword1">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Se connecter</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
