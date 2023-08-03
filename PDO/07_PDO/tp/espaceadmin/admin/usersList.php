@@ -15,7 +15,7 @@ try{
     $dsn = DB_ENGINE.':host='.DB_HOST.';dbname='.DB_NAME.';charset='.DB_CHARSET;
     $pdo = new PDO($dsn, DB_USER, DB_PWD, [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
 
-    if(($req = $pdo->prepare("SELECT use_id, use_login, rol_libelle FROM user JOIN role ON use_role = rol_id")) !== false){
+    if(($req = $pdo->query("SELECT use_id, use_login, rol_libelle FROM user JOIN role ON use_role = rol_id")) !== false){
             if($req->execute()){
                 $res = $req->fetchALL(PDO::FETCH_ASSOC);
             }else{
@@ -45,7 +45,7 @@ try{
             <td><a href="deleteUser.php?use_id=<?=$user['use_id']?>">supprimer</a></td>
         </tr>
     <?php    
-    
+
     endforeach;
     ?>
 </table>
