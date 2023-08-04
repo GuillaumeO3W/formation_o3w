@@ -49,6 +49,8 @@ if(isset($_POST['use_login']) && isset($_POST['use_mdp']) && isset($_POST['use_r
         try{
             $dsn = DB_ENGINE.':host='.DB_HOST.';dbname='.DB_NAME.';charset='.DB_CHARSET;
             $pdo = new PDO($dsn, DB_USER, DB_PWD, [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
+
+
             if(($req = $pdo->prepare("INSERT INTO user (use_id, use_login, use_mdp, use_role) 
                                     VALUES(DEFAULT, :use_login, :use_mdp, :use_role)")) !== false){
                 
@@ -68,7 +70,7 @@ if(isset($_POST['use_login']) && isset($_POST['use_mdp']) && isset($_POST['use_r
     else {
         echo "Merci de renseigner tout les champs";
     } 
-}  
+}
 
 require 'inc/foot.php';
 ?>
