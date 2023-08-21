@@ -18,7 +18,7 @@ try{
     if(($req = $pdo->prepare("DELETE FROM user WHERE use_id = :use_id")) !== false){
         
         if($req->execute($_GET)){
-            echo "l'utilisateur $id à été supprimé avec succès";
+            echo "l'utilisateur $id a été supprimé avec succès";
         }else{
             echo 'Un problème est survenu dans l\'exécution de la requête!';
         }
