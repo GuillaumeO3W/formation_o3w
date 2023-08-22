@@ -22,4 +22,10 @@ class Animal
     public function setAge($value){
         $this->nom = $value;
     }
+    public function vieillir(){
+        $this->age++;
+    }
+    public function manger(){
+        echo'l\'animal mange...';
+    }
 }
