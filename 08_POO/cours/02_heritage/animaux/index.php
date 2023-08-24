@@ -1,54 +1,77 @@
 <?php
+
+require 'lib/_helpers/tools.php';
 require 'class/Animal.php';
 require 'class/Chien.php';
 require 'class/Chat.php';
-require 'class/Vache.php';
+require 'class/Oiseau.php';
+require 'class/Perroquet.php';
 
+# l'héritage permet de faire évoluer une classe sans la modifier en créant une classe dérivée de celle-ci
+# La classe dérivée hérite de toutes les caractérisques de la classse mère/parente
+# Il est possible de lui ajouter des fonctionnaliés supplémentaire 
+# Dans la classe enfant(dérivée), il est possible de redéfinir les propriétés ou les méthodes de la classe parente
 
-$caneCorso = new Chien('Stark',2,'cane corse');
-echo $caneCorso->getRace();
-echo'<br>';
-echo $caneCorso->getNom();
-echo'<br>';
-echo $caneCorso->getAge();
-echo'<br>';
-echo $caneCorso->vieillir();
-echo $caneCorso->getAge();
-echo'<br>';
-echo $caneCorso->manger();
-echo'<br>';
-echo $caneCorso->aboie();
+// $caneCorso = new Chien('Stark', 2,'cane corse');
+// echo $caneCorso->getRace();
+// echo '<br>';
+// echo $caneCorso->getNom();
+// echo '<br>';
+// echo $caneCorso->getAge();
+// echo '<br>';
+// echo $caneCorso->manger();
+// echo $caneCorso->viellir();
+// echo '<br>';
+// echo $caneCorso->getAge();
+// echo '<br>';
+// echo $caneCorso->aboie();
+// echo '<br>';
+// $caneCorso->setPoids(56.8);
+// echo $caneCorso->getPoids();
+// echo '<br>';
+// echo '<br>';
 
-echo'<br>';
-echo'<br>';
+// $chat = new Chat('Blaky', 4, 'chat de goutiére', 'Noir');
+// echo $chat->getRace();
+// echo '<br>';
+// echo $chat->getNom();
+// echo '<br>';
+// echo $chat->getAge();
+// echo '<br>';
+// echo $chat->manger();
+// echo $chat->viellir();
+// echo '<br>';
+// echo $chat->getAge();
+// echo '<br>';
+// echo $chat->miaule();
+// echo '<br>';
+// echo $chat->getRobe();
+// echo '<br>';
 
-$bengal = new Chat('Minou',4,'Bengal');
-echo $bengal->getRace();
-echo'<br>';
-echo $bengal->getNom();
-echo'<br>';
-echo $bengal->getAge();
-echo'<br>';
-echo $bengal->vieillir();
-echo $bengal->getAge();
-echo'<br>';
-echo $bengal->manger();
-echo'<br>';
-echo $bengal->aboie();
+$coco = new Perroquet('Coco', 2,'Ara');
+echo $coco->getRace();
+echo '<br>';
+echo $coco->getNom();
+echo '<br>';
+echo $coco->getAge();
+echo '<br>';
+echo $coco->manger();
+echo '<br>';
+echo '<br>';
+debug($coco);
+echo $coco->crier();
+echo '<br>';
+echo '<br>';
+echo $coco->apprendreMot('Bonjour');
+echo $coco->apprendreMot('Aurevoir');
+echo $coco->apprendreMot('Bonjour');
+echo $coco->apprendreMot('Hello');
+echo $coco->apprendreMot('Coucou');
+echo $coco->apprendreMot('Salut');
+echo $coco->apprendreMot('ça va ?');
+echo '<br>';
+echo '<br>';
+debug($coco);
 
-echo'<br>';
-echo'<br>';
-
-$Limousine = new Vache('Margueritte',14,'Limousine');
-echo $Limousine->getRace();
-echo'<br>';
-echo $Limousine->getNom();
-echo'<br>';
-echo $Limousine->getAge();
-echo'<br>';
-echo $Limousine->vieillir();
-echo $Limousine->getAge();
-echo'<br>';
-echo $Limousine->manger();
-echo'<br>';
-echo $Limousine->aboie();
+echo '<br>';
+echo $coco->crier();
