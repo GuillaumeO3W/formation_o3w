@@ -11,11 +11,11 @@ class Perroquet extends Oiseau {
 
     public function apprendreMot($mot){
 
-        // if($this->connaitMot($mot)){
-        //     echo $this->getNom() .' connait déjà ce mot';
-        // } else {
-        //     $this->motsAppris[] = $mot;
-        // }
+        if($this->connaitMot($mot)){
+            echo $this->getNom() .' connait déjà ce mot';
+        } else {
+            $this->motsAppris[] = $mot;
+        }
 
         # pareil que en haut mais inversé ressemble plus a notre réflexion mais plus dur a comprendre
         if(!$this->connaitMot($mot)){
@@ -36,14 +36,7 @@ class Perroquet extends Oiseau {
 
     }
 
-    public function crier(){
-        if(!empty($this->motsAppris)){
-            $son = $this->motsAppris[array_rand($this->motsAppris)];
-        }else{
-            $son =  'cccrrouaaaww ! cccrrouaaaww ! Le Perroquet ne connait pas encore de mot...';
-        }
-        return $son;
-    }
+    
     
         
     

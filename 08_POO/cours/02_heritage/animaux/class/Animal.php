@@ -21,7 +21,7 @@ class Animal
     }
 
     public function setNom($value){
-        $this->nom = $value;
+         $this->nom = $value;
     }
 
     public function getAge(){
@@ -37,7 +37,7 @@ class Animal
     }
 
     public function setRace($value){
-        $this->race = $value;
+         $this->race = $value;
     }
 
     public function getPoids(){
