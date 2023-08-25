@@ -35,7 +35,6 @@ class ConversationModel
                 if($this->_req->execute())
                 {
                     $datas = $this->_req->fetchAll(PDO::FETCH_ASSOC);
-                    // debug($datas);
                     foreach($datas as $conversation)
                     {
                         $conversations[]= new Conversation($conversation);
