@@ -30,7 +30,7 @@ class ConversationModel
     {
         try
         {
-            if(($this->_req=$this->_db->query('SELECT c_id, c_date, c_termine, m_id FROM conversation JOIN message ON c_id = m_conversation_fk ORDER BY c_id')) !==false)
+            if(($this->_req=$this->_db->query('SELECT c_id, c_date FROM conversation LEFT JOIN message ON c_id = m_conversation_fk GROUP BY c_id ORDER BY c_id')) !==false)
             {
                 if($this->_req->execute())
                 {
