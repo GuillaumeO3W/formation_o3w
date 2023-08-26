@@ -27,7 +27,7 @@ try
             <tr>
                 <th><?= $conversation->getId(); ?></th>
                 <td><?= $conversation->getDate(); ?></td>
-                <td>?</td>
+                <td><?= $conversation->getHeure(); ?></td>
                 <td>?</td>
                 <td><a href="#">voir messages</a></td>
             </tr>

@@ -4,6 +4,7 @@ class Conversation
 {
     private $_id;
     private $_date;
+    private $_heure;
     private $_termine;
     
     public function __construct($data)
@@ -26,6 +27,15 @@ class Conversation
     }
     public function setDate($date){
         $this->_date = $date;
+        return $this;
+    }
+    
+    public function getHeure()
+    {
+        return $this->_heure;
+    }
+    public function setHeure($heure){
+        $this->_heure = $heure;
         return $this;
     }
     
