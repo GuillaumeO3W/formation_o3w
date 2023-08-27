@@ -31,7 +31,7 @@ try
                 <td><?= $conversation->getHeure(); ?></td>
                 <td><?= $conversation->getNbMessages(); ?></td>
                 <td><?= $conversation->getTermine(); ?></td>
-                <td><a href="#">voir messages</a></td>
+                <td><a href="pageConversation.php?c_id=<?= $conversation->getId(); ?>">voir messages</a></td>
             </tr>
         <?php   endforeach; ?>
         </tbody>
