@@ -6,6 +6,7 @@ class Conversation
     private $_date;
     private $_heure;
     private $_termine;
+    private $_nbMessages;
     
     public function __construct($data)
     {     
@@ -45,6 +46,15 @@ class Conversation
     }
     public function setTermine($termine){
         $this->_termine = $termine;
+        return $this;
+    }
+
+    public function getNbMessages()
+    {
+        return $this->_nbMessages;
+    }
+    public function setNbMessages($nbMessages){
+        $this->_nbMessages = $nbMessages;
         return $this;
     }
     

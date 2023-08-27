@@ -18,17 +18,19 @@ try
                 <th>ID de la conversation</th>
                 <th>Date de la conversation</th>
                 <th>Heure de la conversation</th>
-                <th>Nombre de message</th>
+                <th>Nombre de messages</th>
+                <th>Etat conversation</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
         <?php foreach($conversations as $conversation):?>
-            <tr>
+            <tr class="<?= ($conversation->getTermine() == 1) ? "closed" : "opened"; ?>">
                 <th><?= $conversation->getId(); ?></th>
                 <td><?= $conversation->getDate(); ?></td>
                 <td><?= $conversation->getHeure(); ?></td>
-                <td>?</td>
+                <td><?= $conversation->getNbMessages(); ?></td>
+                <td><?= $conversation->getTermine(); ?></td>
                 <td><a href="#">voir messages</a></td>
             </tr>
         <?php   endforeach; ?>
