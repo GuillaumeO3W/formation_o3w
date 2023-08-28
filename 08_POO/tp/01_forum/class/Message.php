@@ -39,11 +39,11 @@ class Message
         return $this;
     }
     
-    public function getAuteur_fk()
+    public function getAuteur()
     {
         return $this->_auteur;
     }
-    public function setAuteur_fk($auteur){
+    public function setAuteur($auteur){
         $this->_auteur = $auteur;
         return $this;
     }

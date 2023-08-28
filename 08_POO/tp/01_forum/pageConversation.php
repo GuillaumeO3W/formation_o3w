@@ -37,7 +37,7 @@ try
             <tr>
                 <td><?= $message->getDate(); ?></td>
                 <td><?= $message->getHeure(); ?></td>
-                <td><?= $message->getAuteur_fk(); ?></td>
+                <td><?= $message->getAuteur(); ?></td>
                 <td><?= $message->getContenu(); ?></td>
             </tr>
         <?php   endforeach; ?>
