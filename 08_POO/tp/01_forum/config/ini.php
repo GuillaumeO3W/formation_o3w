@@ -1,6 +1,6 @@
 <?php
 #APP
-define('APP_TAG', 'adminO3W');
+define('APP_TAG', 'forum');
 
 # DB
 define('DB_ENGINE', 'mysql');
