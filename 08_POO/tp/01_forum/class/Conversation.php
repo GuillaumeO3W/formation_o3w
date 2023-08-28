@@ -8,58 +8,56 @@ class Conversation
     private $_termine;
     private $_nbMessages;
     
-    public function __construct($data)
+    public function __construct(array $data)
     {     
         $this->hydrate($data);
     }
-    
-    public function getId()
+    public function getId() : int
     {
         return $this->_id;
     }
-    public function setId($id){
+    public function setId(int $id)
+    {
         $this->_id = $id;
         return $this;
     }
-    
-    public function getDate()
+    public function getDate() : string
     {
         return $this->_date;
     }
-    public function setDate($date){
+    public function setDate(string $date)
+    {
         $this->_date = $date;
         return $this;
     }
-    
-    public function getHeure()
+    public function getHeure() : string
     {
         return $this->_heure;
     }
-    public function setHeure($heure){
+    public function setHeure(string $heure)
+    {
         $this->_heure = $heure;
         return $this;
     }
-    
     public function getTermine()
     {
         return $this->_termine;
     }
-    public function setTermine($termine){
+    public function setTermine( $termine)
+    {
         $this->_termine = $termine;
         return $this;
     }
-
-    public function getNbMessages()
+    public function getNbMessages() : int
     {
         return $this->_nbMessages;
     }
-    public function setNbMessages($nbMessages){
+    public function setNbMessages(int $nbMessages)
+    {
         $this->_nbMessages = $nbMessages;
         return $this;
     }
-    
-    
-    public function hydrate($data)
+    public function hydrate(array $data)
     {
         foreach($data as $key => $value)
         {
@@ -70,5 +68,4 @@ class Conversation
             }
         }
     }
-
 }
