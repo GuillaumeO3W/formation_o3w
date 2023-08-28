@@ -38,7 +38,7 @@ class MessageModel
                     if($this->_req->execute())
                     {
                         $datas = $this->_req->fetchAll(PDO::FETCH_ASSOC);
-                        debug($datas);
+                        // debug($datas);
                         foreach($datas as $message)
                         {
                             $messages[]= new Message($message);
