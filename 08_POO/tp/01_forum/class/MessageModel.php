@@ -2,29 +2,9 @@
 
 class MessageModel extends CoreModel
 {
-    // private $_db;
+
     private $_req;
     private $_id;
-
-    // public function __construct()
-    // {
-    //     try
-    //     {
-    //         $this->_db = new PDO('mysql:host=localhost;dbname=forum;charset=utf8mb4','root','',[PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
-    //     }
-    //     catch(PDOException $e)
-    //     {
-    //         die($e->getMessage());
-    //     }
-    // }
-
-    // public function __destruct()
-    // {
-    //     if(!empty($this->_req))
-    //     {
-    //         $this->_req->closeCursor();
-    //     }
-    // }
 
     //Methode pour récupérer toutes les messages d'une conversation'
     public function readAll($c_id)
@@ -39,26 +19,20 @@ class MessageModel extends CoreModel
                 DATE_FORMAT(m_date,"%H:%i:%s") as m_heure, 
                 CONCAT(u_prenom," ",u_nom) as m_auteur 
                 FROM message JOIN user ON m_auteur_fk = u_id 
-                WHERE m_conversation_fk = :c_id')) !==false)
+                WHERE m_conversation_fk = :c_id
+                ORDER BY m_date, m_heure
+                LIMIT 10
+                '
+                )) !==false)
             {
                 if($this->_req->bindValue('c_id', $c_id))
                 {
                     if($this->_req->execute())
                     {
                         $datas = $this->_req->fetchAll(PDO::FETCH_ASSOC);
+                        return $datas;
                         // debug($datas);
                         // echo $datas[0]["nbMessages"];
-                        if($datas[0]["nbMessages"]>1)
-                        {
-                            foreach($datas as $message)
-                            {
-                                $messages[]= new Message($message);
-
-                            }
-                            return $messages;
-                        }else{
-                            header('location: erreur404.php');
-                        }
                     }
                 }   
             }
