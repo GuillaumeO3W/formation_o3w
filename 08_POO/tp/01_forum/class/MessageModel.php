@@ -31,7 +31,7 @@ class MessageModel
     {
         try
         {
-            if(($this->_req=$this->_db->prepare('SELECT m_id,m_contenu, DATE_FORMAT(m_date,"%d/%m/%Y") as m_date,DATE_FORMAT(m_date,"%H:%i:%s") as m_heure, CONCAT(u_prenom," ",u_nom) as m_auteur FROM message JOIN user ON m_auteur_fk = u_id WHERE m_conversation_fk = :c_id')) !==false)
+            if(($this->_req=$this->_db->prepare('SELECT (SELECT COUNT(m_id)  FROM message WHERE m_conversation_fk = :c_id) as nbMessages,m_contenu, DATE_FORMAT(m_date,"%d/%m/%Y") as m_date,DATE_FORMAT(m_date,"%H:%i:%s") as m_heure, CONCAT(u_prenom," ",u_nom) as m_auteur FROM message JOIN user ON m_auteur_fk = u_id WHERE m_conversation_fk = :c_id')) !==false)
             {
                 if($this->_req->bindValue('c_id', $c_id))
                 {
@@ -39,11 +39,18 @@ class MessageModel
                     {
                         $datas = $this->_req->fetchAll(PDO::FETCH_ASSOC);
                         // debug($datas);
-                        foreach($datas as $message)
+                        // echo $datas[0]["nbMessages"];
+                        if($datas[0]["nbMessages"]>1)
                         {
-                            $messages[]= new Message($message);
+                            foreach($datas as $message)
+                            {
+                                $messages[]= new Message($message);
+
+                            }
+                            return $messages;
+                        }else{
+                            header('location: erreur404.php');
                         }
-                        return $messages;
                     }
                 }   
             }
