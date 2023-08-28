@@ -12,13 +12,23 @@ if(!empty($_GET['c_id']))
         $c_id=$_GET['c_id'];
     }
 }
+
+if(!empty($_POST['pagination']))
+{
+    $messagePerPage=$_POST['pagination'];
+}
+else
+{
+    $messagePerPage=10;
+}
+
 ?>
 
     <?php
     try
     {
         $messageModel = new MessageModel;
-        $messages = $messageModel->readAll($c_id);  
+        $messages = $messageModel->readAll($c_id,$messagePerPage);  
     }
     catch(PDOException $e)
     {
@@ -37,18 +47,18 @@ if(!empty($_GET['c_id']))
                 <div class="field">
                   <div class="select" >
                     <select name="pagination">
-                      <option >10</option>
-                      <option >20</option>
-                      <option >50</option>
+                      <option value="10">10</option>
+                      <option value="20">20</option>
+                      <option value="50">50</option>
                     </select>
                   </div>
                 </div>
                 <div class="field">
                   <div class="select">
                     <select name="orderby">
-                      <option  value="id">ID</option>
-                      <option  value="date">Date</option>
-                      <option  value="author">Auteur</option>
+                      <option value="id">ID</option>
+                      <option value="date">Date</option>
+                      <option value="author">Auteur</option>
                     </select>
                   </div>
                 </div>
@@ -94,7 +104,7 @@ if(!empty($_GET['c_id']))
               <!-- PAGINATION -->
 
               <?php
-                $messagePerPage = 10;
+
                 $totalMessages = $messages[0]['nbMessages'];
                 $totalPages = ceil($totalMessages / $messagePerPage);
                 $currentMessagesPage = (isset($_GET['page']) && !empty($_GET['page'])) ? $_GET['page'] : 1;

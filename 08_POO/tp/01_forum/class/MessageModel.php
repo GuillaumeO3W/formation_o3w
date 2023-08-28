@@ -7,7 +7,7 @@ class MessageModel extends CoreModel
     private $_id;
 
     //Methode pour récupérer toutes les messages d'une conversation'
-    public function readAll($c_id)
+    public function readAll($c_id,$messagePerPage)
     {
         try
         {
