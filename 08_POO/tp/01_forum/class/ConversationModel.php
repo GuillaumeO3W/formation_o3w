@@ -30,7 +30,14 @@ class ConversationModel extends CoreModel
     {
         try
         {
-            if(($this->_req=$this->getDb()->query('SELECT c_id, DATE_FORMAT(c_date,"%d/%m/%Y") AS c_date,DATE_FORMAT(c_date,"%T") AS c_heure, c_termine,COUNT(m_id) AS m_nbMessages FROM conversation LEFT JOIN message ON c_id = m_conversation_fk GROUP BY c_id ORDER BY c_id')) !==false)
+            if(($this->_req=$this->getDb()->query(
+                'SELECT c_id, 
+                DATE_FORMAT(c_date,"%d/%m/%Y") AS c_date,
+                DATE_FORMAT(c_date,"%T") AS c_heure, c_termine,
+                COUNT(m_id) AS m_nbMessages 
+                FROM conversation LEFT JOIN message ON c_id = m_conversation_fk 
+                GROUP BY c_id 
+                ORDER BY c_id')) !==false)
             {
                 if($this->_req->execute())
                 {
@@ -40,6 +47,7 @@ class ConversationModel extends CoreModel
                     {
                         $conversations[]= new Conversation($conversation);
                     }
+                    
                     return $conversations;
                 }
             }
