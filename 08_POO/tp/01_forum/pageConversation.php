@@ -1,7 +1,8 @@
-<?php
+<?php 
 require 'inc/head.php';
-require 'lib/_helpers/tools.php';
+require 'config/ini.php';
 require 'lib/functions.php';
+require 'lib/_helpers/tools.php';
 
 
 if(!empty($_GET['c_id']))

@@ -1,22 +1,22 @@
 <?php
 
-class MessageModel
+class MessageModel extends CoreModel
 {
-    private $_db;
+    // private $_db;
     private $_req;
     private $_id;
 
-    public function __construct()
-    {
-        try
-        {
-            $this->_db = new PDO('mysql:host=localhost;dbname=forum;charset=utf8mb4','root','',[PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
-        }
-        catch(PDOException $e)
-        {
-            die($e->getMessage());
-        }
-    }
+    // public function __construct()
+    // {
+    //     try
+    //     {
+    //         $this->_db = new PDO('mysql:host=localhost;dbname=forum;charset=utf8mb4','root','',[PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
+    //     }
+    //     catch(PDOException $e)
+    //     {
+    //         die($e->getMessage());
+    //     }
+    // }
 
     public function __destruct()
     {
@@ -26,12 +26,12 @@ class MessageModel
         }
     }
 
-    //Methode pour récupérer toutes les mesages d'une conversation'
+    //Methode pour récupérer toutes les messages d'une conversation'
     public function readAll($c_id)
     {
         try
         {
-            if(($this->_req=$this->_db->prepare('SELECT (SELECT COUNT(m_id)  FROM message WHERE m_conversation_fk = :c_id) as nbMessages,m_contenu, DATE_FORMAT(m_date,"%d/%m/%Y") as m_date,DATE_FORMAT(m_date,"%H:%i:%s") as m_heure, CONCAT(u_prenom," ",u_nom) as m_auteur FROM message JOIN user ON m_auteur_fk = u_id WHERE m_conversation_fk = :c_id')) !==false)
+            if(($this->_req = $this->getDb()->prepare('SELECT (SELECT COUNT(m_id)  FROM message WHERE m_conversation_fk = :c_id) as nbMessages,m_contenu, DATE_FORMAT(m_date,"%d/%m/%Y") as m_date,DATE_FORMAT(m_date,"%H:%i:%s") as m_heure, CONCAT(u_prenom," ",u_nom) as m_auteur FROM message JOIN user ON m_auteur_fk = u_id WHERE m_conversation_fk = :c_id')) !==false)
             {
                 if($this->_req->bindValue('c_id', $c_id))
                 {
