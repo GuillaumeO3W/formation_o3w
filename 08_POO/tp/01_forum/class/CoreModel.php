@@ -16,6 +16,7 @@ abstract class CoreModel
         $this->connect();
     
     }
+
     private function connect()
     {
         try
@@ -32,6 +33,12 @@ abstract class CoreModel
         return $this->_db;
     }
 
-
+    public function __destruct()
+        {
+            if(!empty($this->_req))
+            {
+                $this->_req->closeCursor();
+            }
+        }
 
 }

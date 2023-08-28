@@ -17,13 +17,13 @@ class ConversationModel extends CoreModel
     //     }
     // }
 
-    public function __destruct()
-    {
-        if(!empty($this->_req))
-        {
-            $this->_req->closeCursor();
-        }
-    }
+    // public function __destruct()
+    // {
+    //     if(!empty($this->_req))
+    //     {
+    //         $this->_req->closeCursor();
+    //     }
+    // }
 
     //Methode pour récupérer toutes les conversations du Forum
     public function readAll()
