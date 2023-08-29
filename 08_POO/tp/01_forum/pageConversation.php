@@ -4,7 +4,6 @@ require 'config/ini.php';
 require 'lib/functions.php';
 require 'lib/_helpers/tools.php';
 
-
 if(!empty($_GET['c_id']))
 {
     if(ctype_digit($_GET['c_id']))
@@ -13,22 +12,26 @@ if(!empty($_GET['c_id']))
     }
 }
 
-if(!empty($_POST['pagination']))
+if(!empty($_GET['pagination']))
 {
-    $messagePerPage=$_POST['pagination'];
-}
-else
+    $pagination=$_GET['pagination'];
+}else
 {
-    $messagePerPage=10;
+  $pagination=10;
 }
 
+
+$totalMessages = 100;
+$totalPages = ceil($totalMessages / $pagination);
+$page = (isset($_GET['page']) && !empty($_GET['page'])) ? $_GET['page'] : 1;
+$offset = ($page-1) * $pagination;
 ?>
 
     <?php
     try
     {
         $messageModel = new MessageModel;
-        $messages = $messageModel->readAll($c_id,$messagePerPage);  
+        $messages = $messageModel->readAll($c_id,$pagination,$offset);  
     }
     catch(PDOException $e)
     {
@@ -39,7 +42,7 @@ else
         <a href="index.php" class="button is-dark ">Retour</a>
         <div class="section">
           <h1 class="title">Messages de la conversation n°<?= $c_id ?></h1>
-          <form action="" method="POST">
+          <form action="" method="GET">
             <div class="field is-horizontal">
               <div class="field-label is-normal">
                 <label class="label">Afficher</label>
@@ -47,9 +50,9 @@ else
                 <div class="field">
                   <div class="select" >
                     <select name="pagination">
-                      <option value="10">10</option>
-                      <option value="20">20</option>
-                      <option value="50">50</option>
+                      <option value="10" <?= $pagination == 10 ? "selected" : "" ;?> >10</option>
+                      <option value="20" <?= $pagination == 20 ? "selected" : "" ;?> >20</option>
+                      <option value="50" <?= $pagination == 50 ? "selected" : "" ;?>>50</option>
                     </select>
                   </div>
                 </div>
@@ -71,6 +74,7 @@ else
                   </div>
                 </div>
                 <div class="control">
+                  <input type="hidden" name="c_id" value="<?= $c_id?>">
                   <button class="button is-dark" type="submit">Trier</button>
                 </div>
             </div>
@@ -89,8 +93,11 @@ else
                         </tr>
                     </thead>
                     <tbody>
-                <?php   foreach($messages as $data):
-                        $message = new Message($data);?>
+                      
+                <?php   
+                        
+                        foreach($messages as $data):
+                        $message = new Message($data); ?>
                         <tr>
                             <td><?= $message->getDate(); ?></td>
                             <td><?= $message->getHeure(); ?></td>
@@ -105,17 +112,15 @@ else
 
               <?php
 
-                $totalMessages = $messages[0]['nbMessages'];
-                $totalPages = ceil($totalMessages / $messagePerPage);
-                $currentMessagesPage = (isset($_GET['page']) && !empty($_GET['page'])) ? $_GET['page'] : 1;
+
 
               ?>
               <nav class="pagination is-centered" >
-                <a href="?c_id=<?= $c_id ?>&page=<?= $currentMessagesPage - 1 ?>" class="pagination-previous">Page précédente</a>
-                <a href="?c_id=<?= $c_id ?>&page=<?= $currentMessagesPage + 1 ?>" class="pagination-next">Page suivante</a>
+                <a href="?c_id=<?= $c_id ?>&page=<?= $page - 1 ?>&pagination=<?= $pagination ?>" class="pagination-previous">Page précédente</a>
+                <a href="?c_id=<?= $c_id ?>&page=<?= $page + 1 ?>&pagination=<?= $pagination ?>" class="pagination-next">Page suivante</a>
                 <ul class="pagination-list">
                 <?php for($i = 1; $i <= $totalPages; $i++) : ?>
-                    <li><a class="pagination-link <?= $i == $currentMessagesPage ? 'is-current' : '' ?>" href="?c_id=<?= $c_id ?>&page=<?= $i ?>"><?= $i ?></a></li>
+                    <li><a class="pagination-link <?= $i == $page ? 'is-current' : '' ?>" href="?c_id=<?= $c_id ?>&page=<?= $i ?>&pagination=<?= $pagination ?>"><?= $i ?></a></li>
                 <?php endfor; ?>
                 </ul>
               </nav>
@@ -124,8 +129,8 @@ else
         </div>
 <?php 
     else: 
-        header('location: erreur404.php');
-        exit;
+        // header('location: erreur404.php');
+        // exit;
     endif; ?>
 
 <?php 

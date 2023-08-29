@@ -4,10 +4,12 @@ class MessageModel extends CoreModel
 {
 
     private $_req;
-    private $_id;
+    private $_c_id;
+    private $_pagination;
+    private $_offset;
 
     //Methode pour récupérer toutes les messages d'une conversation'
-    public function readAll($c_id,$messagePerPage)
+    public function readAll($c_id,$pagination=10,$offset)
     {
         try
         {
@@ -20,13 +22,15 @@ class MessageModel extends CoreModel
                 CONCAT(u_prenom," ",u_nom) as m_auteur 
                 FROM message JOIN user ON m_auteur_fk = u_id 
                 WHERE m_conversation_fk = :c_id
-                ORDER BY m_date, m_heure
-                LIMIT 10
+                ORDER BY m_date 
+                LIMIT :pagination
                 '
                 )) !==false)
             {
-                if($this->_req->bindValue('c_id', $c_id))
-                {
+                $this->_req->bindValue('c_id', $c_id);
+                $this->_req->bindValue('pagination', (int) $pagination, PDO::PARAM_INT);
+                // $this->_req->bindValue('offset', (int) $offset, PDO::PARAM_INT);
+                
                     if($this->_req->execute())
                     {
                         $datas = $this->_req->fetchAll(PDO::FETCH_ASSOC);
@@ -34,7 +38,7 @@ class MessageModel extends CoreModel
                         // debug($datas);
                         // echo $datas[0]["nbMessages"];
                     }
-                }   
+                 
             }
             return false;
         }
