@@ -13,6 +13,7 @@ if(!empty($_GET['c_id']))
 }
 
 !empty($_GET['pagination']) ? $pagination=$_GET['pagination'] :  $pagination=10;
+!empty($_GET['orderby']) ? $orderby=$_GET['orderby'] : $orderby="date";
 
 $totalMessages = 100;
 $totalPages = ceil($totalMessages / $pagination);
@@ -25,7 +26,7 @@ $offset = ($page-1) * $pagination;
     try
     {
         $messageModel = new MessageModel;
-        $messages = $messageModel->readAll($c_id,$pagination,$offset); 
+        $messages = $messageModel->readAll($c_id,$pagination,$offset,$orderby); 
     }
     catch(PDOException $e)
     { 
@@ -55,7 +56,7 @@ $offset = ($page-1) * $pagination;
                     <select name="orderby">
                       <option value="id">ID</option>
                       <option value="date">Date</option>
-                      <option value="author">Auteur</option>
+                      <option value="auteur">Auteur</option>
                     </select>
                   </div>
                 </div>
@@ -123,8 +124,8 @@ $offset = ($page-1) * $pagination;
         </div>
 <?php 
     else: 
-        // header('location: erreur404.php');
-        // exit;
+        header('location: erreur404.php');
+        exit;
     endif; ?>
 
 <?php 
