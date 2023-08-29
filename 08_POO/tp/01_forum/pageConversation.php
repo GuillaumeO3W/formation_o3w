@@ -17,7 +17,7 @@ if(!empty($_GET['c_id']))
 !empty($_GET['order']) ? $order=$_GET['order'] : $order="ASC";
 
 
-$page = (isset($_GET['page']) && !empty($_GET['page'])) ? $_GET['page'] : 1;
+$page = (isset($_GET['page']) && !empty($_GET['page']) && ctype_digit($_GET['page'])) ? $_GET['page'] : 1;
 $offset = ($page-1) * $pagination;
 
 ?>
