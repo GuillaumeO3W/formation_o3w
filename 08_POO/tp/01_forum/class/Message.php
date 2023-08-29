@@ -11,16 +11,7 @@ class Message
     {     
         $this->hydrate($data);
     }
-    
-    // public function getId()
-    // {
-    //     return $this->_id;
-    // }
-    // public function setId($id){
-    //     $this->_id = $id;
-    //     return $this;
-    // }
-    
+        
     public function getDate()
     {
         return $this->_date;
@@ -48,11 +39,11 @@ class Message
         return $this;
     }
 
-    public function getContenu()
+    public function getMessage()
     {
         return $this->_message;
     }
-    public function setContenu($message){
+    public function setMessage($message){
         $this->_message = $message;
         return $this;
     }
@@ -62,7 +53,7 @@ class Message
         // debug($data);
         foreach($data as $key => $value)
         {
-            $methodName = 'set'. ucfirst(substr($key, 2, strlen($key)-2));
+            $methodName = 'set'. ucfirst($key);
             if(method_exists($this, $methodName))
             {
                 $this->$methodName($value);

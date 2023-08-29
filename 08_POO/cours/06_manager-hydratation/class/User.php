@@ -78,10 +78,10 @@ class User{
         foreach($data as $key => $value){
 
             # on vient stocker dans une  variable la chaine de caratère qui correspondra au nom de la methode pour setter pour automatiser l'appel des setter pour enregistrer les données dans les bonnes propriètés
-            $methodName = 'set'. ucfirst(substr($key, 4, strlen($key)-4));
+            // $methodName = 'set'. ucfirst(substr($key, 4, strlen($key)-4));
             
             # cas ou pas de prefixe sur les cles
-            // $methodName = 'set'. ucfirst($key);
+            $methodName = 'set'. ucfirst($key);
 
             if(method_exists($this, $methodName)){
                 $this->$methodName($value);

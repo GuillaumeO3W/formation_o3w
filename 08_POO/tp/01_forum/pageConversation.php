@@ -25,16 +25,17 @@ $totalMessages = 100;
 $totalPages = ceil($totalMessages / $pagination);
 $page = (isset($_GET['page']) && !empty($_GET['page'])) ? $_GET['page'] : 1;
 $offset = ($page-1) * $pagination;
+
 ?>
 
     <?php
     try
     {
         $messageModel = new MessageModel;
-        $messages = $messageModel->readAll($c_id,$pagination,$offset);  
+        $messages = $messageModel->readAll($c_id,$pagination,$offset); 
     }
     catch(PDOException $e)
-    {
+    { 
         die($e->getMessage());
     }
     if(!empty($messages)): ?>
@@ -102,7 +103,7 @@ $offset = ($page-1) * $pagination;
                             <td><?= $message->getDate(); ?></td>
                             <td><?= $message->getHeure(); ?></td>
                             <td><?= $message->getAuteur(); ?></td>
-                            <td><?= $message->getContenu(); ?></td>
+                            <td><?= $message->getMessage(); ?></td>
                         </tr>
                 <?php   endforeach; ?> 
                     </tbody>
