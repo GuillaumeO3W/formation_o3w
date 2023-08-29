@@ -14,6 +14,7 @@ if(!empty($_GET['c_id']))
 
 !empty($_GET['pagination']) ? $pagination=$_GET['pagination'] :  $pagination=10;
 !empty($_GET['orderby']) ? $orderby=$_GET['orderby'] : $orderby="date";
+!empty($_GET['order']) ? $order=$_GET['order'] : $order="ASC";
 
 
 $page = (isset($_GET['page']) && !empty($_GET['page'])) ? $_GET['page'] : 1;
@@ -25,7 +26,7 @@ $offset = ($page-1) * $pagination;
     try
     {
         $messageModel = new MessageModel;
-        $messages = $messageModel->readAll($c_id,$pagination,$offset,$orderby); 
+        $messages = $messageModel->readAll($c_id,$pagination,$offset,$orderby,$order); 
         $totalMessages = $messages[$c_id]["nbMessages"];
         $totalPages = ceil($totalMessages / $pagination);
     }
@@ -55,17 +56,17 @@ $offset = ($page-1) * $pagination;
                 <div class="field">
                   <div class="select">
                     <select name="orderby">
-                      <option value="id">ID</option>
-                      <option value="date">Date</option>
-                      <option value="auteur">Auteur</option>
+                      <option value="id" <?= $orderby == "id" ? "selected" : "" ;?>>ID</option>
+                      <option value="date" <?= $orderby == "date" ? "selected" : "" ;?>>Date</option>
+                      <option value="auteur" <?= $orderby == "auteur" ? "selected" : "" ;?>>Auteur</option>
                     </select>
                   </div>
                 </div>
                 <div class="field">
                   <div class="select">
                     <select name="order">
-                      <option  value="ASC">Croissant</option>
-                      <option  value="DESC">Décroissant</option>
+                      <option  value="ASC" <?= $order == "ASC" ? "selected" : "" ;?>>Croissant</option>
+                      <option  value="DESC" <?= $order == "DESC" ? "selected" : "" ;?>>Décroissant</option>
                     </select>
                   </div>
                 </div>
