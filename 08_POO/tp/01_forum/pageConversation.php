@@ -26,7 +26,7 @@ $offset = ($page-1) * $pagination;
     {
         $messageModel = new MessageModel;
         $messages = $messageModel->readAll($c_id,$pagination,$offset,$orderby); 
-        $totalMessages = $messages[0]["nbMessages"];
+        $totalMessages = $messages[$c_id]["nbMessages"];
         $totalPages = ceil($totalMessages / $pagination);
     }
     catch(PDOException $e)
@@ -106,11 +106,6 @@ $offset = ($page-1) * $pagination;
 
               <!-- PAGINATION -->
 
-              <?php
-
-
-
-              ?>
               <nav class="pagination is-centered" >
                 <a href="?c_id=<?= $c_id ?>&page=<?= $page - 1 ?>&pagination=<?= $pagination ?>" class="pagination-previous">Page précédente</a>
                 <a href="?c_id=<?= $c_id ?>&page=<?= $page + 1 ?>&pagination=<?= $pagination ?>" class="pagination-next">Page suivante</a>
