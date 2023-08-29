@@ -15,8 +15,7 @@ if(!empty($_GET['c_id']))
 !empty($_GET['pagination']) ? $pagination=$_GET['pagination'] :  $pagination=10;
 !empty($_GET['orderby']) ? $orderby=$_GET['orderby'] : $orderby="date";
 
-$totalMessages = 100;
-$totalPages = ceil($totalMessages / $pagination);
+
 $page = (isset($_GET['page']) && !empty($_GET['page'])) ? $_GET['page'] : 1;
 $offset = ($page-1) * $pagination;
 
@@ -27,6 +26,8 @@ $offset = ($page-1) * $pagination;
     {
         $messageModel = new MessageModel;
         $messages = $messageModel->readAll($c_id,$pagination,$offset,$orderby); 
+        $totalMessages = $messages[0]["nbMessages"];
+        $totalPages = ceil($totalMessages / $pagination);
     }
     catch(PDOException $e)
     { 
