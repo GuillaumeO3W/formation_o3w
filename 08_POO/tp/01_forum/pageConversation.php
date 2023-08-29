@@ -12,7 +12,7 @@ if(!empty($_GET['c_id']))
     }
 }
 
-!empty($_GET['pagination']) ? $pagination=$_GET['pagination'] :  $pagination=10;
+!empty($_GET['pagination']) ? $pagination=$_GET['pagination'] :  $pagination=PAGINATION;
 !empty($_GET['orderby']) ? $orderby=$_GET['orderby'] : $orderby="date";
 !empty($_GET['order']) ? $order=$_GET['order'] : $order="ASC";
 
@@ -27,7 +27,7 @@ $offset = ($page-1) * $pagination;
     {
         $messageModel = new MessageModel;
         $messages = $messageModel->readAll($c_id,$pagination,$offset,$orderby,$order); 
-        $totalMessages = $messages[$c_id]["nbMessages"];
+        $totalMessages = $messages[0]["nbMessages"];
         $totalPages = ceil($totalMessages / $pagination);
     }
     catch(PDOException $e)
@@ -108,8 +108,8 @@ $offset = ($page-1) * $pagination;
               <!-- PAGINATION -->
 
               <nav class="pagination is-centered" >
-                <a href="?c_id=<?= $c_id ?>&page=<?= $page - 1 ?>&pagination=<?= $pagination ?>" class="pagination-previous">Page précédente</a>
-                <a href="?c_id=<?= $c_id ?>&page=<?= $page + 1 ?>&pagination=<?= $pagination ?>" class="pagination-next">Page suivante</a>
+                <a href="?c_id=<?= $c_id ?>&page=<?= $page - 1 ?>&pagination=<?= $pagination ?>" class="pagination-previous" <?= $page<=1 ? "disabled" : "" ?>>Page précédente</a>
+                <a href="?c_id=<?= $c_id ?>&page=<?= $page + 1 ?>&pagination=<?= $pagination ?>" class="pagination-next" <?= $page>=$totalPages? "disabled" : "" ?>>Page suivante</a>
                 <ul class="pagination-list">
                 <?php for($i = 1; $i <= $totalPages; $i++) : ?>
                     <li><a class="pagination-link <?= $i == $page ? 'is-current' : '' ?>" href="?c_id=<?= $c_id ?>&page=<?= $i ?>&pagination=<?= $pagination ?>"><?= $i ?></a></li>

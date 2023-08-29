@@ -2,6 +2,9 @@
 #APP
 define('APP_TAG', 'forum');
 
+#PAGINATION
+define('PAGINATION',10);
+
 # DB
 define('DB_ENGINE', 'mysql');
 define('DB_HOST', 'localhost');
