@@ -22,12 +22,13 @@ class MessageModel extends CoreModel
                 FROM message JOIN user ON m_auteur_fk = u_id 
                 WHERE m_conversation_fk = :c_id
                 ORDER BY m_date 
-                LIMIT '.$offset . ', '.$pagination
+                LIMIT :offset , :pagination 
+                '
                 )) !==false)
             {
                 $this->_req->bindValue('c_id', $c_id);
-                // $this->_req->bindValue('pagination', (int) $pagination, PDO::PARAM_INT);
-                // $this->_req->bindValue('offset', (int) $offset, PDO::PARAM_INT);
+                $this->_req->bindValue('pagination', (int) $pagination, PDO::PARAM_INT);
+                $this->_req->bindValue('offset', (int) $offset, PDO::PARAM_INT);
 
                     if($this->_req->execute())
                     {

@@ -12,14 +12,7 @@ if(!empty($_GET['c_id']))
     }
 }
 
-if(!empty($_GET['pagination']))
-{
-    $pagination=$_GET['pagination'];
-}else
-{
-  $pagination=10;
-}
-
+!empty($_GET['pagination']) ? $pagination=$_GET['pagination'] :  $pagination=10;
 
 $totalMessages = 100;
 $totalPages = ceil($totalMessages / $pagination);
