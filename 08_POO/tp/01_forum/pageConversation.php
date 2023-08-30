@@ -108,12 +108,17 @@ $offset = ($page-1) * $pagination;
               <!-- PAGINATION -->
 
               <nav class="pagination is-centered" >
-                <a href="?c_id=<?= $c_id ?>&page=<?= $page - 1 ?>&pagination=<?= $pagination ?>" class="pagination-previous" <?= $page<=1 ? "disabled" : "" ?>>Page précédente</a>
-                <a href="?c_id=<?= $c_id ?>&page=<?= $page + 1 ?>&pagination=<?= $pagination ?>" class="pagination-next" <?= $page>=$totalPages? "disabled" : "" ?>>Page suivante</a>
+                <a href="?c_id=<?= $c_id ?>&page=<?= $page - 1 ?>&pagination=<?= $pagination ?>&order=<?= $order ?>&orderby=<?= $orderby ?>" class="pagination-previous" <?= $page<=1 ? "disabled" : "" ?>>Page précédente</a>
+                <a href="?c_id=<?= $c_id ?>&page=<?= $page + 1 ?>&pagination=<?= $pagination ?>&order=<?= $order ?>&orderby=<?= $orderby ?>" class="pagination-next" <?= $page>=$totalPages? "disabled" : "" ?>>Page suivante</a>
                 <ul class="pagination-list">
-                <?php for($i = 1; $i <= $totalPages; $i++) : ?>
-                    <li><a class="pagination-link <?= $i == $page ? 'is-current' : '' ?>" href="?c_id=<?= $c_id ?>&page=<?= $i ?>&pagination=<?= $pagination ?>"><?= $i ?></a></li>
+
+                <?php 
+                
+                for($i = 1; $i <= $totalPages; $i++) : ?>
+                    <li><a class="pagination-link <?= ($i < $page-3) || ($i > $page+3) && (($i!==1) || ($i!==$totalPages)) ? "is-hidden" :""?> <?= $i == $page ? 'is-current' : '' ?>" href="?c_id=<?= $c_id ?>&page=<?= $i ?>&pagination=<?= $pagination ?>&order=<?= $order ?>&orderby=<?= $orderby ?>"><?= ($i == $page+3) || ($i == $page-3) ? "..." : $i  ?></a></li>
                 <?php endfor; ?>
+
+
                 </ul>
               </nav>
             </div>
