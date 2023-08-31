@@ -39,10 +39,6 @@ $offset = ($page-1) * $pagination;
         <a href="index.php" class="button is-dark ">Retour</a>
         <div class="section">
           <h1 class="title">Messages de la conversation n°<?= $c_id ?></h1>
-          <div class="field">
-                        <input type="hidden" name="c_id" value="<?= $c_id?>">
-                        <input type="submit" class="button" value="Go !">
-                  </div>
           <form action="" method="GET">
             <div class="field is-horizontal">
               <div class="field-label is-normal">
