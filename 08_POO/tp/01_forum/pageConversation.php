@@ -114,9 +114,21 @@ $offset = ($page-1) * $pagination;
 
                 <?php 
                 
-                for($i = 1; $i <= $totalPages; $i++) : ?>
-                    <li><a class="pagination-link <?= ($i < $page-3) || ($i > $page+3) && (($i!==1) || ($i!==$totalPages)) ? "is-hidden" :""?> <?= $i == $page ? 'is-current' : '' ?>" href="?c_id=<?= $c_id ?>&page=<?= $i ?>&pagination=<?= $pagination ?>&order=<?= $order ?>&orderby=<?= $orderby ?>"><?= ($i == $page+3) || ($i == $page-3) ? "..." : $i  ?></a></li>
-                <?php endfor; ?>
+                  for($i = 1; $i <= $totalPages; $i++) :
+                    if(($i==1) || (($i>=$page-3) && ($i<=$page+3)) || ($i==$totalPages)):
+                ?>
+                    <li>
+                      <a class="pagination-link  <?= $i == $page ? 'is-current' : '' ?>" 
+                          <?= ($i == $page+3) || ($i == $page-3) ? "disabled" : "href=\"?c_id=".$c_id."&page=".$i."&pagination=".$pagination."&order=".$order."&orderby=".$orderby."\""   ?>
+                           >
+                          <?= ($i == $page+3) || ($i == $page-3) ? "..." : $i  ?>
+                      </a>
+                    </li>
+                <?php 
+                    endif;
+                  endfor; 
+
+                ?>
 
 
                 </ul>
