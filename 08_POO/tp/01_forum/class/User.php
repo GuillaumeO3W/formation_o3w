@@ -35,7 +35,7 @@ class User
     {
         return $this->_user;
     }
-    public function setDate($user){
+    public function setUser($user){
         $this->_user = $user;
         return $this;
     }
