@@ -16,6 +16,7 @@ catch(PDOException $e)
 ?>
 <div class="section">
     <h1 class="title">Liste des conversations</h1>
+    <a href="userList.php">Liste des utilisateurs</a>
     <div class="card is-shadowless">
         <div class="card-content">
 

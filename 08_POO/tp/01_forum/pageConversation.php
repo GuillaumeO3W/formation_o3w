@@ -20,9 +20,7 @@ if(!empty($_GET['c_id']))
 $page = (isset($_GET['page']) && !empty($_GET['page']) && ctype_digit($_GET['page'])) ? $_GET['page'] : 1;
 $offset = ($page-1) * $pagination;
 
-?>
 
-    <?php
     try
     {
         $messageModel = new MessageModel;
