@@ -13,7 +13,7 @@ if(!empty($_GET['c_id']))
 }
 
 !empty($_GET['pagination']) ? $pagination=$_GET['pagination'] :  $pagination=PAGINATION;
-!empty($_GET['orderby']) ? $orderby=$_GET['orderby'] : $orderby="date";
+!empty($_GET['orderby']) ? $orderby=$_GET['orderby'] : $orderby="m_date";
 !empty($_GET['order']) ? $order=$_GET['order'] : $order="ASC";
 
 
@@ -57,7 +57,7 @@ $offset = ($page-1) * $pagination;
                   <div class="select">
                     <select name="orderby">
                       <option value="id" <?= $orderby == "id" ? "selected" : "" ;?>>ID</option>
-                      <option value="date" <?= $orderby == "date" ? "selected" : "" ;?>>Date</option>
+                      <option value="m_date" <?= $orderby == "m_date" ? "selected" : "" ;?>>Date</option>
                       <option value="auteur" <?= $orderby == "auteur" ? "selected" : "" ;?>>Auteur</option>
                     </select>
                   </div>
