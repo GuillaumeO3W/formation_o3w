@@ -1,17 +1,15 @@
 <?php 
-// require 'lib/functions.php';
-// require 'lib/_helpers/tools.php';
+require_once 'lib/functions.php';
+require_once 'lib/_helpers/tools.php';
 require_once 'config/ini.php';
-require_once 'class/User.php';
-
+require_once 'Controllers/UserController.php'; 
 require_once 'Models/CoreModel.php';
 require_once 'Models/UserModel.php';
-require_once 'Controllers/UserController.php'; 
 
 $ctrl = 'UserController';
 if(isset($_GET['ctrl']))
 {
-  $ctrl = ucfirst(strtolower($_GET['ctrl'])).'Controler';
+  $ctrl = ucfirst(strtolower($_GET['ctrl'])).'Controller';
 }
 
 $method = 'userList';
@@ -22,7 +20,6 @@ if(isset($_GET['action']))
 
 try
 {
-
   if(class_exists($ctrl))
   {
     $controller = new $ctrl;

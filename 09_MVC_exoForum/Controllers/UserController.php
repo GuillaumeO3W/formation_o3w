@@ -1,6 +1,5 @@
 <?php 
 
-
 class UserController 
 {
     // private $_title;
@@ -11,29 +10,28 @@ class UserController
     //     require 'inc/head.php';
     // }
 
-    public function userList(){
+    public function userList()
+    {
 
         $model = new UserModel;
         $datas = $model->readAll();
-
         $users = [];
-
         if(count($datas) > 0){
             foreach($datas as $data){
                 $users[] = new User($data);
+
             }
         }
-
         $title = 'UsersList';
-
         include './Views/users/usersList.php';
-
     }
-
-    public function show(){
-
+    public function userView()
+    {
+        isset($_GET['id']) ? $_GET['id'] = $_GET['id'] : $_GET['id'] = 1;
+        $userModel = new UserModel;
+        $user = $userModel->readOne($_GET['id']);
+        $user = new User($user);
         include './Views/users/userView.php';
-
     }
 
 }

@@ -1,26 +1,14 @@
 <?php 
 
     require 'inc/head.php';
-    require 'config/ini.php';
-    require 'lib/functions.php';
-    require 'lib/_helpers/tools.php';
 
-    try 
-    {
-        $userModel = new UserModel;
-        $userData = $userModel->readOne($_GET['id']);
-    } catch(Exception $e)
-    {
-      die($e->getMessage());
-    }
 
 ?>
-<a href="usersList.php" class="button is-dark ">Retour</a>
+<a href="index.php" class="button is-dark ">Retour</a>
         <div class="section">
           <h1 class="title">Liste des utilisateurs</h1>
           <div class="card is-shadowless">
             <div class="card-content">
-              <?php if(!empty($userData)) :?>
               <table class="table is-hoverable is-fullwidth">
                 <thead>
                   <tr>
@@ -35,7 +23,7 @@
                 </thead>
                 <tbody>
                   <?php 
-                        $user = new User($userData);
+                  if(!empty($user)) :
                   ?>
             
                   <tr>

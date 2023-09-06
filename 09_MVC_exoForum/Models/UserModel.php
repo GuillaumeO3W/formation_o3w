@@ -7,7 +7,7 @@ class UserModel extends CoreModel {
     {
         try 
         {
-            if(($req = $this->getDb()->query('SELECT u_id AS id, u_login AS login, u_date_inscription AS dateInscription FROM user LIMIT 20 ')) !== false){
+            if(($req = $this->getDb()->query('SELECT u_id AS id, u_login AS login, u_date_inscription AS dateInscription FROM user ')) !== false){
                 if($req->execute()){
                     $users = $req->fetchAll(PDO::FETCH_ASSOC);
                     $req->closeCursor();

@@ -1,12 +1,6 @@
 <?php 
 
     require 'inc/head.php';
-    require 'config/ini.php';
-    require 'lib/functions.php';
-    require 'lib/_helpers/tools.php';
-
-
-
 
     $currentPage = 1;
     if(!empty($_GET['page']) && ctype_digit($_GET['page'])){
@@ -19,23 +13,12 @@
     }
 
 
-    try 
-    {
-        $userModel = new UserModel;
-        $users = $userModel->readAll();
-        $nbUsers = $userModel->countNbUsers();
-    } catch(Exception $e)
-    {
-      die($e->getMessage());
-    }
-
 ?>
 <a href="index.php" class="button is-dark ">Retour</a>
         <div class="section">
           <h1 class="title">Liste des utilisateurs</h1>
           <div class="card is-shadowless">
             <div class="card-content">
-              <?php if(!empty($users)) :?>
               <table class="table is-hoverable is-fullwidth">
                 <thead>
                   <tr>
@@ -47,10 +30,8 @@
                 </thead>
                 <tbody>
                   <?php 
-
-                      foreach($users as $data) :
-                        $user = new User($data);
-                      
+                    if(!empty($users)) :
+                      foreach($users as $user) :  
                   ?>
             
                   <tr>
@@ -58,7 +39,7 @@
                     <td><?= $user->getLogin() ?></td>
                     <td><?= $user->getDateInscription() ?></td>
 
-                    <td><a href="userView.php?id=<?= $user->getId() ?>" class="button is-dark is-small">Voir profil</a></td>
+                    <td><a href="index.php?ctrl=user&action=userView&id=<?= $user->getId() ?>" class="button is-dark is-small">Voir profil</a></td>
                   </tr>   
                   <?php 
                     endforeach;
