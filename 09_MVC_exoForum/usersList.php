@@ -1,0 +1,115 @@
+<?php 
+
+    require 'inc/head.php';
+    require 'config/ini.php';
+    require 'lib/functions.php';
+    require 'lib/_helpers/tools.php';
+
+
+
+
+    $currentPage = 1;
+    if(!empty($_GET['page']) && ctype_digit($_GET['page'])){
+      $currentPage = $_GET['page'];
+    }
+
+    $pagination = PAGINATION;
+    if(!empty($_GET['pagination']) && ctype_digit($_GET['pagination'])){
+      $pagination = $_GET['pagination'];
+    }
+
+
+    try 
+    {
+        $userModel = new UserModel;
+        $users = $userModel->readAll();
+        $nbUsers = $userModel->countNbUsers();
+    } catch(Exception $e)
+    {
+      die($e->getMessage());
+    }
+
+?>
+<a href="index.php" class="button is-dark ">Retour</a>
+        <div class="section">
+          <h1 class="title">Liste des utilisateurs</h1>
+          <div class="card is-shadowless">
+            <div class="card-content">
+              <?php if(!empty($users)) :?>
+              <table class="table is-hoverable is-fullwidth">
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Login</th>
+                    <th>date inscription</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php 
+
+                      foreach($users as $data) :
+                        $user = new User($data);
+                      
+                  ?>
+            
+                  <tr>
+                    <th><?= $user->getId() ?></th>
+                    <td><?= $user->getLogin() ?></td>
+                    <td><?= $user->getDateInscription() ?></td>
+
+                    <td><a href="userView.php?id=<?= $user->getId() ?>" class="button is-dark is-small">Voir profil</a></td>
+                  </tr>   
+                  <?php 
+                    endforeach;
+                  ?>
+                </tbody>
+              </table>
+              <?php
+                else: 
+              ?>
+                  <p>Aucun utilisateur</p>
+              <?php
+                endif
+              ?>
+              
+              <?php 
+
+            
+              $pageTotales = ceil($nbUsers['nbUsers']/$pagination);
+              ?>
+
+              <nav class="pagination is-centered" >
+
+              <a <?= ($currentPage > 1) ? 'href="?page='. $currentPage - 1 .'"' : '' ?> class="pagination-previous " <?= ($currentPage > 1) ? '' : 'disabled' ?> >Page précédente</a>
+
+              <a <?= ($currentPage < $pageTotales) ? 'href="?page='. $currentPage + 1 .'"' : '' ?> class="pagination-next" <?= ($currentPage < $pageTotales) ? '' : 'disabled' ?>>Page suivante</a>
+
+              <ul class="pagination-list">
+
+                  <?php 
+          
+                    for($i = 1; $i <= $pageTotales; $i++){
+               
+                      if($i == $currentPage){
+                        echo '<li><a class="pagination-link is-current">'.$i.'</a></li>';
+                      }else{
+                        echo '<li><a href="?page='.$i.'" class="pagination-link">'.$i.'</a></li>';
+                      }
+
+                    }
+
+                ?>
+              </ul>
+
+
+              </nav>
+
+            </div>
+          </div>
+        </div>
+
+
+<?php 
+        require 'inc/foot.php'; 
+?>
