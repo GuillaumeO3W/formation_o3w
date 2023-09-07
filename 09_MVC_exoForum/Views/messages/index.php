@@ -1,29 +1,5 @@
 <?php 
   require 'inc/head.php';
-
-  $currentPage = 1;
-  if(!empty($_GET['page']) && ctype_digit($_GET['page']))
-  {
-    $currentPage = $_GET['page'];
-  }
-
-  $pagination = PAGINATION;
-  if(!empty($_GET['pagination']) && ctype_digit($_GET['pagination']))
-  {
-    $pagination = $_GET['pagination'];
-  }
-
-  $orderBy = 'date';
-  if(!empty($_GET['orderBy']))
-  {
-    $orderBy = $_GET['orderBy'];
-  }
-
-  $order = 'DESC';
-  if(!empty($_GET['order']))
-  {
-    $order = $_GET['order'];
-  }
   
 ?>
 
@@ -37,6 +13,8 @@
               </div>
                 <div class="field">
                   <div class="select" >
+                    <input type="hidden" name="ctrl" value="message" >
+                    <input type="hidden" name="action" value="index" >
                     <input type="hidden" name="idConv" value="<?= $_GET['idConv'] ?>" >
                     <select name="pagination">
                       <option <?= $pagination == 10 ? 'selected' : '' ?> value="10" >10</option>
@@ -75,9 +53,9 @@
                 <thead>
                   <tr>
                     <th>IdMessage</th>
-                    <th><a href="?idConv=<?= $_GET['idConv'] ?>&pagination=<?= $pagination ?>&orderBy=date&order=<?= $order === 'ASC' ? 'DESC' : 'ASC' ?>">Date</a></th>
+                    <th><a href="?ctrl=message&action=index&idConv=<?= $_GET['idConv'] ?>&pagination=<?= $pagination ?>&orderBy=date&order=<?= $order === 'ASC' ? 'DESC' : 'ASC' ?>">Date</a></th>
                     <th>Heure</th>
-                    <th><a href="?idConv=<?= $_GET['idConv'] ?>&pagination=<?= $pagination ?>&orderBy=author&order=<?= $order === 'ASC' ? 'DESC' : 'ASC' ?>">Auteur</a></th>
+                    <th><a href="?ctrl=message&action=index&idConv=<?= $_GET['idConv'] ?>&pagination=<?= $pagination ?>&orderBy=author&order=<?= $order === 'ASC' ? 'DESC' : 'ASC' ?>">Auteur</a></th>
                     <th>Message</th>
                   </tr>
                 </thead>
@@ -97,13 +75,12 @@
               </table>
   
               <?php 
-
                   $pageTotales = ceil($nbMsg['nbMsg']/$pagination);
               ?>
 
               <nav class="pagination is-centered" >
-                <a <?= ($currentPage > 1) ? 'href="?idConv='. $_GET['idConv'].'&page='. $currentPage - 1 .'"' : '' ?> class="pagination-previous " <?= ($currentPage > 1) ? '' : 'disabled' ?> >Page précédente</a>
-                <a <?= ($currentPage < $pageTotales) ? 'href="?idConv='. $_GET['idConv'].'&page='. $currentPage + 1 .'"' : '' ?> class="pagination-next" <?= ($currentPage < $pageTotales) ? '' : 'disabled' ?>>Page suivante</a>
+                <a <?= ($currentPage > 1) ? 'href="?ctrl=message&action=index&idConv='. $_GET['idConv'].'&page='. $currentPage - 1 .'"' : '' ?> class="pagination-previous " <?= ($currentPage > 1) ? '' : 'disabled' ?> >Page précédente</a>
+                <a <?= ($currentPage < $pageTotales) ? 'href="?ctrl=message&action=index&idConv='. $_GET['idConv'].'&page='. $currentPage + 1 .'"' : '' ?> class="pagination-next" <?= ($currentPage < $pageTotales) ? '' : 'disabled' ?>>Page suivante</a>
                 <ul class="pagination-list">
                 
                       <?php 
@@ -111,7 +88,7 @@
                           if($i == $currentPage){
                             echo '<li><a class="pagination-link is-current">'.$i.'</a></li>';
                           }else{
-                            echo '<li><a href="?idConv='. $_GET['idConv'].'&page='.$i.'" class="pagination-link">'.$i.'</a></li>';
+                            echo '<li><a href="?ctrl=message&action=index&idConv='. $_GET['idConv'].'&page='.$i.'&order='.$_GET['order'].'&orderBy='.$_GET['orderBy'].'" class="pagination-link">'.$i.'</a></li>';
                           }
                         }
                     ?>
