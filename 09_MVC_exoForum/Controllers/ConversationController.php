@@ -2,13 +2,6 @@
 
 class ConversationController 
 {
-    // private $_title;
-
-    // public function __construct($title)
-    // {
-    //     $this->_title = $title;
-    //     require 'inc/head.php';
-    // }
 
     public function conversationsList()
     {

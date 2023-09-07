@@ -2,11 +2,11 @@
 require_once 'lib/functions.php';
 require_once 'lib/_helpers/tools.php';
 require_once 'config/ini.php';
-require_once 'Controllers/UserController.php'; 
-require_once 'Controllers/ConversationController.php'; 
-require_once 'Models/CoreModel.php';
-require_once 'Models/UserModel.php';
-require_once 'Models/ConversationModel.php';
+// require_once 'Controllers/UserController.php'; 
+// require_once 'Controllers/ConversationController.php'; 
+// require_once 'Models/CoreModel.php';
+// require_once 'Models/UserModel.php';
+// require_once 'Models/ConversationModel.php';
 ?>
 
 <div class="section">
