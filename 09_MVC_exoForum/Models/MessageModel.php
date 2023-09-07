@@ -51,33 +51,22 @@ class MessageModel extends CoreModel
 
     public function countNbMessage($idConv)
     {
-
         try
         {
             if(($req = $this->getDb()->prepare(' SELECT COUNT(m_id) AS nbMsg FROM message WHERE m_conversation_fk = :idConv   ')) !== false)
             {
-                
-                if($req->bindValue('idConv', $idConv)){
+                if($req->bindValue('idConv', $idConv))
+                {
                     if($req->execute()){
                         $nbMsg = $req->fetch(PDO::FETCH_ASSOC);
                         $req->closeCursor();
                         return $nbMsg;
                     }
-
                 }
             }
-
             return false;
-
         } catch(PDOException $e){
             die($e->getMessage());
         }
-
     }
-
-
-
-
-    
-
 }

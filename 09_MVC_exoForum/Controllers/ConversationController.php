@@ -12,7 +12,6 @@ class ConversationController
 
     public function conversationsList()
     {
-
         $model = new ConversationModel;
         $datas = $model->readAll();
         $conversations = [];
@@ -24,6 +23,7 @@ class ConversationController
         $title = 'ConversationsList';
         include './Views/conv/conversationsList.php';
     }
+
     public function conversationView()
     {
         isset($_GET['idConv']) ? $_GET['idConv'] = $_GET['idConv'] : $_GET['idConv'] = 1;
@@ -35,8 +35,6 @@ class ConversationController
                 $conversation[] = new Message($data);
             }
         }
-
         include './Views/conv/conversationView.php';
     }
-
 }
