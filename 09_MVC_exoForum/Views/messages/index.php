@@ -83,7 +83,7 @@
                 </thead>
                 <tbody>
                 <?php
-                    foreach($conversation as $msg) :
+                    foreach($messages as $msg) :
                 ?>
                   <tr>
                     <td><?= $msg->getId() ?></td>
