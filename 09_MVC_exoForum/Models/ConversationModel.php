@@ -2,7 +2,7 @@
 
 class ConversationModel extends CoreModel
 {
-
+   
     public function readAll()
     {
         try 

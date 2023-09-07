@@ -10,7 +10,7 @@ class UserController
     //     require 'inc/head.php';
     // }
 
-    public function userList()
+    public function usersList()
     {
 
         $model = new UserModel;

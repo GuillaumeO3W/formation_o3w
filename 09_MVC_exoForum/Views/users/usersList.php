@@ -15,80 +15,79 @@
 
 ?>
 <a href="index.php" class="button is-dark ">Retour</a>
-        <div class="section">
-          <h1 class="title">Liste des utilisateurs</h1>
-          <div class="card is-shadowless">
-            <div class="card-content">
-              <table class="table is-hoverable is-fullwidth">
-                <thead>
-                  <tr>
-                    <th>Id</th>
-                    <th>Login</th>
-                    <th>date inscription</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php 
-                    if(!empty($users)) :
-                      foreach($users as $user) :  
-                  ?>
-            
-                  <tr>
-                    <th><?= $user->getId() ?></th>
-                    <td><?= $user->getLogin() ?></td>
-                    <td><?= $user->getDateInscription() ?></td>
+<div class="section">
+  <h1 class="title">Liste des utilisateurs</h1>
+  <div class="card is-shadowless">
+    <div class="card-content">
+      <table class="table is-hoverable is-fullwidth">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Login</th>
+            <th>date inscription</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php 
+            if(!empty($users)) :
+              foreach($users as $user) :  
+          ?>
+    
+          <tr>
+            <th><?= $user->getId() ?></th>
+            <td><?= $user->getLogin() ?></td>
+            <td><?= $user->getDateInscription() ?></td>
+            <td><a href="index.php?ctrl=user&action=userView&id=<?= $user->getId() ?>" class="button is-dark is-small">Voir profil</a></td>
+          </tr>   
+          <?php 
+            endforeach;
+          ?>
+        </tbody>
+      </table>
+      <?php
+        else: 
+      ?>
+          <p>Aucun utilisateur</p>
+      <?php
+        endif
+      ?>
+      
+      <?php 
 
-                    <td><a href="index.php?ctrl=user&action=userView&id=<?= $user->getId() ?>" class="button is-dark is-small">Voir profil</a></td>
-                  </tr>   
-                  <?php 
-                    endforeach;
-                  ?>
-                </tbody>
-              </table>
-              <?php
-                else: 
-              ?>
-                  <p>Aucun utilisateur</p>
-              <?php
-                endif
-              ?>
-              
-              <?php 
+    
+      $pageTotales = ceil($nbUsers['nbUsers']/$pagination);
+      ?>
 
-            
-              $pageTotales = ceil($nbUsers['nbUsers']/$pagination);
-              ?>
+      <nav class="pagination is-centered" >
 
-              <nav class="pagination is-centered" >
+      <a <?= ($currentPage > 1) ? 'href="?page='. $currentPage - 1 .'"' : '' ?> class="pagination-previous " <?= ($currentPage > 1) ? '' : 'disabled' ?> >Page précédente</a>
 
-              <a <?= ($currentPage > 1) ? 'href="?page='. $currentPage - 1 .'"' : '' ?> class="pagination-previous " <?= ($currentPage > 1) ? '' : 'disabled' ?> >Page précédente</a>
+      <a <?= ($currentPage < $pageTotales) ? 'href="?page='. $currentPage + 1 .'"' : '' ?> class="pagination-next" <?= ($currentPage < $pageTotales) ? '' : 'disabled' ?>>Page suivante</a>
 
-              <a <?= ($currentPage < $pageTotales) ? 'href="?page='. $currentPage + 1 .'"' : '' ?> class="pagination-next" <?= ($currentPage < $pageTotales) ? '' : 'disabled' ?>>Page suivante</a>
+      <ul class="pagination-list">
 
-              <ul class="pagination-list">
+          <?php 
+  
+            for($i = 1; $i <= $pageTotales; $i++){
+        
+              if($i == $currentPage){
+                echo '<li><a class="pagination-link is-current">'.$i.'</a></li>';
+              }else{
+                echo '<li><a href="?page='.$i.'" class="pagination-link">'.$i.'</a></li>';
+              }
 
-                  <?php 
-          
-                    for($i = 1; $i <= $pageTotales; $i++){
-               
-                      if($i == $currentPage){
-                        echo '<li><a class="pagination-link is-current">'.$i.'</a></li>';
-                      }else{
-                        echo '<li><a href="?page='.$i.'" class="pagination-link">'.$i.'</a></li>';
-                      }
+            }
 
-                    }
-
-                ?>
-              </ul>
+        ?>
+      </ul>
 
 
-              </nav>
+      </nav>
 
-            </div>
-          </div>
-        </div>
+    </div>
+  </div>
+</div>
 
 
 <?php 

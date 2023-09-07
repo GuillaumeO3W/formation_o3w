@@ -2,9 +2,6 @@
 
 class MessageModel extends CoreModel
 {
-
-
-
     public function readAll( int $idConv, int $pagination = 20, int $start = 0, string $orderBy = 'date', string $order = 'DESC')
     {
 

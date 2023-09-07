@@ -40,36 +40,16 @@
   if(!empty($_GET['order'])){
     $order = $_GET['order'];
   }
-  
-  try
-  {
-    # On instancie le la class MessageModel 
-    $msgModel = new MessageModel;
-    # On stocke dans $listMessages le résultat des données (tableau associatif) renvoyées par la méthode readAll() pour la conversation choisie ($_GET['conv'] qui correspond a ?conv=valeur-id-conversation dans l'url), 
-    # $pagination : correspond a la valeur du nombre d'élément que l'on veut afficher par page, 
-    # $pagination*($currentPage-1) : correspond a l'offset donc a partir de quel élément on veut débuter l'affichage
-    # $orderBy : correspond au tri soit par Id, auteur ou date
-    # $order : correspond au tri soit par ordre croissant(ASC) ou décroissant(DESC)
-    $listMessages = $msgModel->readAll($_GET['conv'], $pagination, $pagination*($currentPage-1), $orderBy, $order);
-    # Merci Thibo : methode pour récupérer le nombre de message total de la conversation choisie
-    $nbMsg = $msgModel->countNbMessage($_GET['conv']);
-    debug($_GET);
-
-  }catch(Exception $e){
-    header('Location: index.php?_err=500');
-    exit;
-  }
 
   # Si on a pas de données dans $listMessages alors on redirige vers la page 404
   // if(count($listMessages) == 0){
   //   header('Location: page404.php?_err=404');
   //   exit;
   // }
-
   
 ?>
 
-<a href="conversations.php" class="button is-dark ">Retour</a>
+<a href="index.php?ctrl=conversations&action=conversationsList" class="button is-dark ">Retour</a>
         <div class="section">
           <!-- On affiche le numéro de la conversation choisie -->
           <h1 class="title">Messages de la conversation n°<?= $_GET['conv'] ?> </h1>
