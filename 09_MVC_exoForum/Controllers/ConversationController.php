@@ -26,11 +26,17 @@ class ConversationController
     }
     public function conversationView()
     {
-        isset($_GET['id']) ? $_GET['id'] = $_GET['id'] : $_GET['id'] = 1;
+        isset($_GET['idConv']) ? $_GET['idConv'] = $_GET['idConv'] : $_GET['idConv'] = 1;
         $conversationModel = new ConversationModel;
-        $conversation = $conversationModel->readOne($_GET['id']);
-        $conversation = new Conversation($conversation);
-        include './Views/conversations/conversationView.php';
+        $datas = $conversationModel->readOne($_GET['idConv']);
+        $conversation =[];
+        if(count($datas) > 0){
+            foreach($datas as $data){
+                $conversation[] = new Message($data);
+            }
+        }
+
+        include './Views/conv/conversationView.php';
     }
 
 }

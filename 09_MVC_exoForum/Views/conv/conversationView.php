@@ -1,9 +1,7 @@
 <?php 
 
   require 'inc/head.php';
-  require 'config/ini.php';
-  require 'lib/functions.php';
-  require 'lib/_helpers/tools.php';
+
 
   # On initialise la valeur de la page courante a 1 
   $currentPage = 1;
@@ -49,10 +47,10 @@
   
 ?>
 
-<a href="index.php?ctrl=conversations&action=conversationsList" class="button is-dark ">Retour</a>
+<a href="index.php?ctrl=conversation&action=conversationsList" class="button is-dark ">Retour</a>
         <div class="section">
           <!-- On affiche le numéro de la conversation choisie -->
-          <h1 class="title">Messages de la conversation n°<?= $_GET['conv'] ?> </h1>
+          <h1 class="title">Messages de la conversation n°<?= $_GET['idConv'] ?> </h1>
           <form action="" method="GET">
             <div class="field is-horizontal">
               <div class="field-label is-normal">
@@ -61,7 +59,7 @@
                 <div class="field">
                   <div class="select" >
                     <!-- On met un input caché pour transmettre la valeur de conv -->
-                    <input type="hidden" name="conv" value="<?= $_GET['conv'] ?>" >
+                    <input type="hidden" name="idConv" value="<?= $_GET['idConv'] ?>" >
                     <select name="pagination">
                       <!-- On fait une ternaire pour afficher/selectionner la valeur actuelle de $pagination  -->
                       <option <?= $pagination == 10 ? 'selected' : '' ?> value="10" >10</option>
@@ -101,21 +99,17 @@
                   <tr>
                     <th>IdMessage</th>
                     <!-- tri au clic sur le titre dans un sens ou dans l'autre si on clic 2 fois -->
-                    <th><a href="?conv=<?= $_GET['conv'] ?>&pagination=<?= $pagination ?>&orderBy=date&order=<?= $order === 'ASC' ? 'DESC' : 'ASC' ?>">Date</a></th>
+                    <th><a href="?idConv=<?= $_GET['idConv'] ?>&pagination=<?= $pagination ?>&orderBy=date&order=<?= $order === 'ASC' ? 'DESC' : 'ASC' ?>">Date</a></th>
                     <th>Heure</th>
                     <!-- tri au clic sur le titre dans un sens ou dans l'autre si on clic 2 fois -->
-                    <th><a href="?conv=<?= $_GET['conv'] ?>&pagination=<?= $pagination ?>&orderBy=author&order=<?= $order === 'ASC' ? 'DESC' : 'ASC' ?>">Auteur</a></th>
+                    <th><a href="?idConv=<?= $_GET['idConv'] ?>&pagination=<?= $pagination ?>&orderBy=author&order=<?= $order === 'ASC' ? 'DESC' : 'ASC' ?>">Auteur</a></th>
                     <th>Message</th>
                   </tr>
                 </thead>
                 <tbody>
                 <?php
-
-                    foreach($listMessages as $data) :
-                      $msg = new Message($data);
-
+                    foreach($conversation as $msg) :
                 ?>
-
                   <tr>
                     <td><?= $msg->getId() ?></td>
                     <td><?= $msg->getDate() ?></td>
@@ -126,10 +120,8 @@
                     <?php endforeach; ?>     
                 </tbody>
               </table>
-              
-
+  
               <?php 
-
                   # calcul du nombre total de page (ceil() fonction qui nous renvoie l'arrondi superieur de la division)
                   // $pageTotales = ceil($listMessages[0]['nbMsg']/$pagination);
                   $pageTotales = ceil($nbMsg['nbMsg']/$pagination);
@@ -139,9 +131,8 @@
 
                 <!-- la premiere ternaire si elle remplit la condition alors elle affiche le href -->
                 <!-- la deuxieme ternaire si elle ne remplit pas la condition alors elle affiche le disabled qui fait rendre le bouton en gris -->
-                <a <?= ($currentPage > 1) ? 'href="?conv='. $_GET['conv'].'&page='. $currentPage - 1 .'"' : '' ?> class="pagination-previous " <?= ($currentPage > 1) ? '' : 'disabled' ?> >Page précédente</a>
-
-                <a <?= ($currentPage < $pageTotales) ? 'href="?conv='. $_GET['conv'].'&page='. $currentPage + 1 .'"' : '' ?> class="pagination-next" <?= ($currentPage < $pageTotales) ? '' : 'disabled' ?>>Page suivante</a>
+                <a <?= ($currentPage > 1) ? 'href="?idConv='. $_GET['idConv'].'&page='. $currentPage - 1 .'"' : '' ?> class="pagination-previous " <?= ($currentPage > 1) ? '' : 'disabled' ?> >Page précédente</a>
+                <a <?= ($currentPage < $pageTotales) ? 'href="?idConv='. $_GET['idConv'].'&page='. $currentPage + 1 .'"' : '' ?> class="pagination-next" <?= ($currentPage < $pageTotales) ? '' : 'disabled' ?>>Page suivante</a>
 
                 <ul class="pagination-list">
                 
@@ -156,7 +147,7 @@
                           if($i == $currentPage){
                             echo '<li><a class="pagination-link is-current">'.$i.'</a></li>';
                           }else{
-                            echo '<li><a href="?conv='. $_GET['conv'].'&page='.$i.'" class="pagination-link">'.$i.'</a></li>';
+                            echo '<li><a href="?idConv='. $_GET['idConv'].'&page='.$i.'" class="pagination-link">'.$i.'</a></li>';
                           }
 
                         }
