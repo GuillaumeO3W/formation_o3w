@@ -20,33 +20,61 @@ require_once 'config/ini.php';
 
 <?php 
 
-$ctrl = 'UserController';
-if(isset($_GET['ctrl']))
+if(!empty($_GET['ctrl']))
 {
-  $ctrl = ucfirst(strtolower($_GET['ctrl'])).'Controller';
-}
-
-$method = 'usersList';
-if(isset($_GET['action']))
-{
-  $method = $_GET['action'];
-}
-
-try
-{
-  if(class_exists($ctrl))
+  $controllerName = ucfirst(strtolower($_GET['ctrl'])).'Controller';
+  if(class_exists($controllerName))
   {
-    $controller = new $ctrl;
-    if(method_exists($controller, $method))
-    {
-      $controller->$method();
-    }
+    $controller = new $controllerName;
   }
 }
-catch(Exception $e)
+else
 {
-  die($e->getMessage());
+  $controller = new ConversationController;
 }
+
+if(!empty($_GET['action']))
+{
+  $methodName = $_GET['action'];
+  if(method_exists($controller, $methodName))
+  {
+    $controller->$methodName();
+  }
+}
+else
+{
+  $controller->conversationsList();
+}
+
+
+
+// $ctrl = 'UserController';
+// if(isset($_GET['ctrl']))
+// {
+//   $ctrl = ucfirst(strtolower($_GET['ctrl'])).'Controller';
+// }
+
+// $method = 'usersList';
+// if(isset($_GET['action']))
+// {
+//   $method = $_GET['action'];
+// }
+
+// try
+// {
+//   if(class_exists($ctrl))
+//   {
+//     $controller = new $ctrl;
+//     if(method_exists($controller, $method))
+//     {
+//       $controller->$method();
+//     }
+//   }
+// }
+// catch(Exception $e)
+// {
+//   die($e->getMessage());
+// }
 
 require 'inc/foot.php'; 
 ?>
