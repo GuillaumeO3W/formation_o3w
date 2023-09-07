@@ -38,7 +38,7 @@ if(!empty($_GET['action']))
   $methodName = $_GET['action'];
   if(method_exists($controller, $methodName))
   {
-    $controller->$methodName();
+      $controller->$methodName();
   }
 }
 else
