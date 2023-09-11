@@ -14,6 +14,7 @@
             <th>Longueur barbe (cm)</th>
             <th>Groupe</th>
             <th>Ville</th>
+            <th>Taverne</th>
           </tr>
         </thead>
         <tbody>
@@ -24,6 +25,7 @@
             <td><?= $nain->getBarbe() ?></td>
             <td><?= $nain->getGroupe() ?></td>
             <td><?= $nain->getVille() ?></td>
+            <?= $nain->getTaverne() != NULL ? "<td>". $nain->getTaverne(). "</td>" : "" ?>
           </tr>   
         </tbody>
       </table>

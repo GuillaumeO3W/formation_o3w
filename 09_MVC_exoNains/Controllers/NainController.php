@@ -24,6 +24,7 @@ class NainController
         isset($_GET['id']) ? $_GET['id'] = $_GET['id'] : $_GET['id'] = 1;
         $nainModel = new NainModel;
         $nain = $nainModel->readOne($_GET['id']);
+debug($nain);
         $nain = new Nain($nain);
         include './Views/nains/nainView.php';
     }

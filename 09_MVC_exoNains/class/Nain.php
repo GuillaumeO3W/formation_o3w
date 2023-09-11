@@ -6,6 +6,7 @@ class Nain
     private $_barbe;
     private $_groupe;
     private $_ville;
+    private $_taverne;
 
 
     public function __construct(array $data)
@@ -63,17 +64,31 @@ class Nain
     {
         $this->_Ville = $ville;
     }
+  
+    public function getTaverne(): string
+    {
+        return $this->_Taverne;
+    }
+
+    public function setTaverne(string $taverne)
+    {
+        $this->_Taverne = $taverne;
+    }
 
 
     private function hydrate(array $data)
     {
         foreach($data as $key=>$value)
         {
-            $setter = 'set'. ucfirst($key);
-            if(method_exists($this, $setter))
+            if($value != NULL)
             {
-                $this->$setter($value);
+                $setter = 'set'. ucfirst($key);
+                if(method_exists($this, $setter))
+                {
+                    $this->$setter($value);
+                }
             }
+            
         }
     }
 }
