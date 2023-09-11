@@ -1,17 +1,17 @@
 <?php
 
-class NainModel extends CoreModel {
+class VilleModel extends CoreModel {
 
 
     public function readAll()
     {
         try 
         {
-            if(($req = $this->getDb()->query('SELECT n_id AS id, n_nom AS nom FROM nain ')) !== false){
+            if(($req = $this->getDb()->query('SELECT v_id AS id, v_nom AS nom, v_superficie AS superficie FROM ville ')) !== false){
                 if($req->execute()){
-                    $nains = $req->fetchAll(PDO::FETCH_ASSOC);
+                    $villes = $req->fetchAll(PDO::FETCH_ASSOC);
                     $req->closeCursor();
-                    return $nains;
+                    return $villes;
                 }
             }
             return false;
@@ -26,13 +26,13 @@ class NainModel extends CoreModel {
     {
         try 
         {
-            if(($req = $this->getDb()->prepare('SELECT n_id AS id, n_nom AS nom, v_nom AS ville, t_nom AS taverne FROM nain JOIN ville ON n_ville_fk = v_id JOIN taverne ON v_id = t_ville_fk WHERE n_id = :id')) !== false){
+            if(($req = $this->getDb()->prepare('SELECT v_id AS id, v_nom AS nom, v_superficie AS superficie FROM ville WHERE v_id = :id')) !== false){
                 
                 if(($req->bindValue('id', $id)) !==false){
                     if($req->execute()){
-                        $nain = $req->fetch(PDO::FETCH_ASSOC);
+                        $ville = $req->fetch(PDO::FETCH_ASSOC);
                         $req->closeCursor();
-                        return $nain;
+                        return $ville;
                     }
                 }
                 
@@ -46,16 +46,16 @@ class NainModel extends CoreModel {
     }
 
 
-    public function countNbNains()
+    public function countNbVilles()
     {
         try
         {
-            if(($req = $this->getDb()->prepare(' SELECT COUNT(n_id) AS nbNains FROM nain ')) !== false)
+            if(($req = $this->getDb()->prepare(' SELECT COUNT(v_id) AS nbVilles FROM ville ')) !== false)
             {
                 if($req->execute()){
-                    $nbNains = $req->fetch(PDO::FETCH_ASSOC);
+                    $nbVilles = $req->fetch(PDO::FETCH_ASSOC);
                     $req->closeCursor();
-                    return $nbNains;
+                    return $nbVilles;
                 }
             }
             return false;

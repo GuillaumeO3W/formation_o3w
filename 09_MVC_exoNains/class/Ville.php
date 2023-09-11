@@ -1,10 +1,9 @@
 <?php
-class Nain
+class Ville
 {
     private $_id;
     private $_nom;
-    private $_ville;
-    private $_taverne;
+    private $_superficie;
 
 
     public function __construct(array $data)
@@ -33,14 +32,14 @@ class Nain
         $this->_Nom = $nom;
     }
   
-    public function getVille(): string
+    public function getSuperficie(): int
     {
-        return $this->_Ville;
+        return $this->_Superficie;
     }
 
-    public function setVille(string $ville)
+    public function setSuperficie(int $superficie)
     {
-        $this->_Ville = $ville;
+        $this->_Superficie = $superficie;
     }
 
 
