@@ -75,7 +75,16 @@ class Nain
     {
         $this->_Ville = $ville;
     }
-  
+    
+    public function getT_id(): int
+    {
+        return $this->_T_id;
+    }
+
+    public function setT_id(int $t_id)
+    {
+        $this->_T_id = $t_id;
+    }
     public function getTaverne(): string
     {
         return $this->_Taverne;

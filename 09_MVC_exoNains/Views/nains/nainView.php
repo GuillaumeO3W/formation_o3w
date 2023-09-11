@@ -12,7 +12,7 @@ if(!empty($nain)) :
         <?= $nain->getNom().", ".$nain->getBarbe() ?>
       </div>
       <p>Originaire de <a href="index.php?ctrl=ville&action=villeView&id=<?= $nain->getV_id() ?>"><?= $nain->getVille() ?></a></p>
-      <?= $nain->getTaverne() == "0" ? "" : "<p>Boit dans ".$nain->getTaverne()."</p>" ?>
+      <?= $nain->getTaverne() == "0" ? "" : "<p>Boit dans <a href=\"index.php?ctrl=taverne&action=taverneView&id=".$nain->getT_id()."\">".$nain->getTaverne()."</a></p>" ?>
       <p>Membre du groupe <?= $nain->getGroupe() == "0" ? "Aucun groupe" : "n°".$nain->getGroupe() ?></p>     
 
 <?php   else: ?>
