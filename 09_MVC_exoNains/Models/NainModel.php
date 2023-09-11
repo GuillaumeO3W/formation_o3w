@@ -26,7 +26,7 @@ class NainModel extends CoreModel {
     {
         try 
         {
-            if(($req = $this->getDb()->prepare('SELECT n_id AS id, n_nom AS nom, n_barbe AS barbe, g_id AS groupe, v_nom AS ville, t_nom AS taverne FROM nain LEFT JOIN ville ON n_ville_fk = v_id LEFT JOIN groupe ON n_groupe_fk = g_id LEFT JOIN taverne ON t_id = g_taverne_fk WHERE n_id = :id')) !== false){
+            if(($req = $this->getDb()->prepare('SELECT n_id AS id, n_nom AS nom, n_barbe AS barbe, g_id AS groupe,v_id, v_nom AS ville, t_nom AS taverne FROM nain LEFT JOIN ville ON n_ville_fk = v_id LEFT JOIN groupe ON n_groupe_fk = g_id LEFT JOIN taverne ON t_id = g_taverne_fk WHERE n_id = :id')) !== false){
                 
                 if(($req->bindValue('id', $id)) !==false){
                     if($req->execute()){

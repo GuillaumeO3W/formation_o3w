@@ -2,17 +2,16 @@
 
 class NainController 
 {
-
     public function nainsList()
     {
-
         $model = new NainModel;
         $datas = $model->readAll();
         $nains = [];
-        if(count($datas) > 0){
-            foreach($datas as $data){
+        if(count($datas) > 0)
+        {
+            foreach($datas as $data)
+            {
                 $nains[] = new Nain($data);
-
             }
         }
         $title = 'nainsList';
@@ -27,5 +26,4 @@ class NainController
         $nain = new Nain($nain);
         include './Views/nains/nainView.php';
     }
-
 }

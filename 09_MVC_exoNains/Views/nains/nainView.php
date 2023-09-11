@@ -11,7 +11,7 @@ if(!empty($nain)) :
       <div class="title">
         <?= $nain->getNom().", ".$nain->getBarbe() ?>
       </div>
-      <p>Originaire de <?= $nain->getVille() ?></p>
+      <p>Originaire de <a href="index.php?ctrl=ville&action=villeView&id=<?= $nain->getV_id() ?>"><?= $nain->getVille() ?></a></p>
       <?= $nain->getTaverne() == "0" ? "" : "<p>Boit dans ".$nain->getTaverne()."</p>" ?>
       <p>Membre du groupe <?= $nain->getGroupe() == "0" ? "Aucun groupe" : "n°".$nain->getGroupe() ?></p>     
 

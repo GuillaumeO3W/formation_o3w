@@ -5,6 +5,7 @@ class Nain
     private $_nom;
     private $_barbe;
     private $_groupe;
+    private $_v_id;
     private $_ville;
     private $_taverne;
 
@@ -55,6 +56,16 @@ class Nain
         $this->_Groupe = $groupe;
     }
   
+    public function getV_id(): int
+    {
+        return $this->_V_id;
+    }
+
+    public function setV_id(int $v_id)
+    {
+        $this->_V_id = $v_id;
+    }
+   
     public function getVille(): string
     {
         return $this->_Ville;
