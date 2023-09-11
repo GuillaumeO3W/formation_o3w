@@ -7,15 +7,15 @@ function loadClass($className){
 spl_autoload_register('loadClass');
 
 function loadModel($modelName){
-    if(file_exists('models/'.$modelName.'.php')){
-        require_once 'models/'.$modelName.'.php';
+    if(file_exists('Models/'.$modelName.'.php')){
+        require_once 'Models/'.$modelName.'.php';
     }
 }
 spl_autoload_register('loadModel');
 
 function loadController($controllerName){
-    if(file_exists('controllers/'.$controllerName.'.php')){
-        require_once 'controllers/'.$controllerName.'.php';
+    if(file_exists('Controllers/'.$controllerName.'.php')){
+        require_once 'Controllers/'.$controllerName.'.php';
     }
 }
 spl_autoload_register('loadController');
