@@ -80,15 +80,13 @@ class Nain
     {
         foreach($data as $key=>$value)
         {
-            if($value != NULL)
-            {
+            $value == NULL ? $value = "0" : $value = $value;
+            
                 $setter = 'set'. ucfirst($key);
                 if(method_exists($this, $setter))
                 {
                     $this->$setter($value);
-                }
-            }
-            
+                }            
         }
     }
 }

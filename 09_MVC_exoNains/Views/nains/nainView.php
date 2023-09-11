@@ -2,33 +2,19 @@
     require 'inc/head.php';
 ?>
 <a href="index.php" class="button is-dark ">Retour</a>
+<?php 
+if(!empty($nain)) :
+ ?>
 <div class="section">
-  <h1 class="title"><?= $nain->getNom() ?></h1>
   <div class="card is-shadowless">
     <div class="card-content">
-      <table class="table is-hoverable is-fullwidth">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Nom</th>
-            <th>Longueur barbe (cm)</th>
-            <th>Groupe</th>
-            <th>Ville</th>
-            <th>Taverne</th>
-          </tr>
-        </thead>
-        <tbody>
-<?php   if(!empty($nain)) : ?>
-          <tr>
-            <th><?= $nain->getId() ?></th>
-            <td><?= $nain->getNom() ?></td>
-            <td><?= $nain->getBarbe() ?></td>
-            <td><?= $nain->getGroupe() ?></td>
-            <td><?= $nain->getVille() ?></td>
-            <?= $nain->getTaverne() != NULL ? "<td>". $nain->getTaverne(). "</td>" : "" ?>
-          </tr>   
-        </tbody>
-      </table>
+      <div class="title">
+        <?= $nain->getNom().", ".$nain->getBarbe() ?>
+      </div>
+      <p>Originaire de <?= $nain->getVille() ?></p>
+      <?= $nain->getTaverne() == "0" ? "" : "<p>Boit dans ".$nain->getTaverne()."</p>" ?>
+      <p>Membre du groupe <?= $nain->getGroupe() == "0" ? "Aucun groupe" : "n°".$nain->getGroupe() ?></p>     
+
 <?php   else: ?>
           <p>Aucun nain</p>
 <?php   endif; ?>
