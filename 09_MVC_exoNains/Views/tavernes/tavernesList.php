@@ -14,7 +14,7 @@ if(!empty($_GET['pagination']) && ctype_digit($_GET['pagination'])){
 ?>
 <a href="index.php" class="button is-dark ">Retour</a>
 <div class="section">
-  <h1 class="title">Liste des Nains</h1>
+  <h1 class="title">Liste des Tavernes</h1>
   <div class="card is-shadowless">
     <div class="card-content">
       <table class="table is-hoverable is-fullwidth">
@@ -22,19 +22,21 @@ if(!empty($_GET['pagination']) && ctype_digit($_GET['pagination'])){
           <tr>
             <th>Id</th>
             <th>Nom</th>
-            <th>Profil</th>
+            <th>Nb de chambres</th>
+            <th>Détails</th>
           </tr>
         </thead>
         <tbody>
           <?php 
-            if(!empty($nains)) :
-              foreach($nains as $nain) :  
+            if(!empty($tavernes)) :
+              foreach($tavernes as $taverne) :  
           ?>
     
           <tr>
-            <th><?= $nain->getId() ?></th>
-            <td><?= $nain->getNom() ?></td>
-            <td><a href="index.php?ctrl=nain&action=nainView&id=<?= $nain->getId() ?>" class="button is-dark is-small">Voir nain</a></td>
+            <th><?= $taverne->getId() ?></th>
+            <td><?= $taverne->getNom() ?></td>
+            <td><?= $taverne->getChambres() ?></td>
+            <td><a href="index.php?ctrl=taverne&action=taverneView&id=<?= $taverne->getId() ?>" class="button is-dark is-small">Voir taverne</a></td>
           </tr>   
           <?php 
             endforeach;
@@ -44,13 +46,13 @@ if(!empty($_GET['pagination']) && ctype_digit($_GET['pagination'])){
       <?php
         else: 
       ?>
-          <p>Aucun nain</p>
+          <p>Aucune taverne</p>
       <?php
         endif
       ?>
       
       <?php 
-      $pageTotales = ceil($nbNains['nbNains']/$pagination);
+      $pageTotales = ceil($nbTavernes['nbTavernes']/$pagination);
       ?>
 
       <nav class="pagination is-centered" >

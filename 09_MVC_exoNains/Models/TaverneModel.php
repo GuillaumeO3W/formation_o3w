@@ -1,17 +1,17 @@
 <?php
 
-class NainModel extends CoreModel {
+class TaverneModel extends CoreModel {
 
 
     public function readAll()
     {
         try 
         {
-            if(($req = $this->getDb()->query('SELECT n_id AS id, n_nom AS nom FROM nain ')) !== false){
+            if(($req = $this->getDb()->query('SELECT t_id AS id, t_nom AS nom, t_chambres AS chambres FROM taverne ')) !== false){
                 if($req->execute()){
-                    $nains = $req->fetchAll(PDO::FETCH_ASSOC);
+                    $tavernes = $req->fetchAll(PDO::FETCH_ASSOC);
                     $req->closeCursor();
-                    return $nains;
+                    return $tavernes;
                 }
             }
             return false;
@@ -26,16 +26,15 @@ class NainModel extends CoreModel {
     {
         try 
         {
-            if(($req = $this->getDb()->prepare('SELECT n_id AS id, n_nom AS nom, n_barbe AS barbe, g_id AS groupe, v_nom AS ville, t_nom AS taverne FROM nain LEFT JOIN ville ON n_ville_fk = v_id LEFT JOIN groupe ON n_groupe_fk = g_id JOIN taverne ON v_id = t_ville_fk WHERE n_id = :id')) !== false){
+            if(($req = $this->getDb()->prepare('SELECT t_id AS id, t_nom AS nom, t_chambres AS chambres, t_blonde AS blonde, t_brune AS brune, t_rousse AS rousse, v_nom AS ville FROM taverne LEFT JOIN ville ON t_ville_fk = v_id WHERE t_id = :id')) !== false){
                 
                 if(($req->bindValue('id', $id)) !==false){
                     if($req->execute()){
-                        $nain = $req->fetch(PDO::FETCH_ASSOC);
+                        $taverne = $req->fetch(PDO::FETCH_ASSOC);
                         $req->closeCursor();
-                        return $nain;
+                        return $taverne;
                     }
                 }
-                
             }
             return false;
 
@@ -46,16 +45,16 @@ class NainModel extends CoreModel {
     }
 
 
-    public function countNbNains()
+    public function countNbTavernes()
     {
         try
         {
-            if(($req = $this->getDb()->prepare(' SELECT COUNT(n_id) AS nbNains FROM nain ')) !== false)
+            if(($req = $this->getDb()->prepare(' SELECT COUNT(t_id) AS nbTavernes FROM taverne ')) !== false)
             {
                 if($req->execute()){
-                    $nbNains = $req->fetch(PDO::FETCH_ASSOC);
+                    $nbTavernes = $req->fetch(PDO::FETCH_ASSOC);
                     $req->closeCursor();
-                    return $nbNains;
+                    return $nbTavernes;
                 }
             }
             return false;
@@ -63,6 +62,5 @@ class NainModel extends CoreModel {
         } catch(PDOException $e){
             die($e->getMessage());
         }
-
     }
 }

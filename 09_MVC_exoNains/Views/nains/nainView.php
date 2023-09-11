@@ -11,6 +11,8 @@
           <tr>
             <th>Id</th>
             <th>Nom</th>
+            <th>Longueur barbe (cm)</th>
+            <th>Groupe</th>
             <th>Ville</th>
           </tr>
         </thead>
@@ -19,6 +21,8 @@
           <tr>
             <th><?= $nain->getId() ?></th>
             <td><?= $nain->getNom() ?></td>
+            <td><?= $nain->getBarbe() ?></td>
+            <td><?= $nain->getGroupe() ?></td>
             <td><?= $nain->getVille() ?></td>
           </tr>   
         </tbody>

@@ -23,6 +23,7 @@ if(!empty($_GET['pagination']) && ctype_digit($_GET['pagination'])){
             <th>Id</th>
             <th>Nom</th>
             <th>Superficie</th>
+            <th>Détails</th>
           </tr>
         </thead>
         <tbody>

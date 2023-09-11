@@ -1,10 +1,12 @@
 <?php
-class Nain
+class Taverne
 {
     private $_id;
     private $_nom;
-    private $_barbe;
-    private $_groupe;
+    private $_chambres;
+    private $_blonde;
+    private $_brune;
+    private $_rousse;
     private $_ville;
 
 
@@ -33,27 +35,47 @@ class Nain
     {
         $this->_Nom = $nom;
     }
-    
-    public function getBarbe(): float
-    {
-        return $this->_Barbe;
-    }
-
-    public function setBarbe(float $barbe)
-    {
-        $this->_Barbe = $barbe;
-    }
-    
-    public function getGroupe(): int
-    {
-        return $this->_Groupe;
-    }
-
-    public function setGroupe(int $groupe)
-    {
-        $this->_Groupe = $groupe;
-    }
   
+    public function getChambres(): int
+    {
+        return $this->_Chambres;
+    }
+
+    public function setChambres(int $chambres)
+    {
+        $this->_Chambres = $chambres;
+    }
+   
+    public function getBlonde(): int
+    {
+        return $this->_Blonde;
+    }
+
+    public function setBlonde(int $blonde)
+    {
+        $this->_Blonde = $blonde;
+    }
+   
+    public function getBrune(): int
+    {
+        return $this->_Brune;
+    }
+
+    public function setBrune(int $brune)
+    {
+        $this->_Brune = $brune;
+    }
+   
+    public function getRousse(): int
+    {
+        return $this->_Rousse;
+    }
+
+    public function setRousse(int $rousse)
+    {
+        $this->_Rousse = $rousse;
+    }
+   
     public function getVille(): string
     {
         return $this->_Ville;
