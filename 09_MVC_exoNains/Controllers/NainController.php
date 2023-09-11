@@ -16,6 +16,7 @@ class NainController
             }
         }
         $title = 'nainsList';
+        $nbNains = $model->countNbNains();
         include './Views/nains/nainsList.php';
     }
     public function nainView()

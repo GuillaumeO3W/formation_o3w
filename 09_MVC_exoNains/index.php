@@ -29,6 +29,8 @@ else
   $controller = new NainController;
 }
 
+
+
 if(!empty($_GET['action']))
 {
   $methodName = $_GET['action'];

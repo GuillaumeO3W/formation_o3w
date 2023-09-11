@@ -3,7 +3,7 @@
 ?>
 <a href="index.php" class="button is-dark ">Retour</a>
 <div class="section">
-  <h1 class="title">Liste des nians</h1>
+  <h1 class="title"><?= $nain->getNom() ?></h1>
   <div class="card is-shadowless">
     <div class="card-content">
       <table class="table is-hoverable is-fullwidth">

@@ -1,17 +1,15 @@
 <?php 
+require 'inc/head.php';
 
-    require 'inc/head.php';
+$currentPage = 1;
+if(!empty($_GET['page']) && ctype_digit($_GET['page'])){
+  $currentPage = $_GET['page'];
+}
 
-    $currentPage = 1;
-    if(!empty($_GET['page']) && ctype_digit($_GET['page'])){
-      $currentPage = $_GET['page'];
-    }
-
-    $pagination = PAGINATION;
-    if(!empty($_GET['pagination']) && ctype_digit($_GET['pagination'])){
-      $pagination = $_GET['pagination'];
-    }
-
+$pagination = PAGINATION;
+if(!empty($_GET['pagination']) && ctype_digit($_GET['pagination'])){
+  $pagination = $_GET['pagination'];
+}
 
 ?>
 <a href="index.php" class="button is-dark ">Retour</a>
@@ -51,8 +49,6 @@
       ?>
       
       <?php 
-
-    
       $pageTotales = ceil($nbNains['nbNains']/$pagination);
       ?>
 
@@ -82,7 +78,6 @@
     </div>
   </div>
 </div>
-
 
 <?php 
         require 'inc/foot.php'; 

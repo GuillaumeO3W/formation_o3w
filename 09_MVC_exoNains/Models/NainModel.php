@@ -50,7 +50,7 @@ class NainModel extends CoreModel {
     {
         try
         {
-            if(($req = $this->getDb()->prepare(' SELECT COUNT(n_id) AS nbNAins FROM nain ')) !== false)
+            if(($req = $this->getDb()->prepare(' SELECT COUNT(n_id) AS nbNains FROM nain ')) !== false)
             {
                 if($req->execute()){
                     $nbNains = $req->fetch(PDO::FETCH_ASSOC);
