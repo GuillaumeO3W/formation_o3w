@@ -4,7 +4,7 @@
 <a href="index.php" class="button is-dark ">Retour</a>
 <?php 
 if(!empty($nain)) :
- ?>
+?>
 <div class="section">
   <div class="card is-shadowless">
     <div class="card-content">
@@ -26,21 +26,18 @@ if(!empty($nain)) :
             <?=$nain->getTaverne()?>
           </a>
         </p>
+
       <?php 
       endif; 
-      ?> 
 
-      
-      <p>Travaille de <?= $nain->getDebut()." à ".$nain->getFin() ?>
-         dans le tunnel de 
-         <a href="index.php?ctrl=ville&action=villeView&id=<?= $nain->getDepartId()?>"><?= $nain->getDepart()?></a>
-         à 
-         <a href="index.php?ctrl=ville&action=villeView&id=<?=$nain->getArriveeId()?>"><?=$nain->getArrivee()?></a>
-      </p>
-       
-      <?php 
       if($nain->getGroupe() != "0"):
       ?>
+        <p>Travaille de <?= $nain->getDebut()." à ".$nain->getFin() ?>
+          dans le tunnel de 
+          <a href="index.php?ctrl=ville&action=villeView&id=<?= $nain->getDepartId()?>"><?= $nain->getDepart()?></a>
+          à 
+          <a href="index.php?ctrl=ville&action=villeView&id=<?=$nain->getArriveeId()?>"><?=$nain->getArrivee()?></a>
+        </p>
         <p>Membre du groupe 
           <a href="index.php?ctrl=groupe&action=groupeView&id=<?= $nain->getGroupe() ?>">
             n° <?= $nain->getGroupe()?>
