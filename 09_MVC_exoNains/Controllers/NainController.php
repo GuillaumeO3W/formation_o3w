@@ -5,7 +5,15 @@ class NainController
     public function nainsList()
     {
         $model = new NainModel;
-        $datas = $model->readAll();
+        if (isset($_GET["v_id"]))
+        {
+            $datas = $model->readOrigin($_GET["v_id"]);
+        }
+        else
+        {
+            $datas = $model->readAll();
+        }
+        
         $nains = [];
         if(count($datas) > 0)
         {

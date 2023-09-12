@@ -14,7 +14,9 @@ if(!empty($_GET['pagination']) && ctype_digit($_GET['pagination'])){
 ?>
 <a href="index.php" class="button is-dark ">Retour</a>
 <div class="section">
-  <h1 class="title">Liste des Nains</h1>
+  <h1 class="title">Liste des Nains 
+    <?= (isset($_GET["v_id"])) ? "Originaires de la ville n°".$_GET["v_id"] :"" ?>
+  </h1>
   <div class="card is-shadowless">
     <div class="card-content">
       <table class="table is-hoverable is-fullwidth">

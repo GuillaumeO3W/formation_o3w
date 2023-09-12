@@ -2,27 +2,15 @@
     require 'inc/head.php';
 ?>
 <a href="index.php?ctrl=ville&action=villesList" class="button is-dark ">Retour</a>
+<?php   if(!empty($ville)) : ?>
 <div class="section">
-  <h1 class="title"><?= $ville->getNom() ?></h1>
   <div class="card is-shadowless">
     <div class="card-content">
-      <table class="table is-hoverable is-fullwidth">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Nom</th>
-            <th>Superficie</th>
-          </tr>
-        </thead>
-        <tbody>
-<?php   if(!empty($ville)) : ?>
-          <tr>
-            <th><?= $ville->getId() ?></th>
-            <td><?= $ville->getNom() ?></td>
-            <td><?= $ville->getSuperficie() ?></td>
-          </tr>   
-        </tbody>
-      </table>
+      <div class="title">
+        <?= $ville->getNom().", ".$ville->getSuperficie() ?>
+      </div>
+      <a href="index.php?ctrl=nain&action=nainsList&v_id=<?= $ville->getId() ?>">Liste des nains originaires de cette ville</a>
+
 <?php   else: ?>
           <p>Aucune ville</p>
 <?php   endif; ?>

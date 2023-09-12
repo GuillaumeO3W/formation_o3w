@@ -23,6 +23,30 @@ class NainModel extends CoreModel {
         }
     }
 
+    public function readOrigin($v_id)
+    {
+        try 
+        {
+            if(($req = $this->getDb()->prepare('SELECT n_id AS id, n_nom AS nom FROM nain WHERE n_ville_fk = :v_id')) !== false)
+            {
+                if(($req->bindValue('v_id', $v_id)) !==false)
+                {
+                    if($req->execute())
+                    {
+                        $nains = $req->fetchAll(PDO::FETCH_ASSOC);
+                        $req->closeCursor();
+                        return $nains;
+                    }
+                }   
+            }
+            return false;
+
+        } catch(PDOException $e) 
+        {
+            die($e->getMessage());
+        }
+    }
+
     public function readOne(int $id)
     {
         try 
