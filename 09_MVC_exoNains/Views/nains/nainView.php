@@ -13,7 +13,7 @@ if(!empty($nain)) :
       </div>
       <p>Originaire de <a href="index.php?ctrl=ville&action=villeView&id=<?= $nain->getV_id() ?>"><?= $nain->getVille() ?></a></p>
       <?= $nain->getTaverne() == "0" ? "" : "<p>Boit dans <a href=\"index.php?ctrl=taverne&action=taverneView&id=".$nain->getT_id()."\">".$nain->getTaverne()."</a></p>" ?>
-      <p>Travaille de <?= $nain->getDebut() ?></p>
+      <p>Travaille de <?= $nain->getDebut()." à ".$nain->getFin() ?> dans le tunnel de <?= $nain->getDepart()." à ".$nain->getArrivee() ?> </p>
       <p>Membre du groupe <?= $nain->getGroupe() == "0" ? "Aucun groupe" : "<a href=\"index.php?ctrl=groupe&action=groupeView&id=".$nain->getGroupe()."\">n°".$nain->getGroupe()."</a>" ?></p>     
 
 <?php   else: ?>

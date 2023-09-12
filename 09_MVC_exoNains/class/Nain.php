@@ -9,13 +9,14 @@ class Nain
     private $_ville;
     private $_taverne;
     private $_debut;
+    private $_fin;
 
 
     public function __construct(array $data)
     {
         $this->hydrate($data);
     }
-
+////////////////////////////////////////////////////        
     public function getId(): int
     {
         return $this->_id;
@@ -25,7 +26,7 @@ class Nain
     {
         $this->_id = $id;
     }
-    
+///////////////////////////////////////////////////           
     public function getNom(): string
     {
         return $this->_Nom;
@@ -35,7 +36,7 @@ class Nain
     {
         $this->_Nom = $nom;
     }
-    
+//////////////////////////////////////////////////            
     public function getBarbe(): float
     {
         return $this->_Barbe;
@@ -45,7 +46,7 @@ class Nain
     {
         $this->_Barbe = $barbe;
     }
-    
+///////////////////////////////////////////////////                
     public function getGroupe(): int
     {
         return $this->_Groupe;
@@ -55,7 +56,7 @@ class Nain
     {
         $this->_Groupe = $groupe;
     }
-  
+///////////////////////////////////////////////////             
     public function getV_id(): int
     {
         return $this->_V_id;
@@ -65,7 +66,7 @@ class Nain
     {
         $this->_V_id = $v_id;
     }
-   
+//////////////////////////////////////////////////               
     public function getVille(): string
     {
         return $this->_Ville;
@@ -75,7 +76,7 @@ class Nain
     {
         $this->_Ville = $ville;
     }
-    
+//////////////////////////////////////////////////   
     public function getT_id(): int
     {
         return $this->_T_id;
@@ -85,6 +86,7 @@ class Nain
     {
         $this->_T_id = $t_id;
     }
+////////////////////////////////////////////////////    
     public function getTaverne(): string
     {
         return $this->_Taverne;
@@ -94,18 +96,47 @@ class Nain
     {
         $this->_Taverne = $taverne;
     }
-
-        
+//////////////////////////////////////////////////////        
     public function getDebut(): string
     {
         return $this->_Debut;
     }
 
-    public function setDebut(string $debut)
+    public function setDebut(string $fin)
     {
-        $this->_Debut = $debut;
+        $this->_Debut = $fin;
+    }
+//////////////////////////////////////////////////        
+    public function getFin(): string
+    {
+        return $this->_Fin;
     }
 
+    public function setFin(string $debut)
+    {
+        $this->_Fin = $debut;
+    }
+/////////////////////////////////////////////////        
+    public function getDepart(): string
+    {
+        return $this->_Depart;
+    }
+
+    public function setDepart(string $depart)
+    {
+        $this->_Depart = $depart;
+    }
+///////////////////////////////////////////////////        
+    public function getArrivee(): string
+    {
+        return $this->_Arrivee;
+    }
+
+    public function setArrivee(string $arrivee)
+    {
+        $this->_Arrivee = $arrivee;
+    }
+///////////////////////////////////////////////////
     private function hydrate(array $data)
     {
         foreach($data as $key=>$value)

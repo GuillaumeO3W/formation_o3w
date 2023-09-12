@@ -4,7 +4,6 @@
 <a href="index.php" class="button is-dark ">Retour</a>
 <?php 
 if(!empty($groupe)) :
-  debug($groupe);
  ?>
 <div class="section">
   <div class="card is-shadowless">
