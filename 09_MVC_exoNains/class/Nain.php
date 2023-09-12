@@ -10,6 +10,10 @@ class Nain
     private $_taverne;
     private $_debut;
     private $_fin;
+    private $_depart;
+    private $_departId;
+    private $_arrivee;
+    private $_arriveeId;
 
 
     public function __construct(array $data)
@@ -126,6 +130,16 @@ class Nain
     {
         $this->_Depart = $depart;
     }
+/////////////////////////////////////////////////        
+    public function getDepartId(): int
+    {
+        return $this->_DepartId;
+    }
+
+    public function setDepartId(int $departId)
+    {
+        $this->_DepartId = $departId;
+    }
 ///////////////////////////////////////////////////        
     public function getArrivee(): string
     {
@@ -135,6 +149,16 @@ class Nain
     public function setArrivee(string $arrivee)
     {
         $this->_Arrivee = $arrivee;
+    }
+///////////////////////////////////////////////////        
+    public function getArriveeId(): int
+    {
+        return $this->_ArriveeId;
+    }
+
+    public function setArriveeId(int $arriveeId)
+    {
+        $this->_ArriveeId = $arriveeId;
     }
 ///////////////////////////////////////////////////
     private function hydrate(array $data)

@@ -21,7 +21,6 @@ class NainModel extends CoreModel {
         {
             die($e->getMessage());
         }
-
     }
 
     public function readOne(int $id)
@@ -35,41 +34,21 @@ class NainModel extends CoreModel {
                     g_id AS groupe,
                     v_id,
                     v_nom AS ville,
-                    t_id,
+                    taverne.t_id,
                     t_nom AS taverne,
                     g_debuttravail AS debut,
                     g_fintravail AS fin,
-                        (SELECT v_nom FROM ville
-                        LEFT JOIN tunnel ON v_id = t_villedepart_fk
-                        LEFT JOIN groupe ON tunnel.t_id = g_tunnel_fk
-                        WHERE g_id = groupe) AS depart,
-                        (SELECT v_nom FROM ville
-                        LEFT JOIN tunnel ON v_id = t_villearrivee_fk
-                        LEFT JOIN groupe ON tunnel.t_id = g_tunnel_fk
-                        WHERE g_id = groupe) AS arrivee
-                        
+                    (SELECT v_nom FROM ville WHERE v_id = t_villedepart_fk) AS depart,
+                    (SELECT v_id FROM ville WHERE v_id = t_villedepart_fk) AS departId,
+                    (SELECT v_nom FROM ville WHERE v_id = t_villearrivee_fk) AS arrivee,
+                    (SELECT v_id FROM ville WHERE v_id = t_villearrivee_fk) AS arriveeId
                     FROM nain 
                     LEFT JOIN ville ON n_ville_fk = v_id 
                     LEFT JOIN groupe ON n_groupe_fk = g_id 
                     LEFT JOIN taverne ON taverne.t_id = g_taverne_fk 
+                    LEFT JOIN tunnel ON tunnel.t_id = g_tunnel_fk
                     WHERE n_id = :id')) !== false)
-                // 'SELECT n_id AS id,
-                //     n_nom AS nom,
-                //     n_barbe AS barbe,
-                //     g_id AS groupe,
-                //     v_id,
-                //     v_nom AS ville,
-                //     t_id,
-                //     t_nom AS taverne,
-                //     g_debuttravail AS debut,
-                //     g_fintravail AS fin 
-                //     FROM nain 
-                //     LEFT JOIN ville ON n_ville_fk = v_id 
-                //     LEFT JOIN groupe ON n_groupe_fk = g_id 
-                //     LEFT JOIN taverne ON t_id = g_taverne_fk 
-                //     WHERE n_id = :id')) !== false)
-            {
-                
+            { 
                 if(($req->bindValue('id', $id)) !==false)
                 {
                     if($req->execute())
@@ -78,11 +57,9 @@ class NainModel extends CoreModel {
                         $req->closeCursor();
                         return $nain;
                     }
-                }
-                
+                }   
             }
             return false;
-
         } 
         catch(PDOException $e) 
         {
