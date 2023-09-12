@@ -11,9 +11,25 @@ if(!empty($nain)) :
       <div class="title">
         <?= $nain->getNom().", ".$nain->getBarbe() ?>
       </div>
-      <p>Originaire de <a href="index.php?ctrl=ville&action=villeView&id=<?= $nain->getV_id() ?>"><?= $nain->getVille() ?></a></p>
 
-      <?= $nain->getTaverne() == "0" ? "" : "<p>Boit dans <a href=\"index.php?ctrl=taverne&action=taverneView&id=".$nain->getT_id()."\">".$nain->getTaverne()."</a></p>" ?>
+      <p>Originaire de 
+        <a href="index.php?ctrl=ville&action=villeView&id=<?= $nain->getV_id() ?>">
+          <?= $nain->getVille() ?>
+        </a>
+      </p>
+
+      <?php 
+      if ($nain->getTaverne() != "0") :
+      ?>
+        <p>Boit dans 
+          <a href="index.php?ctrl=taverne&action=taverneView&id=<?=$nain->getT_id()?>">
+            <?=$nain->getTaverne()?>
+          </a>
+        </p>
+      <?php 
+      endif; 
+      ?> 
+
       
       <p>Travaille de <?= $nain->getDebut()." à ".$nain->getFin() ?>
          dans le tunnel de 
