@@ -4,14 +4,13 @@ class Groupe
     private $_id;
     private $_debutTravail;
     private $_finTravail;
-    private $_taverne;
+    private $_taverneId;
     private $_tunnel;
 
 
     public function __construct(array $data)
     {
         $this->hydrate($data);
-
     }
 
     public function getId(): int
@@ -24,32 +23,42 @@ class Groupe
         $this->_id = $id;
     }
     
-    public function getDebutTravail(): string
+    public function getDebut(): string
     {
-        return $this->_DebutTravail;
+        return $this->_Debut;
     }
 
-    public function setDebutTravail(string $debutTravail)
+    public function setDebut(string $debut)
     {
-        $this->_DebutTravail = $debutTravail;
+        $this->_Debut = $debut;
     }
     
-    public function getFinTravail(): string
+    public function getFin(): string
     {
-        return $this->_FinTravail;
+        return $this->_Fin;
     }
 
-    public function setFinTravail(string $finTravail)
+    public function setFin(string $fin)
     {
-        $this->_FinTravail = $finTravail;
+        $this->_Fin = $fin;
     }
 
-    public function getTaverne(): int
+    public function getTaverneId(): int
+    {
+        return $this->_TaverneId;
+    }
+
+    public function setTaverneId(int $taverneId)
+    {
+        $this->_TaverneId = $taverneId;
+    }
+    
+    public function getTaverne(): string
     {
         return $this->_Taverne;
     }
 
-    public function setTaverne(int $taverne)
+    public function setTaverne(string $taverne)
     {
         $this->_Taverne = $taverne;
     }
@@ -69,6 +78,8 @@ class Groupe
     {
         foreach($data as $key=>$value)
         {
+            $value == NULL ? $value = "0" : $value = $value;
+
             $setter = 'set'. ucfirst($key);
             if(method_exists($this, $setter))
             {

@@ -8,12 +8,12 @@ class Nain
     private $_v_id;
     private $_ville;
     private $_taverne;
+    private $_debut;
 
 
     public function __construct(array $data)
     {
         $this->hydrate($data);
-
     }
 
     public function getId(): int
@@ -95,6 +95,16 @@ class Nain
         $this->_Taverne = $taverne;
     }
 
+        
+    public function getDebut(): string
+    {
+        return $this->_Debut;
+    }
+
+    public function setDebut(string $debut)
+    {
+        $this->_Debut = $debut;
+    }
 
     private function hydrate(array $data)
     {
