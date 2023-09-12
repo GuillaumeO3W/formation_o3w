@@ -71,9 +71,7 @@ if(!empty($_GET['pagination']) && ctype_digit($_GET['pagination'])){
               }else{
                 echo '<li><a href="?page='.$i.'" class="pagination-link">'.$i.'</a></li>';
               }
-
             }
-
         ?>
       </ul>
 
