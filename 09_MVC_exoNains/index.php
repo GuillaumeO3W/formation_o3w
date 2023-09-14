@@ -17,34 +17,79 @@ require_once 'config/ini.php';
 </div>
 
 <?php 
-
-if(!empty($_GET['ctrl']))
+$ctrl = 'NainController';
+if(isset($_GET['ctrl']))
 {
-  $controllerName = ucfirst(strtolower($_GET['ctrl'])).'Controller';
-  if(class_exists($controllerName))
-  {
-    $controller = new $controllerName;
-  }
+    $ctrl = ucfirst(strtolower($_GET['ctrl'])).'Controller';
 }
-else
+$method = 'nainsList';
+if(isset($_GET['action']))
 {
-  $controller = new NainController;
+    $method = $_GET['action'];
 }
 
+try{
+    if(class_exists($ctrl)){
+        $controller = new $ctrl;
+        if(!empty($_POST))
+        {
+            if(method_exists($controller, $method)){
+                if(!empty($_GET['id']) && ctype_digit($_GET['id']))
+                {
+                    $controller->$method($_GET['id'], $_POST);
+                }else 
+                {
+                    $controller->$method($_POST);
+                }
+            }
+        }else 
+        {
+            if(method_exists($controller, $method)){
+                if(!empty($_GET['id']) && ctype_digit($_GET['id']))
+                {
+                    $controller->$method($_GET['id']);
+                }else 
+                {
+                  $controller->$method();
+                }
+            }
+        }
+    }
+
+}catch(Exception $e ){
+    die($e->getMessage());
+}
 
 
-if(!empty($_GET['action']))
-{
-  $methodName = $_GET['action'];
-  if(method_exists($controller, $methodName))
-  {
-      $controller->$methodName();
-  }
-}
-else
-{
-  $controller->nainsList();
-}
+
+// if(!empty($_GET['ctrl']))
+// {
+//   $controllerName = ucfirst(strtolower($_GET['ctrl'])).'Controller';
+//   if(class_exists($controllerName))
+//   {
+//     $controller = new $controllerName;
+
+//   }
+// }
+// else
+// {
+//   $controller = new NainController;
+// }
+
+
+
+// if(!empty($_GET['action']))
+// {
+//   $methodName = $_GET['action'];
+//   if(method_exists($controller, $methodName))
+//   {
+//       $controller->$methodName();
+//   }
+// }
+// else
+// {
+//   $controller->nainsList();
+// }
 
 require 'inc/foot.php'; 
 ?>

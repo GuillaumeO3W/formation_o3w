@@ -46,7 +46,7 @@ class NainController
         $datas = $model->readOne($id);
 
         if(count($datas) > 0){
-            $user = new Nain($datas);
+            $nain = new Nain($datas);
         }
         include './Views/nains/edit.php';
     }
