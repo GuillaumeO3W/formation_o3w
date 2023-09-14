@@ -6,13 +6,20 @@ require 'inc/head.php';
 ?>
   <div class="card is-shadowless">
     <div class="card-content">
-      <div class="is-flex is-justify-content-space-between">
-        <a href="index.php?ctrl=nain&action=nainsList" class="button is-dark">Liste des Nains</a>
-        <a href="index.php?ctrl=ville&action=villesList" class="button is-dark">Liste des Villes</a>            
-        <a href="index.php?ctrl=taverne&action=tavernesList" class="button is-dark">Liste des Tavernes</a>            
-        <a href="index.php?ctrl=groupe&action=groupesList" class="button is-dark">Liste des Groupes</a>  
-      </div>
-          
+        <div class="columns is-centered">
+            <div class="column">
+                <a href="index.php?ctrl=nain&action=nainsList" class="button is-dark">Liste des Nains</a>
+            </div>
+            <div class="column">
+                <a href="index.php?ctrl=ville&action=villesList" class="button is-dark">Liste des Villes</a>
+            </div>
+            <div class="column">            
+                <a href="index.php?ctrl=taverne&action=tavernesList" class="button is-dark">Liste des Tavernes</a>  
+            </div>
+            <div class="column">          
+                <a href="index.php?ctrl=groupe&action=groupesList" class="button is-dark">Liste des Groupes</a> 
+            </div>
+        </div>
     </div>
   </div>
 
