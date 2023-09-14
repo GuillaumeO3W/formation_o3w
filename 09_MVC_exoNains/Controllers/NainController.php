@@ -50,6 +50,17 @@ class NainController
         if(count($datas) > 0){
             $nain = new Nain($datas);
         }
+        
+        $villeModel = new VilleModel;
+        $villeDatas = $villeModel->readAll();
+        $villes = [];
+        if(count($villeDatas)>0)
+        {
+            foreach($villeDatas as $ville)
+            {
+                $villes[] = new Ville($ville);
+            }
+        }
         include './Views/nains/edit.php';
     }
 
