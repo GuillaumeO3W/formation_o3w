@@ -4,6 +4,8 @@ class NainController
 {
     public function nainsList()
     {
+
+
         $model = new NainModel;
         if (isset($_GET["v_id"]))
         {
@@ -13,7 +15,7 @@ class NainController
         {
             $datas = $model->readAll();
         }
-        
+        // debug($datas);
         $nains = [];
         if(count($datas) > 0)
         {

@@ -46,7 +46,7 @@ class Nain
         return $this->_Barbe;
     }
 
-    public function setBarbe(float $barbe)
+    public function setBarbe(null | float $barbe)
     {
         $this->_Barbe = $barbe;
     }

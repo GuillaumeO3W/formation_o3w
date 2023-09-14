@@ -4,11 +4,11 @@ $currentPage = 1;
 if(!empty($_GET['page']) && ctype_digit($_GET['page'])){
   $currentPage = $_GET['page'];
 }
-
 $pagination = PAGINATION;
 if(!empty($_GET['pagination']) && ctype_digit($_GET['pagination'])){
   $pagination = $_GET['pagination'];
 }
+
 
 ?>
 <div class="section">
@@ -29,8 +29,10 @@ if(!empty($_GET['pagination']) && ctype_digit($_GET['pagination'])){
         </thead>
         <tbody>
           <?php 
+          // debug($nains);
             if(!empty($nains)) :
-              foreach($nains as $nain) :  
+              foreach($nains as $nain) : 
+                // debug($nain); 
           ?>
     
           <tr>

@@ -1,4 +1,3 @@
-<a href="index.php" class="button is-dark ">Retour</a>
 <div class="section">
     <h1 class="title">Modification</h1>
     <div class="card is-shadowless">
@@ -13,7 +12,7 @@
                 <div class="field">
                     <label for="barbe"  class="label">Barbe</label>
                     <div class="control">
-                        <input type="number" class="input" id="barbe" name="barbe" value="<?= $nain->getBarbe() ?>">
+                        <input type="number" class="input" id="barbe" name="barbe" value="<?= $nain->getBarbe() ?>" step="0.01" min="0">
                     </div>
                 </div>
                 <button type="submit"  class="button is-link is-light">Modifier</button>

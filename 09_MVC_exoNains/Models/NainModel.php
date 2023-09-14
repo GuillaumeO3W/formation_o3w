@@ -6,14 +6,15 @@ class NainModel extends CoreModel {
     {
         try 
         {
-            if(($req = $this->getDb()->query('SELECT n_id AS id, n_nom AS nom, n_barbe AS barbe FROM nain ')) !== false)
+            if(($req = $this->getDb()->query('SELECT n_id AS id, n_nom AS nom, n_barbe AS barbe FROM nain')) !== false)
             {
-                if($req->execute())
-                {
-                    $nains = $req->fetchAll(PDO::FETCH_ASSOC);
-                    $req->closeCursor();
-                    return $nains;
-                }
+
+                    if($req->execute())
+                    {
+                        $nains = $req->fetchAll(PDO::FETCH_ASSOC);
+                        $req->closeCursor();
+                        return $nains;
+                    }
             }
             return false;
 
@@ -27,7 +28,7 @@ class NainModel extends CoreModel {
     {
         try 
         {
-            if(($req = $this->getDb()->prepare('SELECT n_id AS id, n_nom AS nom FROM nain WHERE n_ville_fk = :v_id')) !== false)
+            if(($req = $this->getDb()->prepare('SELECT n_id AS id, n_nom AS nom, n_barbe AS barbe  FROM nain WHERE n_ville_fk = :v_id')) !== false)
             {
                 if(($req->bindValue('v_id', $v_id)) !==false)
                 {
