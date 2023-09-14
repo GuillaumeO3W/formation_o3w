@@ -6,7 +6,7 @@ class NainModel extends CoreModel {
     {
         try 
         {
-            if(($req = $this->getDb()->query('SELECT n_id AS id, n_nom AS nom FROM nain ')) !== false)
+            if(($req = $this->getDb()->query('SELECT n_id AS id, n_nom AS nom, n_barbe AS barbe FROM nain ')) !== false)
             {
                 if($req->execute())
                 {
@@ -95,10 +95,10 @@ class NainModel extends CoreModel {
     {
 
         try{
-            $query = 'UPDATE nain SET n_nom = :nom WHERE n_id = :id';
+            $query = 'UPDATE nain SET n_nom = :nom, n_barbe = :barbe WHERE n_id = :id';
             if(($this->_req = $this->getDb()->prepare($query)) !== false)
             {
-                if(($this->_req->bindValue('nom', $request['nom']) && $this->_req->bindValue('id', $id )))
+                if(($this->_req->bindValue('nom', $request['nom']) && $this->_req->bindValue('barbe', $request['barbe']) && $this->_req->bindValue('id', $id )))
                 {
                     if($this->_req->execute())
                     {

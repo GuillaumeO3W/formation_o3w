@@ -1,8 +1,4 @@
 <?php 
-    require 'inc/head.php';
-?>
-<a href="index.php" class="button is-dark ">Retour</a>
-<?php 
 if(!empty($nain)) :
 ?>
 <div class="section">

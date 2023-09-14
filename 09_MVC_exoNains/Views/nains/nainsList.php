@@ -1,5 +1,4 @@
 <?php 
-require 'inc/head.php';
 
 $currentPage = 1;
 if(!empty($_GET['page']) && ctype_digit($_GET['page'])){
@@ -12,7 +11,6 @@ if(!empty($_GET['pagination']) && ctype_digit($_GET['pagination'])){
 }
 
 ?>
-<a href="index.php" class="button is-dark ">Retour</a>
 <div class="section">
   <h1 class="title">Liste des Nains 
     <?= (isset($_GET["v_id"])) ? "Originaires de la ville n°".$_GET["v_id"] :"" ?>
@@ -24,7 +22,9 @@ if(!empty($_GET['pagination']) && ctype_digit($_GET['pagination'])){
           <tr>
             <th>Id</th>
             <th>Nom</th>
+            <th>Longueur Barbe</th>
             <th>Profil</th>
+            <th>Edit</th>
           </tr>
         </thead>
         <tbody>
@@ -36,8 +36,9 @@ if(!empty($_GET['pagination']) && ctype_digit($_GET['pagination'])){
           <tr>
             <th><?= $nain->getId() ?></th>
             <td><?= $nain->getNom() ?></td>
-            <td><a href="index.php?ctrl=nain&action=nainView&id=<?= $nain->getId() ?>" class="button is-dark is-small">Voir nain</a></td>
-            <td><a href="index.php?ctrl=nain&action=edit&id=<?= $nain->getId() ?>" class="button is-dark is-small">Edit Nain</a></td>
+            <td><?= $nain->getBarbe() ?></td>
+            <td><a href="index.php?ctrl=nain&action=nainView&id=<?= $nain->getId() ?>" class="button is-info is-small">Voir nain</a></td>
+            <td><a href="index.php?ctrl=nain&action=edit&id=<?= $nain->getId() ?>" class="button is-warning is-small">Edit Nain</a></td>
           </tr>   
           <?php 
             endforeach;

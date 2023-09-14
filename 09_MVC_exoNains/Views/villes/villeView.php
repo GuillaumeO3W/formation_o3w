@@ -1,7 +1,3 @@
-<?php 
-    require 'inc/head.php';
-?>
-<a href="index.php?ctrl=ville&action=villesList" class="button is-dark ">Retour</a>
 <?php   if(!empty($ville)) : ?>
 <div class="section">
   <div class="card is-shadowless">
