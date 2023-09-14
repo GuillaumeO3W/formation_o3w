@@ -28,6 +28,20 @@
                     </div>
                 </div>
 
+                <div class="field">
+                    <label for="groupe"  class="label">Groupe</label>
+                    <div class="select">
+                        <select name="groupe" id="groupe">
+                            <?php
+                                foreach($groupes as $groupe):
+                            ?>
+                            <option value="<?= $groupe->getId() ?>" <?= $groupe->getId() === $nain->getGroupe() ? 'selected' : '' ?>>groupe n° <?= $groupe->getId() ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+
+
                 <button type="submit"  class="button is-link is-light">Modifier</button>
             </form>
         </div>

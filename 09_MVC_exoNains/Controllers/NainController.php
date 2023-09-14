@@ -51,6 +51,8 @@ class NainController
             $nain = new Nain($datas);
         }
         
+
+        
         $villeModel = new VilleModel;
         $villeDatas = $villeModel->readAll();
         $villes = [];
@@ -61,6 +63,19 @@ class NainController
                 $villes[] = new Ville($ville);
             }
         }
+
+        $groupeModel = new GroupeModel;
+        $groupeDatas = $groupeModel->readAll();
+        $groupes = [];
+        if(count($groupeDatas)>0)
+        {
+            foreach($groupeDatas as $groupe)
+            {
+                $groupes[] = new Ville($groupe);
+            }
+        }
+
+
         include './Views/nains/edit.php';
     }
 
