@@ -96,10 +96,14 @@ class NainModel extends CoreModel {
     {
 
         try{
-            $query = 'UPDATE nain SET n_nom = :nom, n_barbe = :barbe WHERE n_id = :id';
+            $query = 'UPDATE nain SET n_nom = :nom, n_barbe = :barbe, n_ville_fk = :ville, n_groupe_fk = :groupe WHERE n_id = :id';
             if(($this->_req = $this->getDb()->prepare($query)) !== false)
             {
-                if(($this->_req->bindValue('nom', $request['nom']) && $this->_req->bindValue('barbe', $request['barbe']) && $this->_req->bindValue('id', $id )))
+                if(($this->_req->bindValue('nom', $request['nom']) 
+                && $this->_req->bindValue('barbe', $request['barbe'])
+                && $this->_req->bindValue('ville', $request['ville']) 
+                && $this->_req->bindValue('groupe', $request['groupe']) 
+                && $this->_req->bindValue('id', $id )))
                 {
                     if($this->_req->execute())
                     {

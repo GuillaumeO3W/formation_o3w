@@ -50,7 +50,6 @@ class NainController
         if(count($datas) > 0){
             $nain = new Nain($datas);
         }
-        
 
         
         $villeModel = new VilleModel;
