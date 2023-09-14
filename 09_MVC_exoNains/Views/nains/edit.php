@@ -15,32 +15,31 @@
                         <input type="number" class="input" id="barbe" name="barbe" value="<?= $nain->getBarbe() ?>" step="0.01" min="0">
                     </div>
                 </div>
-                <div class="field">
-                    <label for="ville"  class="label">Ville de naissance</label>
-                    <div class="select">
-                        <select name="ville" id="ville">
-                            <?php
-                                foreach($villes as $ville):
-                            ?>
-                            <option value="<?= $ville->getId() ?>"><?= $ville->getNom() ?></option>
-                            <?php endforeach; ?>
-                        </select>
+                    <div class="field">
+                        <label for="ville"  class="label">Ville de naissance</label>
+                        <div class="select">
+                            <select name="ville" id="ville">
+                                <?php
+                                    foreach($villes as $ville):
+                                ?>
+                                <option value="<?= $ville->getId() ?>"><?= $ville->getNom() ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
                     </div>
-                </div>
 
-                <div class="field">
-                    <label for="groupe"  class="label">Groupe</label>
-                    <div class="select">
-                        <select name="groupe" id="groupe">
-                            <?php
-                                foreach($groupes as $groupe):
-                            ?>
-                            <option value="<?= $groupe->getId() ?>" <?= $groupe->getId() === $nain->getGroupe() ? 'selected' : '' ?>>groupe n° <?= $groupe->getId() ?></option>
-                            <?php endforeach; ?>
-                        </select>
+                    <div class="field">
+                        <label for="groupe"  class="label">Groupe</label>
+                        <div class="select">
+                            <select name="groupe" id="groupe">
+                                <?php
+                                    foreach($groupes as $groupe):
+                                ?>
+                                <option value="<?= $groupe->getId() ?>" <?= $groupe->getId() === $nain->getGroupe() ? 'selected' : '' ?>>groupe n° <?= $groupe->getId() ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
                     </div>
-                </div>
-
 
                 <button type="submit"  class="button is-link is-light">Modifier</button>
             </form>

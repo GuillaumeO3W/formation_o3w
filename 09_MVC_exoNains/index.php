@@ -4,26 +4,23 @@ require_once 'lib/_helpers/tools.php';
 require_once 'config/ini.php';
 require 'inc/head.php';
 ?>
-  <div class="card is-shadowless">
-    <div class="card-content">
-        <div class="columns is-centered">
-            <div class="is-flex">
-                <div class="column">
-                    <a href="index.php?ctrl=nain&action=nainsList" class="button is-dark">Liste des Nains</a>
-                </div>
-                <div class="column">
-                    <a href="index.php?ctrl=ville&action=villesList" class="button is-dark">Liste des Villes</a>
-                </div>
-                <div class="column">            
-                    <a href="index.php?ctrl=taverne&action=tavernesList" class="button is-dark">Liste des Tavernes</a>  
-                </div>
-                <div class="column">          
-                    <a href="index.php?ctrl=groupe&action=groupesList" class="button is-dark">Liste des Groupes</a> 
-                </div>
-            </div>
-        </div>    
+
+<div class="columns is-centered">
+    <div class="is-flex">
+        <div class="column">
+            <a href="index.php?ctrl=nain&action=nainsList" class="button is-dark">Liste des Nains</a>
+        </div>
+        <div class="column">
+            <a href="index.php?ctrl=ville&action=villesList" class="button is-dark">Liste des Villes</a>
+        </div>
+        <div class="column">            
+            <a href="index.php?ctrl=taverne&action=tavernesList" class="button is-dark">Liste des Tavernes</a>  
+        </div>
+        <div class="column">          
+            <a href="index.php?ctrl=groupe&action=groupesList" class="button is-dark">Liste des Groupes</a> 
+        </div>
     </div>
-  </div>
+</div>
 
 
 <?php 
