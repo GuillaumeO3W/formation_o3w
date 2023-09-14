@@ -37,6 +37,7 @@ if(!empty($_GET['pagination']) && ctype_digit($_GET['pagination'])){
             <th><?= $nain->getId() ?></th>
             <td><?= $nain->getNom() ?></td>
             <td><a href="index.php?ctrl=nain&action=nainView&id=<?= $nain->getId() ?>" class="button is-dark is-small">Voir nain</a></td>
+            <td><a href="index.php?ctrl=nain&action=edit&id=<?= $nain->getId() ?>" class="button is-dark is-small">Edit Nain</a></td>
           </tr>   
           <?php 
             endforeach;

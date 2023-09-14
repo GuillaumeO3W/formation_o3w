@@ -22,7 +22,6 @@ class NainController
                 $nains[] = new Nain($data);
             }
         }
-        $title = 'nainsList';
         $nbNains = $model->countNbNains();
         include './Views/nains/nainsList.php';
     }
@@ -34,4 +33,36 @@ class NainController
         $nain = new Nain($nain);
         include './Views/nains/nainView.php';
     }
+    public function create()
+    {
+        include './Views/nains/create.php';
+    }
+
+
+
+    public function edit(){
+        isset($_GET['id']) ? $id = $_GET['id'] : $id = 1;
+        $model = new NainModel;
+        $datas = $model->readOne($id);
+
+        if(count($datas) > 0){
+            $user = new Nain($datas);
+        }
+        include './Views/nains/edit.php';
+    }
+
+    public function update($id, $request)
+    {
+        $model = new NainModel;
+        $upd = $model->update($id, $request);
+
+        if($upd){
+            header('Location: ./index.php?editNain=success');
+        }else {
+            header('Location: ./index.php?editNain=error');
+        }
+    }
+
+
+
 }

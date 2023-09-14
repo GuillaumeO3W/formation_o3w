@@ -91,6 +91,29 @@ class NainModel extends CoreModel {
         }
     }
 
+    public function update($id, $request)
+    {
+
+        try{
+            $query = 'UPDATE nain SET n_nom = :nom WHERE n_id = :id';
+            if(($this->_req = $this->getDb()->prepare($query)) !== false)
+            {
+                if(($this->_req->bindValue('nom', $request['nom']) && $this->_req->bindValue('id', $id )))
+                {
+                    if($this->_req->execute())
+                    {
+                        $res = $this->_req->rowCount();
+                        return $res;
+                    }
+                }
+            }
+        }catch(PDOException $e){
+            die($e->getMessage());
+        }
+    }
+
+
+
     public function countNbNains()
     {
         try
