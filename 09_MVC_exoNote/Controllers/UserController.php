@@ -23,7 +23,7 @@ class UserController
     public function show()
     {
         isset($_GET['id']) ? $_GET['id'] = $_GET['id'] : $_GET['id'] = 1;
-        $userModel = new NainModel;
+        $userModel = new UserModel;
         $user = $userModel->readOne($_GET['id']);
         $user = new User($user);
         include './Views/users/show.php';

@@ -52,7 +52,7 @@ class User
         return $this->_Mdp;
     }
 
-    public function seMdp(string $mdp)
+    public function setMdp(string $mdp)
     {
         $this->_Mdp= $mdp;
     }

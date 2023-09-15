@@ -28,7 +28,8 @@ class UserModel extends CoreModel {
         try 
         {
             if(($req = $this->getDb()->prepare(
-                '   SELECT id, nom, email
+                '   SELECT id, nom, email, mdp
+                    FROM user
                     WHERE id = :id')) !== false)
             { 
                 if(($req->bindValue('id', $id)) !==false)
@@ -53,7 +54,7 @@ class UserModel extends CoreModel {
     {
 
         try{
-            $query = 'UPDATE user SET nom = :nom, email = :email WHERE n_id = :id';
+            $query = 'UPDATE user SET nom = :nom, email = :email WHERE id = :id';
             if(($this->_req = $this->getDb()->prepare($query)) !== false)
             {
                 if(($this->_req->bindValue('nom', $request['nom']) 

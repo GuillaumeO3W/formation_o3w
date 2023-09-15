@@ -8,10 +8,10 @@ require 'inc/head.php';
 <div class="columns is-centered">
     <div class="is-flex">
         <div class="column">
-            <a href="index.php?ctrl=nain&action=nainsList" class="button is-dark">Liste des Rédacteurs</a>
+            <a href="index.php?ctrl=user&action=index" class="button is-dark">Liste des Rédacteurs</a>
         </div>
         <div class="column">
-            <a href="index.php?ctrl=ville&action=villesList" class="button is-dark">Liste des Notes</a>
+            <a href="index.php?ctrl=note&action=index" class="button is-dark">Liste des Notes</a>
         </div>
     </div>
 </div>
