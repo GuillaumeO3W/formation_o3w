@@ -1,29 +1,29 @@
 <?php 
 
-class VilleController 
+class NoteController 
 {
-    public function villesList()
+    public function index()
     {
-        $model = new VilleModel;
+        $model = new NoteModel;
         $datas = $model->readAll();
-        $villes = [];
+        $notes = [];
         if(count($datas) > 0){
             foreach($datas as $data){
-                $villes[] = new Ville($data);
+                $notes[] = new Note($data);
 
             }
         }
-        $title = 'VillesList';
-        $nbVilles = $model->countNbVilles();
-        include './Views/villes/villesList.php';
+        $nbNotes = $model->countNbNotes();
+        include './Views/notes/index.php';
     }
-    public function villeView()
+    
+    public function show()
     {
         isset($_GET['id']) ? $_GET['id'] = $_GET['id'] : $_GET['id'] = 1;
-        $villeModel = new VilleModel;
-        $ville = $villeModel->readOne($_GET['id']);
-        $ville = new Ville($ville);
-        include './Views/villes/villeView.php';
+        $noteModel = new NoteModel;
+        $note = $noteModel->readOne($_GET['id']);
+        $note = new Note($note);
+        include './Views/notes/show.php';
     }
 
 }

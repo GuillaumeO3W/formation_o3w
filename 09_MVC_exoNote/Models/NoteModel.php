@@ -1,17 +1,19 @@
 <?php
 
-class VilleModel extends CoreModel {
+class NoteModel extends CoreModel {
 
 
     public function readAll()
     {
         try 
         {
-            if(($req = $this->getDb()->query('SELECT v_id AS id, v_nom AS nom, v_superficie AS superficie FROM ville ')) !== false){
-                if($req->execute()){
-                    $villes = $req->fetchAll(PDO::FETCH_ASSOC);
+            if(($req = $this->getDb()->query('SELECT id, titre, date, (SELECT nom FROM user WHERE id = user_id) AS auteur FROM note ')) !== false)
+            {
+                if($req->execute())
+                {
+                    $notes = $req->fetchAll(PDO::FETCH_ASSOC);
                     $req->closeCursor();
-                    return $villes;
+                    return $notes;
                 }
             }
             return false;
@@ -22,23 +24,22 @@ class VilleModel extends CoreModel {
         }
 
     }
+
     public function readOne(int $id)
     {
         try 
         {
-            if(($req = $this->getDb()->prepare('SELECT v_id AS id, v_nom AS nom, v_superficie AS superficie FROM ville WHERE v_id = :id')) !== false){
+            if(($req = $this->getDb()->prepare('SELECT id, titre, texte, date FROM note WHERE id = :id')) !== false){
                 
                 if(($req->bindValue('id', $id)) !==false){
                     if($req->execute()){
-                        $ville = $req->fetch(PDO::FETCH_ASSOC);
+                        $note = $req->fetch(PDO::FETCH_ASSOC);
                         $req->closeCursor();
-                        return $ville;
+                        return $note;
                     }
                 }
-                
             }
             return false;
-
         } catch(PDOException $e) 
         {
             die($e->getMessage());
@@ -46,16 +47,16 @@ class VilleModel extends CoreModel {
     }
 
 
-    public function countNbVilles()
+    public function countNbNotes()
     {
         try
         {
-            if(($req = $this->getDb()->prepare(' SELECT COUNT(v_id) AS nbVilles FROM ville ')) !== false)
+            if(($req = $this->getDb()->prepare(' SELECT COUNT(id) AS nbNotes FROM note ')) !== false)
             {
                 if($req->execute()){
-                    $nbVilles = $req->fetch(PDO::FETCH_ASSOC);
+                    $nbNotes = $req->fetch(PDO::FETCH_ASSOC);
                     $req->closeCursor();
-                    return $nbVilles;
+                    return $nbNotes;
                 }
             }
             return false;

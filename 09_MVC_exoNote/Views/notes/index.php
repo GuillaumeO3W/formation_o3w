@@ -12,29 +12,31 @@ if(!empty($_GET['pagination']) && ctype_digit($_GET['pagination'])){
 
 ?>
 <div class="section">
-  <h1 class="title">Liste des Villes</h1>
+  <h1 class="title">Liste des Notes</h1>
   <div class="card is-shadowless">
     <div class="card-content">
       <table class="table is-hoverable is-fullwidth">
         <thead>
           <tr>
             <th>Id</th>
-            <th>Nom</th>
-            <th>Superficie</th>
+            <th>Titre</th>
+            <th>Date</th>
+            <th>Auteur</th>
             <th>Détails</th>
           </tr>
         </thead>
         <tbody>
           <?php 
-            if(!empty($villes)) :
-              foreach($villes as $ville) :  
+            if(!empty($notes)) :
+              foreach($notes as $note) :  
           ?>
     
           <tr>
-            <th><?= $ville->getId() ?></th>
-            <td><?= $ville->getNom() ?></td>
-            <td><?= $ville->getSuperficie() ?></td>
-            <td><a href="index.php?ctrl=ville&action=villeView&id=<?= $ville->getId() ?>" class="button is-dark is-small">Voir ville</a></td>
+            <th><?= $note->getId() ?></th>
+            <td><?= $note->getTitre() ?></td>
+            <td><?= $note->getDate() ?></td>
+            <td><?= $note->getAuteur() ?></td>
+            <td><a href="index.php?ctrl=note&action=show&id=<?= $note->getId() ?>" class="button is-dark is-small">Voir note</a></td>
           </tr>   
           <?php 
             endforeach;
@@ -44,13 +46,13 @@ if(!empty($_GET['pagination']) && ctype_digit($_GET['pagination'])){
       <?php
         else: 
       ?>
-          <p>Aucune ville</p>
+          <p>Aucune note</p>
       <?php
         endif
       ?>
       
       <?php 
-      $pageTotales = ceil($nbVilles['nbVilles']/$pagination);
+      $pageTotales = ceil($nbNotes['nbNotes']/$pagination);
       ?>
 
       <nav class="pagination is-centered" >

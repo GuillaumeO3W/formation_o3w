@@ -1,14 +1,14 @@
-<?php   if(!empty($ville)) : ?>
+<?php   if(!empty($note)) : ?>
 <div class="section">
   <div class="card is-shadowless">
     <div class="card-content">
       <div class="title">
-        <?= $ville->getNom().", ".$ville->getSuperficie() ?>
+        <?= $note->getTitre() ?>
       </div>
-      <a href="index.php?ctrl=nain&action=nainsList&v_id=<?= $ville->getId() ?>">Liste des nains originaires de cette ville</a>
+      <p><?= $note->getTexte() ?></p>
 
 <?php   else: ?>
-          <p>Aucune ville</p>
+          <p>Aucune note</p>
 <?php   endif; ?>
     </div>
   </div>
