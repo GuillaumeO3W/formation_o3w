@@ -29,10 +29,18 @@ class UserController
         include './Views/users/show.php';
     }
 
-    // public function create()
-    // {
-    //     include './Views/users/create.php';
-    // }
+    public function create()
+    {
+        include './Views/users/create.php';
+    }
+
+    public function insert($request)
+    {
+        $model = new UserModel;
+        $datas = $model->insert($request);
+        header('Location: index.php?ctrl=user&action=index');
+
+    }
 
     public function edit()
     {
@@ -42,9 +50,8 @@ class UserController
 
         if(count($datas) > 0)
         {
-            $User = new User($datas);
+            $user = new User($datas);
         }
-
         include './Views/users/edit.php';
     }
 
@@ -54,9 +61,9 @@ class UserController
         $upd = $model->update($id, $request);
 
         if($upd){
-            header('Location: ./index.php?editNain=success');
+            header('Location: ./index.php?editUser=success');
         }else {
-            header('Location: ./index.php?editNain=error');
+            header('Location: ./index.php?editUser=error');
         }
     }
 

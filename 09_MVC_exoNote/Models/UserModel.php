@@ -36,9 +36,9 @@ class UserModel extends CoreModel {
                 {
                     if($req->execute())
                     {
-                        $nain = $req->fetch(PDO::FETCH_ASSOC);
+                        $user = $req->fetch(PDO::FETCH_ASSOC);
                         $req->closeCursor();
-                        return $nain;
+                        return $user;
                     }
                 }   
             }
@@ -49,6 +49,26 @@ class UserModel extends CoreModel {
             die($e->getMessage());
         }
     }
+
+    public function insert($request)
+    {
+        try{
+            $query = 'INSERT INTO user (nom, email, mdp) VALUES (:nom,:email,:mdp)';
+            if(($this->_req = $this->getDb()->prepare($query)) !== false)
+            {
+                if(($this->_req->bindValue('nom', $request['nom']) 
+                && $this->_req->bindValue('email', $request['email'])
+                && $this->_req->bindValue('mdp', $request['mdp'])))
+                {
+                    $this->_req->execute();
+                    $this->_req->closeCursor();
+                }
+            }
+        }catch(PDOException $e){
+            die($e->getMessage());
+        }
+    }
+
 
     public function update($id, $request)
     {
@@ -72,7 +92,6 @@ class UserModel extends CoreModel {
             die($e->getMessage());
         }
     }
-
 
 
     public function countNbUsers()

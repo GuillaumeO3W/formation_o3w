@@ -12,7 +12,15 @@ if(!empty($_GET['pagination']) && ctype_digit($_GET['pagination'])){
 
 ?>
 <div class="section">
-  <h1 class="title">Liste des Rédacteurs</h1>
+  <div class="is-flex">
+    <div>
+      <h1 class="title">Liste des Utilisateurs </h1>
+    </div>
+    <div>
+      <a href="index.php?ctrl=user&action=create" class="button is-primary"><p class="title is-1">+</p></a>
+    </div>
+  </div>
+
   <div class="card is-shadowless">
     <div class="card-content">
       <table class="table is-hoverable is-fullwidth">
@@ -36,8 +44,8 @@ if(!empty($_GET['pagination']) && ctype_digit($_GET['pagination'])){
             <th><?= $user->getId() ?></th>
             <td><?= $user->getNom() ?></td>
             <td><?= $user->getEmail() ?></td>
-            <td><a href="index.php?ctrl=user&action=show&id=<?= $user->getId() ?>" class="button is-info is-small">Voir Rédacteur</a></td>
-            <td><a href="index.php?ctrl=user&action=edit&id=<?= $user->getId() ?>" class="button is-warning is-small">Edit Rédacteur</a></td>
+            <td><a href="index.php?ctrl=user&action=show&id=<?= $user->getId() ?>" class="button is-info is-small">Voir Utilisateur</a></td>
+            <td><a href="index.php?ctrl=user&action=edit&id=<?= $user->getId() ?>" class="button is-warning is-small">Edit Utilisateur</a></td>
           </tr>   
           <?php 
             endforeach;
@@ -47,7 +55,7 @@ if(!empty($_GET['pagination']) && ctype_digit($_GET['pagination'])){
       <?php
         else: 
       ?>
-          <p>Aucun Rédacteur</p>
+          <p>Aucun Utilisateur</p>
       <?php
         endif
       ?>

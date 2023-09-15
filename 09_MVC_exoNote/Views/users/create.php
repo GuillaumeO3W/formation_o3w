@@ -1,27 +1,29 @@
-<h1 class="display-3 text-center my-5">Ajouter un nain</h1>
-<div class="container w-50">
-    <a class="btn btn-dark mb-3" href="index.php" role="button">Retour</a>
-    <div class="card p-4 border-0 shadow-sm">
-        <form action="index.php?ctrl=user&action=store" method="POST">
+<div class="section">
+    <h1 class="title">Ajouter un utilisateur</h1>
+    <div class="card is-shadowless">
+        <div class="card-content">
+            <form action="index.php?ctrl=user&action=insert" method="POST">
+                <div class="field">
+                    <label for="nom"  class="label">Nom</label>
+                    <div class="control">
+                        <input type="text" class="input" id="nom" name="nom" value="">
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="email"  class="label">Email</label>
+                    <div class="control">
+                        <input type="text" class="input" id="email" name="email" value="">
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="mdp"  class="label">Mot de passe</label>
+                    <div class="control">
+                        <input type="mdp" class="input" id="mdp" name="mdp" value="">
+                    </div>
+                </div>
 
-            <div class="form-group my-3">
-                <label for="nom">Nom</label>
-                <input type="text" class="form-control" id="nom" name="n_nom">
-            </div>
-            <div class="form-group my-3">
-                <label for="barbe">longueur Barbe</label>
-                <input type="number" class="form-control" id="barbe" name="n_barbe">
-            </div>
-            <div class="form-group my-3">
-                <label for="groupe">Groupe</label>
-                <input type="number" class="form-control" id="groupe" name="n_groupe_fk">
-            </div>
-            <div class="form-group my-3">
-                <label for="ville">Ville</label>
-                <input type="number" class="form-control" id="ville" name="n_ville_fk">
-            </div>
-
-            <button type="submit" class="btn btn-primary my-3">Créer</button>
-        </form>
+                <button type="submit"  class="button is-link is-light">Ajouter</button>
+            </form>
+        </div>
     </div>
 </div>

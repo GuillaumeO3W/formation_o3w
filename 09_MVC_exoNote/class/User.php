@@ -62,7 +62,7 @@ class User
     {
         foreach($data as $key=>$value)
         {
-            $value == NULL ? $value = "0" : $value = $value;
+            // $value == NULL ? $value = "0" : $value = $value;
             
                 $setter = 'set'. ucfirst($key);
                 if(method_exists($this, $setter))
